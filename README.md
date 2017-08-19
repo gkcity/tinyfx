@@ -1,2 +1,3 @@
-# tinydevice
-tinydevice for embedded
+# tinyfx
+
+device framework for embedded

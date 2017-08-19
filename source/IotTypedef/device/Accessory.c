@@ -14,10 +14,8 @@
 #include <tiny_log.h>
 #include "Property.h"
 #include "Accessory.h"
+#include "Service.h"
 
-#ifdef HOMEKIT_FREE
-#include <services/Arrizo_AccessoryInformation.h>
-#endif
 
 #define TAG     "Accessory"
 
@@ -79,10 +77,6 @@ static TinyRet Accessory_Construct(Accessory *thiz)
 
         thiz->services.additionalData = thiz;
         TinyList_SetDeleteListener(&thiz->services, service_release_handler, thiz);
-
-    #ifdef HOMEKIT_FREE
-        TinyList_AddTail(&thiz->services, Arrizo_AccessoryInformation(NULL, NULL));
-    #endif
     } while (false);
 
     return ret;

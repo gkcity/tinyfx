@@ -13,7 +13,7 @@
 #ifndef __DATA_BLOB_VALUE_H__
 #define __DATA_BLOB_VALUE_H__
 
-#include "common/typedef_api.h"
+#include "api/iot_api.h"
 #include "tiny_base.h"
 
 TINY_BEGIN_DECLS
@@ -25,15 +25,15 @@ typedef struct _DataBlobValue
     uint32_t        length;
 } DataBlobValue;
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 TinyRet DataBlobValue_Set(DataBlobValue *thiz, const char *dataBlob);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 TinyRet DataBlobValue_Clear(DataBlobValue *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 TinyRet DataBlobValue_Copy(DataBlobValue *thiz, DataBlobValue *other);
 

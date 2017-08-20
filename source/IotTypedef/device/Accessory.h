@@ -14,7 +14,7 @@
 #define __ACCESSORY_H__
 
 #include "tiny_base.h"
-#include "common/typedef_api.h"
+#include "api/iot_api.h"
 #include "urn/Urn.h"
 #include <TinyList.h>
 
@@ -29,15 +29,15 @@ struct _Accessory
 
 typedef struct _Accessory Accessory;
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 Accessory* Accessory_New(void);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void Accessory_Delete(Accessory *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void Accessory_InitializeInstanceID(Accessory *thiz, uint16_t aid);
 

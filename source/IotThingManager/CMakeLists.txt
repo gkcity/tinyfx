@@ -5,7 +5,6 @@
 #-----------------------------------------------------------------------------
 
 SET(Thing_Header
-        thing/thing_api.h
         thing/ThingRuntime.h
         thing/ThingManager.h
     )

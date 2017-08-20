@@ -15,7 +15,7 @@
 
 #include <TinyList.h>
 #include "tiny_base.h"
-#include "common/typedef_api.h"
+#include "api/iot_api.h"
 #include "urn/Urn.h"
 
 TINY_BEGIN_DECLS
@@ -31,11 +31,11 @@ struct _Service
 
 typedef struct _Service Service;
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 Service* Service_New(void);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void Service_Delete(Service *thiz);
 

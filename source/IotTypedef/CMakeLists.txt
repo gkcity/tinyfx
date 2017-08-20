@@ -114,10 +114,10 @@ SET(Access_Header
         )
 
 #-----------------------
-# common
+# api
 #-----------------------
-SET(TypedefCommon_Header
-        common/typedef_api.h
+SET(Api_Header
+        api/iot_api.h
     )
 
 #----------------------------------------------------------------------------
@@ -136,7 +136,7 @@ SET(SRC
         ${Urn_Source}
         ${Unit_Header}
         ${Access_Header}
-        ${TypedefCommon_Header}
+        ${Api_Header}
     )
 
 #----------------------------------------------------------------------------

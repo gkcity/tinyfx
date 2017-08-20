@@ -81,7 +81,7 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.h
         ${SOURCE_ROOT}/IotTypedef/unit/Unit.h
         ${SOURCE_ROOT}/IotTypedef/access/AccessType.h
-        ${SOURCE_ROOT}/IotTypedef/common/typedef_api.h
+        ${SOURCE_ROOT}/IotTypedef/api/iot_api.h
         )
 
 SET(IotTypedef_Source
@@ -112,7 +112,6 @@ SET(IotTypedef_Source
 #-----------------------
 
 SET(IotThingManager_Header
-        ${SOURCE_ROOT}/IotThingManager/thing/thing_api.h
         ${SOURCE_ROOT}/IotThingManager/thing/ThingRuntime.h
         ${SOURCE_ROOT}/IotThingManager/thing/ThingManager.h
         )

@@ -14,7 +14,7 @@
 #define __DEVICE_CONFIG_H__
 
 #include "tiny_base.h"
-#include "common/typedef_api.h"
+#include "api/iot_api.h"
 #include <constraint/typedef_constraint.h>
 #include <tiny_lor.h>
 
@@ -122,70 +122,70 @@ typedef struct _DeviceConfig
 
 typedef void (* DeviceConfigurationInitializer)(DeviceConfig *thiz, void *ctx);
 
-//TYPEDEF_API DeviceConfig * DeviceConfig_New(void);
-//TYPEDEF_API void DeviceConfig_Delete(DeviceConfig *thiz);
+//IOT_API DeviceConfig * DeviceConfig_New(void);
+//IOT_API void DeviceConfig_Delete(DeviceConfig *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 TinyRet DeviceConfig_Construct(DeviceConfig *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_Dispose(DeviceConfig *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_Initialize(DeviceConfig *thiz, DeviceConfigurationInitializer initializer, void *ctx);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_Copy(DeviceConfig *dst, DeviceConfig *src);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetIp(DeviceConfig *thiz, const char *ip);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetIpByInt(DeviceConfig *thiz, uint32_t ip);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetPort(DeviceConfig *thiz, uint16_t port);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetName(DeviceConfig *thiz, const char *name);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetId(DeviceConfig *thiz, const char *id);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetIdByInt(DeviceConfig *thiz, const uint8_t *id, uint32_t len);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetModelName(DeviceConfig *thiz, const char *model);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetConfigurationNumber(DeviceConfig *thiz, uint32_t value);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetCurrentStateNumber(DeviceConfig *thiz, uint32_t value);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetFeatureFlags(DeviceConfig *thiz, uint32_t value);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetCategoryIdentifier(DeviceConfig *thiz, uint32_t value);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void DeviceConfig_SetPinCode(DeviceConfig *thiz, const char *pin, SRPPrecomputed *precomputed);
 

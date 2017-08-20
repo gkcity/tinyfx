@@ -14,7 +14,7 @@
 #define __TLV8_H__
 
 #include <tiny_lor.h>
-#include "common/typedef_api.h"
+#include "api/iot_api.h"
 #include "tiny_base.h"
 
 TINY_BEGIN_DECLS

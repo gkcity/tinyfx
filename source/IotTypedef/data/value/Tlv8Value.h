@@ -13,7 +13,7 @@
 #ifndef __TLV8_VALUE_H__
 #define __TLV8_VALUE_H__
 
-#include "common/typedef_api.h"
+#include "api/iot_api.h"
 #include "tiny_base.h"
 #include "Tlv8.h"
 #include <TinyList.h>
@@ -29,42 +29,42 @@ typedef struct _Tlv8Value
     uint32_t            _available;
 } Tlv8Value;
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 TinyRet Tlv8Value_Construct(Tlv8Value *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void Tlv8Value_Dispose(Tlv8Value *thiz);
 
-//TYPEDEF_API TinyRet Tlv8Value_Clear(Tlv8Value *thiz);
-//TYPEDEF_API TinyRet Tlv8Value_Copy(Tlv8Value *thiz, Tlv8Value *other);
+//IOT_API TinyRet Tlv8Value_Clear(Tlv8Value *thiz);
+//IOT_API TinyRet Tlv8Value_Copy(Tlv8Value *thiz, Tlv8Value *other);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 TinyRet Tlv8Value_Parse(Tlv8Value *thiz, const uint8_t *buf, uint32_t len, bool mergeValue);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 const uint8_t * Tlv8Value_GetBytes(Tlv8Value *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 uint32_t  Tlv8Value_GetBytesSize(Tlv8Value *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 Tlv8 * Tlv8Value_Get(Tlv8Value *thiz, uint8_t type);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 TinyRet Tlv8Value_AddByte(Tlv8Value *thiz, uint8_t type, uint8_t value, bool mergeValue);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 TinyRet Tlv8Value_AddBytes(Tlv8Value *thiz, uint8_t type, const uint8_t *value, uint32_t length, bool mergeValue);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 TinyRet Tlv8Value_AddSeparator(Tlv8Value *thiz);
 

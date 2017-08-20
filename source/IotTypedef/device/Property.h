@@ -15,7 +15,7 @@
 
 #include "tiny_base.h"
 #include "error/IotError.h"
-#include "common/typedef_api.h"
+#include "api/iot_api.h"
 #include "unit/Unit.h"
 #include "urn/Urn.h"
 #include "data/Data.h"
@@ -41,23 +41,23 @@ struct _Property
     uint8_t             operation;
 };
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 Property* Property_New(void);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 void Property_Delete(Property *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 bool Property_IsReadable(Property *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 bool Property_IsWritable(Property *thiz);
 
-TYPEDEF_API
+IOT_API
 TINY_LOR
 bool Property_IsNotifiable(Property *thiz);
 

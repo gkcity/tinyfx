@@ -9,28 +9,35 @@ SET(PROJ_NAME "TinyFx")
 #
 #---------------------------------------------------------------------------------------
 SET(SOURCE_ROOT ${PROJECT_SOURCE_DIR}/source)
+SET(TINY_ROOT ${PROJECT_SOURCE_DIR}/../tiny)
+
 INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotTypedef)
 INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotThingManager)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyBase)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyPortable)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyContainer)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyLog)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyStringUtil)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyJson)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Netty)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyUmm)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyMd5)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyThread)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyUuid)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyWorker)
 
-SET(TINY_ROOT ${PROJECT_SOURCE_DIR}/../tiny/source/src)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyBase)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyPortable)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyContainer)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyLog)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyStringUtil)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyJson)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/Netty)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyUmm)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyMd5)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyThread)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyUuid)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/TinyWorker)
+#---------------------------------------------------------------------------------------
+#
+# link dir
+#
+#---------------------------------------------------------------------------------------
+LINK_DIRECTORIES(${TINY_ROOT}/target)
 
 #-------------------------------------------------------------------------------------
 # output dir
 #-------------------------------------------------------------------------------------
-SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/output)
-SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/output)
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/target)
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/target)
 MESSAGE(STATUS "executable output:  ${EXECUTABLE_OUTPUT_PATH}")
 MESSAGE(STATUS "library output: ${LIBRARY_OUTPUT_PATH}")
 

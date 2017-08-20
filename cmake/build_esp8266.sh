@@ -6,4 +6,5 @@ mkdir $TARGET
 cd $TARGET
 cmake ../../ -DCMAKE_TOOLCHAIN_FILE=../freertos_esp8266_xtensa-lx106.cmake
 make
-ls -l -h output/
+ls -l -h ../../target/
+

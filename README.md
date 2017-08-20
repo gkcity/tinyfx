@@ -2,7 +2,7 @@
 
 device framework for embedded
 
-## denpends on
+## Depend on
 [tiny](https://github.com/jxfengzi/tiny.git)
 
 ## How to build

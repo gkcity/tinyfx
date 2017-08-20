@@ -138,7 +138,7 @@ SET(SRC
 # static library
 #----------------------------------------------------------------------------
 ADD_LIBRARY(tinyfx_static STATIC ${SRC})
-SET_TARGET_PROPERTIES(tinyfx_static PROPERTIES OUTPUT_NAME "tinyfx")
+SET_TARGET_PROPERTIES(tinyfx_static PROPERTIES OUTPUT_NAME "tinyfx_static")
 SET_TARGET_PROPERTIES(tinyfx_static PROPERTIES LINKER_LANGUAGE C)
 
 ADD_LIBRARY(tinyfx SHARED ${SRC})

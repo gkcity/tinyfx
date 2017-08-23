@@ -17,7 +17,7 @@
 
 
 #ifdef _MSC_VER
-#   if  (defined tinyfx_shared_EXPORTS)
+#   if  (defined tinyfx_EXPORTS)
 #       define IOT_EXPORT _declspec(dllexport)
 #   else
 #       define IOT_EXPORT _declspec(dllimport)

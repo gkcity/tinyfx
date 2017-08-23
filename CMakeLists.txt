@@ -8,7 +8,7 @@ SET(PROJ_NAME "TinyFx")
 # include dir
 #
 #---------------------------------------------------------------------------------------
-SET(SOURCE_ROOT ${PROJECT_SOURCE_DIR}/source)
+SET(SOURCE_ROOT ${PROJECT_SOURCE_DIR}/source/src)
 SET(TINY_ROOT ${PROJECT_SOURCE_DIR}/../tiny)
 
 INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotTypedef)

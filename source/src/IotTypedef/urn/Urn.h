@@ -15,6 +15,7 @@
 
 #include <tiny_lor.h>
 #include "tiny_base.h"
+#include "api/iot_api.h"
 #include "UrnType.h"
 #include "constraint/typedef_constraint.h"
 
@@ -39,6 +40,7 @@ typedef struct _Urn
     uint32_t    value;
 } Urn;
 
+IOT_API
 TINY_LOR
 void Urn_Initialize(Urn *thiz, const char *ns, UrnType type, const char *name, uint32_t value);
 

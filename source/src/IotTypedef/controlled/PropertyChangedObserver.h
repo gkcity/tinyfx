@@ -13,7 +13,8 @@
 #ifndef __PROPERTY_CHANGED_OBSERVER_H__
 #define __PROPERTY_CHANGED_OBSERVER_H__
 
-#include "tiny_base.h"
+#include <tiny_base.h>
+#include "api/iot_api.h"
 #include "PropertyChangedListener.h"
 
 TINY_BEGIN_DECLS
@@ -26,9 +27,11 @@ typedef struct _PropertyChangedObserver
     void                        * ctx;
 } PropertyChangedObserver;
 
+IOT_API
 TINY_LOR
 PropertyChangedObserver* PropertyChangedObserver_New(void);
 
+IOT_API
 TINY_LOR
 void PropertyChangedObserver_Delete(PropertyChangedObserver *thiz);
 

@@ -27,14 +27,12 @@ static TinyRet AddSeparator(Tlv8Value *thiz);
 TINY_LOR
 static TinyRet AddBytesValue(Tlv8Value *thiz, uint8_t type, size_t length, uint8_t *value);
 
-
 TINY_LOR
 static void _OnDelete(void * data, void * ctx)
 {
     Tlv8 *tlv8 = (Tlv8 *)data;
     Tlv8_Delete(tlv8);
 }
-
 
 TINY_LOR
 static bool _OnSearch(void * data, void * ctx)
@@ -255,11 +253,18 @@ TinyRet Tlv8Value_AddBytes(Tlv8Value *thiz, uint8_t type, const uint8_t *value, 
         if (RET_FAILED(Tlv8_Initialize(tlv8, type, length, value)))
         {
             LOG_D(TAG, "Tlv8_Initialize failed");
+            Tlv8_Delete(tlv8);
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
 
-        TinyList_AddTail(&thiz->values, tlv8);
+        if (RET_FAILED(TinyList_AddTail(&thiz->values, tlv8))) 
+        {
+            LOG_D(TAG, "TinyList_AddTail failed");
+            Tlv8_Delete(tlv8);
+            ret = TINY_RET_E_INTERNAL;
+            break;
+        }
     } while (0);
 
     return ret;

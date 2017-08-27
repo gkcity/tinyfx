@@ -23,7 +23,7 @@ TINY_LOR
 static void Tlv8_Dispose(Tlv8 *thiz);
 
 TINY_LOR
-Tlv8* Tlv8_New()
+Tlv8* Tlv8_New(void)
 {
     Tlv8 *thiz = NULL;
 

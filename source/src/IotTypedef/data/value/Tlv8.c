@@ -83,13 +83,11 @@ void Tlv8_Delete(Tlv8 *thiz)
 TINY_LOR
 TinyRet Tlv8_Initialize(Tlv8 *thiz, uint8_t type, uint32_t length, const uint8_t *buf)
 {
-    thiz->type = type;
-    thiz->length = length;
-
     if (thiz->data != NULL)
     {
         tiny_free(thiz->data);
         thiz->data = NULL;
+        thiz->length = 0;
     }
 
     if (length > 0)
@@ -101,6 +99,8 @@ TinyRet Tlv8_Initialize(Tlv8 *thiz, uint8_t type, uint32_t length, const uint8_t
         }
 
         memcpy(thiz->data, buf, length);
+        thiz->type = type;
+        thiz->length = length;
     }
 
     return TINY_RET_OK;

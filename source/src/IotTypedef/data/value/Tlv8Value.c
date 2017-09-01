@@ -125,6 +125,7 @@ void Tlv8Value_Dispose(Tlv8Value *thiz)
     if (thiz->_bytes != NULL)
     {
         tiny_free(thiz->_bytes);
+        thiz->_bytes = NULL;
     }
 
     thiz->_size = 0;
@@ -159,11 +160,6 @@ TinyRet Tlv8Value_Parse(Tlv8Value *thiz, const uint8_t *buf, uint32_t len, bool 
     uint32_t i = 0;
 
     LOG_D(TAG, "Tlv8Value_Parse: %d", len);
-//    for (uint32_t i = 0; i < len; ++i)
-//    {
-//        printf("%02x ", buf[i]);
-//    }
-//    printf("\n");
 
     if (len < 3)
     {
@@ -175,8 +171,6 @@ TinyRet Tlv8Value_Parse(Tlv8Value *thiz, const uint8_t *buf, uint32_t len, bool 
         uint8_t type = (uint8_t) (buf[i + 0]);
         uint8_t length = (uint8_t) (buf[i + 1]);
         const uint8_t * value = buf + i + 2;
-
-        LOG_D(TAG, "%d %d [%d]", type, length, length);
 
         if ((uint32_t)(value + length - buf) > len)
         {
@@ -222,13 +216,6 @@ TINY_LOR
 TinyRet Tlv8Value_AddBytes(Tlv8Value *thiz, uint8_t type, const uint8_t *value, uint32_t length, bool mergeValue)
 {
     TinyRet ret = TINY_RET_OK;
-
-//    LOG_E(TAG, "Tlv8Value_AddBytes: %d %d", type, length);
-//    for (uint32_t i = 0; i < length; ++i)
-//    {
-//        printf("%02x ", value[i]);
-//    }
-//    printf("\n");
 
     do
     {
@@ -372,22 +359,10 @@ static TinyRet AddBytesValue(Tlv8Value *thiz, uint8_t type, size_t length, uint8
     size_t unused = thiz->_size - thiz->_available;
     size_t tlv_length = (count > 0) ? (1 + 1 + 255) * count + (1 + 1 + len) : 1 + 1 + len;
 
-//    printf("AddBytesValue: %d, %ld\n", type, length);
-//    for (uint32_t i = 0; i < length; ++i)
-//    {
-//        printf("%02x ", value[i]);
-//    }
-//    printf("\n");
-//    printf("tlv_length: %ld\n", tlv_length);
-//    printf("unused: %ld\n", unused);
-
     if (unused < tlv_length)
     {
         return TINY_RET_E_FULL;
     }
-
-//    printf("count: %ld\n", count);
-//    printf("len: %d\n", len);
 
     for (size_t i = 0; i < count; ++i)
     {

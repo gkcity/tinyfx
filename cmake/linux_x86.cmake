@@ -23,4 +23,4 @@ ADD_DEFINITIONS(-D_GNU_SOURCE)
 # DEBUG INFORMATION
 #
 #----------------------------------------------------------------------------
-ADD_DEFINITIONS(-DTINY_DEBUG)
+#ADD_DEFINITIONS(-DTINY_DEBUG)

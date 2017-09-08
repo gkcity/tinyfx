@@ -285,7 +285,7 @@ static int toBytes(Tlv8Value *thiz)
         thiz->_size = 0;
     }
 
-    LOG_E(TAG, "toBytes: %d", length);
+    LOG_D(TAG, "toBytes: %d", length);
 
     thiz->_bytes = tiny_malloc(length);
     if (thiz->_bytes == NULL)

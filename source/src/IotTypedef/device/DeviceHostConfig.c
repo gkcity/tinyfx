@@ -4,36 +4,36 @@
  * @author jxfengzi@gmail.com
  * @date   2013-11-19
  *
- * @file   DeviceConfig.c
+ * @file   DeviceHostConfig.c
  *
  * @remark
  *
  */
 
-#include "DeviceConfig.h"
+#include "DeviceHostConfig.h"
 #include <tiny_malloc.h>
 #include <tiny_snprintf.h>
 #include "tiny_log.h"
 
-#define TAG     "DeviceConfig"
+#define TAG     "DeviceHostConfig"
 
-//DeviceConfig * DeviceConfig_New(void)
+//DeviceHostConfig * DeviceHostConfig_New(void)
 //{
-//    DeviceConfig *thiz = NULL;
+//    DeviceHostConfig *thiz = NULL;
 //
 //    do
 //    {
-//        thiz = (DeviceConfig *)tiny_malloc(sizeof(DeviceConfig));
+//        thiz = (DeviceHostConfig *)tiny_malloc(sizeof(DeviceHostConfig));
 //        if (thiz == NULL)
 //        {
 //            LOG_E(TAG, "OUT OF MEMORY");
 //            break;
 //        }
 //
-//        if (RET_FAILED(DeviceConfig_Construct(thiz)))
+//        if (RET_FAILED(DeviceHostConfig_Construct(thiz)))
 //        {
-//            LOG_E(TAG, "DeviceConfig_Construct failed");
-//            DeviceConfig_Delete(thiz);
+//            LOG_E(TAG, "DeviceHostConfig_Construct failed");
+//            DeviceHostConfig_Delete(thiz);
 //            thiz = NULL;
 //            break;
 //        }
@@ -42,16 +42,16 @@
 //    return thiz;
 //}
 
-//void DeviceConfig_Delete(DeviceConfig *thiz)
+//void DeviceHostConfig_Delete(DeviceHostConfig *thiz)
 //{
 //    RETURN_IF_FAIL(thiz);
 //
-//    DeviceConfig_Dispose(thiz);
+//    DeviceHostConfig_Dispose(thiz);
 //    tiny_free(thiz);
 //}
 
 TINY_LOR
-TinyRet DeviceConfig_Construct(DeviceConfig *thiz)
+TinyRet DeviceHostConfig_Construct(DeviceHostConfig *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -59,28 +59,28 @@ TinyRet DeviceConfig_Construct(DeviceConfig *thiz)
 
     do
     {
-        memset(thiz, 0, sizeof(DeviceConfig));
+        memset(thiz, 0, sizeof(DeviceHostConfig));
     } while (0);
 
     return ret;
 }
 
 TINY_LOR
-void DeviceConfig_Dispose(DeviceConfig *thiz)
+void DeviceHostConfig_Dispose(DeviceHostConfig *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    memset(thiz, 0, sizeof(DeviceConfig));
+    memset(thiz, 0, sizeof(DeviceHostConfig));
 }
 
 TINY_LOR
-void DeviceConfig_Initialize(DeviceConfig *thiz, DeviceConfigurationInitializer initializer, void *ctx)
+void DeviceHostConfig_Initialize(DeviceHostConfig *thiz, DeviceHostConfigurationInitializer initializer, void *ctx)
 {
     initializer(thiz, ctx);
 }
 
 TINY_LOR
-void DeviceConfig_Copy(DeviceConfig *dst, DeviceConfig *src)
+void DeviceHostConfig_Copy(DeviceHostConfig *dst, DeviceHostConfig *src)
 {
     if (dst != src)
     {
@@ -109,14 +109,14 @@ void DeviceConfig_Copy(DeviceConfig *dst, DeviceConfig *src)
 }
 
 TINY_LOR
-void DeviceConfig_SetIp(DeviceConfig *thiz, const char *ip)
+void DeviceHostConfig_SetIp(DeviceHostConfig *thiz, const char *ip)
 {
-    printf("DeviceConfig_SetIp: %s\n", ip);
+    printf("DeviceHostConfig_SetIp: %s\n", ip);
     strncpy(thiz->ip, ip, TINY_IP_LEN);
 }
 
 TINY_LOR
-void DeviceConfig_SetIpByInt(DeviceConfig *thiz, uint32_t ip)
+void DeviceHostConfig_SetIpByInt(DeviceHostConfig *thiz, uint32_t ip)
 {
     char value[TINY_IP_LEN];
     uint8_t a = (uint8_t)(ip & 0xff);
@@ -126,30 +126,30 @@ void DeviceConfig_SetIpByInt(DeviceConfig *thiz, uint32_t ip)
 
     memset(value, 0, TINY_IP_LEN);
     tiny_snprintf(value, TINY_IP_LEN, "%d.%d.%d.%d", a, b, c, d);
-    DeviceConfig_SetIp(thiz, value);
+    DeviceHostConfig_SetIp(thiz, value);
 }
 
 TINY_LOR
-void DeviceConfig_SetPort(DeviceConfig *thiz, uint16_t port)
+void DeviceHostConfig_SetPort(DeviceHostConfig *thiz, uint16_t port)
 {
     thiz->port = port;
 }
 
 TINY_LOR
-void DeviceConfig_SetName(DeviceConfig *thiz, const char *name)
+void DeviceHostConfig_SetName(DeviceHostConfig *thiz, const char *name)
 {
     strncpy(thiz->name, name, DEVICE_NAME_LENGTH);
 }
 
 TINY_LOR
-void DeviceConfig_SetId(DeviceConfig *thiz, const char *id)
+void DeviceHostConfig_SetId(DeviceHostConfig *thiz, const char *id)
 {
-    printf("DeviceConfig_SetId: %s\n", id);
+    printf("DeviceHostConfig_SetId: %s\n", id);
     strncpy(thiz->id, id, DEVICE_ID_LENGTH);
 }
 
 TINY_LOR
-void DeviceConfig_SetIdByInt(DeviceConfig *thiz, const uint8_t *id, uint32_t len)
+void DeviceHostConfig_SetIdByInt(DeviceHostConfig *thiz, const uint8_t *id, uint32_t len)
 {
     char value[DEVICE_ID_LENGTH];
 
@@ -160,41 +160,41 @@ void DeviceConfig_SetIdByInt(DeviceConfig *thiz, const uint8_t *id, uint32_t len
 
     memset(value, 0, DEVICE_ID_LENGTH);
     tiny_snprintf(value, TINY_IP_LEN, "%02x:%02x:%02x:%02x:%02x:%02x", id[0], id[1], id[2], id[3], id[4], id[5]);
-    DeviceConfig_SetId(thiz, value);
+    DeviceHostConfig_SetId(thiz, value);
 }
 
 TINY_LOR
-void DeviceConfig_SetModelName(DeviceConfig *thiz, const char *model)
+void DeviceHostConfig_SetModelName(DeviceHostConfig *thiz, const char *model)
 {
     strncpy(thiz->model, model, DEVICE_MODEL_LENGTH);
 }
 
 TINY_LOR
-void DeviceConfig_SetConfigurationNumber(DeviceConfig *thiz, uint32_t value)
+void DeviceHostConfig_SetConfigurationNumber(DeviceHostConfig *thiz, uint32_t value)
 {
     thiz->configurationNumber = value;
 }
 
 TINY_LOR
-void DeviceConfig_SetCurrentStateNumber(DeviceConfig *thiz, uint32_t value)
+void DeviceHostConfig_SetCurrentStateNumber(DeviceHostConfig *thiz, uint32_t value)
 {
     thiz->stateNumber = value;
 }
 
 TINY_LOR
-void DeviceConfig_SetFeatureFlags(DeviceConfig *thiz, uint32_t value)
+void DeviceHostConfig_SetFeatureFlags(DeviceHostConfig *thiz, uint32_t value)
 {
     thiz->featureFlags = value;
 }
 
 TINY_LOR
-void DeviceConfig_SetCategoryIdentifier(DeviceConfig *thiz, uint32_t value)
+void DeviceHostConfig_SetCategoryIdentifier(DeviceHostConfig *thiz, uint32_t value)
 {
     thiz->categoryIdentifier = value;
 }
 
 TINY_LOR
-void DeviceConfig_SetPinCode(DeviceConfig *thiz, const char *pin, SRPPrecomputed *precomputed)
+void DeviceHostConfig_SetPinCode(DeviceHostConfig *thiz, const char *pin, SRPPrecomputed *precomputed)
 {
     strncpy(thiz->pin, pin, DEVICE_PIN_LENGTH);
 

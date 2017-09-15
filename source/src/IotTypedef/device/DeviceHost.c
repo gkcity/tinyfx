@@ -4,7 +4,7 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   Device.c
+ * @file   DeviceHost.c
  *
  * @remark
  *
@@ -13,16 +13,16 @@
 #include <tiny_malloc.h>
 #include <tiny_log.h>
 #include <controlled/PropertyChangedObserver.h>
-#include "Device.h"
+#include "DeviceHost.h"
 #include "Accessory.h"
 
-#define TAG     "Device"
+#define TAG     "DeviceHost"
 
 TINY_LOR
-static TinyRet Device_Construct(Device *thiz);
+static TinyRet DeviceHost_Construct(DeviceHost *thiz);
 
 TINY_LOR
-static void Device_Dispose(Device *thiz);
+static void DeviceHost_Dispose(DeviceHost *thiz);
 
 TINY_LOR
 static void accessory_release_handler(void *data, void *ctx)
@@ -39,22 +39,22 @@ static void OnChangedObserverDelete (void * data, void *ctx)
 }
 
 TINY_LOR
-Device* Device_New(void)
+DeviceHost* DeviceHost_New(void)
 {
-    Device *thiz = NULL;
+    DeviceHost *thiz = NULL;
 
     do
     {
-        thiz = (Device *)tiny_malloc(sizeof(Device));
+        thiz = (DeviceHost *)tiny_malloc(sizeof(DeviceHost));
         if (thiz == NULL)
         {
             LOG_D(TAG, "tiny_malloc FAILED");
             break;
         }
 
-        if (RET_FAILED(Device_Construct(thiz)))
+        if (RET_FAILED(DeviceHost_Construct(thiz)))
         {
-            Device_Delete(thiz);
+            DeviceHost_Delete(thiz);
             thiz = NULL;
             break;
         }
@@ -64,7 +64,7 @@ Device* Device_New(void)
 }
 
 TINY_LOR
-static TinyRet Device_Construct(Device *thiz)
+static TinyRet DeviceHost_Construct(DeviceHost *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -72,7 +72,7 @@ static TinyRet Device_Construct(Device *thiz)
 
     do
     {
-        memset(thiz, 0, sizeof(Device));
+        memset(thiz, 0, sizeof(DeviceHost));
 
         ret = TinyList_Construct(&thiz->accessories);
         if (RET_FAILED(ret))
@@ -96,7 +96,7 @@ static TinyRet Device_Construct(Device *thiz)
 }
 
 TINY_LOR
-static void Device_Dispose(Device *thiz)
+static void DeviceHost_Dispose(DeviceHost *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
@@ -105,16 +105,16 @@ static void Device_Dispose(Device *thiz)
 }
 
 TINY_LOR
-void Device_Delete(Device *thiz)
+void DeviceHost_Delete(DeviceHost *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    Device_Dispose(thiz);
+    DeviceHost_Dispose(thiz);
     tiny_free(thiz);
 }
 
 TINY_LOR
-void Device_InitializeInstanceID(Device *thiz)
+void DeviceHost_InitializeInstanceID(DeviceHost *thiz)
 {
     uint16_t aid = 1;
 
@@ -128,19 +128,19 @@ void Device_InitializeInstanceID(Device *thiz)
 }
 
 TINY_LOR
-Device* Device_Build(DeviceConfig *config)
+DeviceHost* DeviceHost_Build(DeviceHostConfig *config)
 {
-    Device * device = Device_New();
+    DeviceHost * device = DeviceHost_New();
     if (device != NULL)
     {
-        DeviceConfig_Copy(&device->config, config);
+        DeviceHostConfig_Copy(&device->config, config);
     }
 
     return device;
 }
 
 TINY_LOR
-Property * Device_GetProperty(Device *device, uint16_t aid, uint16_t iid)
+Property * DeviceHost_GetProperty(DeviceHost *device, uint16_t aid, uint16_t iid)
 {
     for (uint32_t i = 0; i < device->accessories.size; ++i)
     {
@@ -167,7 +167,7 @@ Property * Device_GetProperty(Device *device, uint16_t aid, uint16_t iid)
 }
 
 TINY_LOR
-static bool Device_NotifyPropertyChanged(Device *thiz, Property *property)
+static bool DeviceHost_NotifyPropertyChanged(DeviceHost *thiz, Property *property)
 {
     bool notified = false;
 
@@ -188,11 +188,11 @@ static bool Device_NotifyPropertyChanged(Device *thiz, Property *property)
 }
 
 TINY_LOR
-int Device_NotifyPropertiesChanged(Device *thiz)
+int DeviceHost_NotifyPropertiesChanged(DeviceHost *thiz)
 {
     int count = 0;
 
-    LOG_D(TAG, "Device_NotifyPropertiesChanged");
+    LOG_D(TAG, "DeviceHost_NotifyPropertiesChanged");
 
     for (uint32_t i = 0; i < thiz->accessories.size; ++i)
     {
@@ -206,7 +206,7 @@ int Device_NotifyPropertiesChanged(Device *thiz)
             {
                 LOG_D(TAG, "Property: %d", k);
                 Property *p = (Property *) TinyList_GetAt(&s->properties, k);
-                if (Device_NotifyPropertyChanged(thiz, p))
+                if (DeviceHost_NotifyPropertyChanged(thiz, p))
                 {
                     count ++;
                 }

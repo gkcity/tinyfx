@@ -4,7 +4,7 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   Accessory.c
+ * @file   Device.c
  *
  * @remark
  *
@@ -13,17 +13,17 @@
 #include <tiny_malloc.h>
 #include <tiny_log.h>
 #include "Property.h"
-#include "Accessory.h"
+#include "Device.h"
 #include "Service.h"
 
 
-#define TAG     "Accessory"
+#define TAG     "Device"
 
 TINY_LOR
-static TinyRet Accessory_Construct(Accessory *thiz);
+static TinyRet Device_Construct(Device *thiz);
 
 TINY_LOR
-static void Accessory_Dispose(Accessory *thiz);
+static void Device_Dispose(Device *thiz);
 
 TINY_LOR
 static void service_release_handler(void *data, void *ctx)
@@ -33,22 +33,22 @@ static void service_release_handler(void *data, void *ctx)
 }
 
 TINY_LOR
-Accessory* Accessory_New(void)
+Device* Device_New(void)
 {
-    Accessory *thiz = NULL;
+    Device *thiz = NULL;
 
     do
     {
-        thiz = (Accessory *)tiny_malloc(sizeof(Accessory));
+        thiz = (Device *)tiny_malloc(sizeof(Device));
         if (thiz == NULL)
         {
             LOG_D(TAG, "tiny_malloc FAILED");
             break;
         }
 
-        if (RET_FAILED(Accessory_Construct(thiz)))
+        if (RET_FAILED(Device_Construct(thiz)))
         {
-            Accessory_Delete(thiz);
+            Device_Delete(thiz);
             thiz = NULL;
             break;
         }
@@ -58,7 +58,7 @@ Accessory* Accessory_New(void)
 }
 
 TINY_LOR
-static TinyRet Accessory_Construct(Accessory *thiz)
+static TinyRet Device_Construct(Device *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -66,7 +66,7 @@ static TinyRet Accessory_Construct(Accessory *thiz)
 
     do
     {
-        memset(thiz, 0, sizeof(Accessory));
+        memset(thiz, 0, sizeof(Device));
 
         ret = TinyList_Construct(&thiz->services);
         if (RET_FAILED(ret))
@@ -83,7 +83,7 @@ static TinyRet Accessory_Construct(Accessory *thiz)
 }
 
 TINY_LOR
-static void Accessory_Dispose(Accessory *thiz)
+static void Device_Dispose(Device *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
@@ -91,16 +91,16 @@ static void Accessory_Dispose(Accessory *thiz)
 }
 
 TINY_LOR
-void Accessory_Delete(Accessory *thiz)
+void Device_Delete(Device *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    Accessory_Dispose(thiz);
+    Device_Dispose(thiz);
     tiny_free(thiz);
 }
 
 TINY_LOR
-void Accessory_InitializeInstanceID(Accessory *thiz, uint16_t aid)
+void Device_InitializeInstanceID(Device *thiz, uint16_t aid)
 {
     uint16_t iid = 1;
     thiz->iid = aid;

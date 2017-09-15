@@ -28,7 +28,7 @@ TINY_BEGIN_DECLS
 struct _DeviceHost
 {
     DeviceHostConfig            config;
-    TinyList                    accessories;
+    TinyList                    devices;
     TinyList                    changedObservers;
     DeviceIdentifyListener      identifyListener;
     void                      * ctx;

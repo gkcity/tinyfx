@@ -4,14 +4,14 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   Accessory.h
+ * @file   Device.h
  *
  * @remark
  *
  */
 
-#ifndef __ACCESSORY_H__
-#define __ACCESSORY_H__
+#ifndef __DEVICE_H__
+#define __DEVICE_H__
 
 #include "tiny_base.h"
 #include "api/iot_api.h"
@@ -21,27 +21,27 @@
 TINY_BEGIN_DECLS
 
 
-struct _Accessory
+struct _Device
 {
     uint16_t            iid;
     TinyList            services;
 };
 
-typedef struct _Accessory Accessory;
+typedef struct _Device Device;
 
 IOT_API
 TINY_LOR
-Accessory* Accessory_New(void);
+Device* Device_New(void);
 
 IOT_API
 TINY_LOR
-void Accessory_Delete(Accessory *thiz);
+void Device_Delete(Device *thiz);
 
 IOT_API
 TINY_LOR
-void Accessory_InitializeInstanceID(Accessory *thiz, uint16_t aid);
+void Device_InitializeInstanceID(Device *thiz, uint16_t aid);
 
 
 TINY_END_DECLS
 
-#endif /* __ACCESSORY_H__ */
+#endif /* __DEVICE_H__ */

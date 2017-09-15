@@ -53,7 +53,7 @@ SET(Data_Source
 SET(Device_Header
         device/DeviceHost.h
         device/DeviceHostConfig.h
-        device/Accessory.h
+        device/Device.h
         device/Service.h
         device/Property.h
     )
@@ -61,7 +61,7 @@ SET(Device_Header
 SET(Device_Source
         device/DeviceHost.c
         device/DeviceHostConfig.c
-        device/Accessory.c
+        device/Device.c
         device/Service.c
         device/Property.c
     )

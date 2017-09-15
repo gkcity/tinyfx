@@ -14,7 +14,7 @@
 #include <tiny_log.h>
 #include <controlled/PropertyChangedObserver.h>
 #include "DeviceHost.h"
-#include "Accessory.h"
+#include "Device.h"
 
 #define TAG     "DeviceHost"
 
@@ -27,8 +27,8 @@ static void DeviceHost_Dispose(DeviceHost *thiz);
 TINY_LOR
 static void accessory_release_handler(void *data, void *ctx)
 {
-    Accessory *p = (Accessory *)data;
-    Accessory_Delete(p);
+    Device *p = (Device *)data;
+    Device_Delete(p);
 }
 
 TINY_LOR
@@ -74,14 +74,14 @@ static TinyRet DeviceHost_Construct(DeviceHost *thiz)
     {
         memset(thiz, 0, sizeof(DeviceHost));
 
-        ret = TinyList_Construct(&thiz->accessories);
+        ret = TinyList_Construct(&thiz->devices);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-        thiz->accessories.additionalData = thiz;
-        TinyList_SetDeleteListener(&thiz->accessories, accessory_release_handler, thiz);
+        thiz->devices.additionalData = thiz;
+        TinyList_SetDeleteListener(&thiz->devices, accessory_release_handler, thiz);
 
         ret = TinyList_Construct(&thiz->changedObservers);
         if (RET_FAILED(ret))
@@ -101,7 +101,7 @@ static void DeviceHost_Dispose(DeviceHost *thiz)
     RETURN_IF_FAIL(thiz);
 
     TinyList_Dispose(&thiz->changedObservers);
-    TinyList_Dispose(&thiz->accessories);
+    TinyList_Dispose(&thiz->devices);
 }
 
 TINY_LOR
@@ -120,10 +120,10 @@ void DeviceHost_InitializeInstanceID(DeviceHost *thiz)
 
     RETURN_IF_FAIL(thiz);
 
-    for (uint32_t i = 0; i < thiz->accessories.size; ++i)
+    for (uint32_t i = 0; i < thiz->devices.size; ++i)
     {
-        Accessory *a = (Accessory *) TinyList_GetAt(&thiz->accessories, i);
-        Accessory_InitializeInstanceID(a, aid++);
+        Device *a = (Device *) TinyList_GetAt(&thiz->devices, i);
+        Device_InitializeInstanceID(a, aid++);
     }
 }
 
@@ -142,9 +142,9 @@ DeviceHost* DeviceHost_Build(DeviceHostConfig *config)
 TINY_LOR
 Property * DeviceHost_GetProperty(DeviceHost *device, uint16_t aid, uint16_t iid)
 {
-    for (uint32_t i = 0; i < device->accessories.size; ++i)
+    for (uint32_t i = 0; i < device->devices.size; ++i)
     {
-        Accessory * a = (Accessory *)TinyList_GetAt(&device->accessories, i);
+        Device * a = (Device *)TinyList_GetAt(&device->devices, i);
         if (a->iid == aid)
         {
             for (uint32_t j = 0; j < a->services.size; ++j)
@@ -194,10 +194,10 @@ int DeviceHost_NotifyPropertiesChanged(DeviceHost *thiz)
 
     LOG_D(TAG, "DeviceHost_NotifyPropertiesChanged");
 
-    for (uint32_t i = 0; i < thiz->accessories.size; ++i)
+    for (uint32_t i = 0; i < thiz->devices.size; ++i)
     {
-        LOG_D(TAG, "Accessory: %d", i);
-        Accessory * a = (Accessory *)TinyList_GetAt(&thiz->accessories, i);
+        LOG_D(TAG, "Device: %d", i);
+        Device * a = (Device *)TinyList_GetAt(&thiz->devices, i);
         for (uint32_t j = 0; j < a->services.size; ++j)
         {
             LOG_D(TAG, "Service: %d", j);

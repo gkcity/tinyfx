@@ -4,4 +4,5 @@
 #
 #-------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(IotTypedef)
-ADD_SUBDIRECTORY(IotThingManager)
+ADD_SUBDIRECTORY(IotDeviceManager)
+ADD_SUBDIRECTORY(IotInstance)

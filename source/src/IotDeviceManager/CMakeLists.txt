@@ -1,17 +1,17 @@
 #-----------------------------------------------------------------------------
 #
-# IotThingManager
+# IotDeviceManager
 #
 #-----------------------------------------------------------------------------
 
 SET(Thing_Header
-        thing/ThingRuntime.h
-        thing/ThingManager.h
+        DeviceRuntime.h
+        DeviceManager.h
     )
 
 SET(Thing_Source
-        thing/ThingManager.c
-        thing/ThingRuntime.c
+        DeviceManager.c
+        DeviceRuntime.c
     )
 
 SET(SRC

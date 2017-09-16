@@ -4,14 +4,14 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   Service.h
+ * @file   Action.h
  *
  * @remark
  *
  */
 
-#ifndef __SERVICE_H__
-#define __SERVICE_H__
+#ifndef __ACTION_H__
+#define __ACTION_H__
 
 #include <TinyList.h>
 #include "tiny_base.h"
@@ -21,29 +21,27 @@
 TINY_BEGIN_DECLS
 
 
-struct _Service
+struct _Action
 {
     uint16_t            aiid;
+    uint16_t            siid;
     uint16_t            iid;
     Urn                 type;
-    TinyList            properties;
-
-#ifdef SPEC_ACTION
-    TinyList            actions;
-#endif
+    TinyList            in;
+    TinyList            out;
 };
 
-typedef struct _Service Service;
+typedef struct _Action Action;
 
 IOT_API
 TINY_LOR
-Service* Service_New(void);
+Action* Action_New(void);
 
 IOT_API
 TINY_LOR
-void Service_Delete(Service *thiz);
+void Action_Delete(Action *thiz);
 
 
 TINY_END_DECLS
 
-#endif /* __SERVICE_H__ */
+#endif /* __ACTION_H__ */

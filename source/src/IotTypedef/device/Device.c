@@ -16,7 +16,6 @@
 #include "Device.h"
 #include "Service.h"
 
-
 #define TAG     "Device"
 
 TINY_LOR
@@ -28,8 +27,7 @@ static void Device_Dispose(Device *thiz);
 TINY_LOR
 static void service_release_handler(void *data, void *ctx)
 {
-    Service *p = (Service *)data;
-    Service_Delete(p);
+    Service_Delete((Service *)data);
 }
 
 TINY_LOR
@@ -100,7 +98,7 @@ void Device_Delete(Device *thiz)
 }
 
 TINY_LOR
-void Device_InitializeInstanceID(Device *thiz, uint16_t aid)
+void Device_InitializeHomeKitInstanceID(Device *thiz, uint16_t aid)
 {
     uint16_t iid = 1;
     thiz->iid = aid;

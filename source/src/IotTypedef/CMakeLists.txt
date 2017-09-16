@@ -55,6 +55,7 @@ SET(Device_Header
         device/DeviceHostConfig.h
         device/Device.h
         device/Service.h
+        device/Action.h
         device/Property.h
     )
 

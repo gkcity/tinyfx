@@ -4,35 +4,35 @@
  * @author jxfengzi@gmail.com
  * @date   2013-11-19
  *
- * @file   ThingManager.c
+ * @file   DeviceManager.c
  *
  * @remark
  *
  */
 
-#include "ThingManager.h"
+#include "DeviceManager.h"
 #include <tiny_malloc.h>
 #include <tiny_log.h>
 
-#define TAG     "ThingManager"
+#define TAG     "DeviceManager"
 
 //TINY_LOR
-//ThingManager *ThingManager_New(void)
+//DeviceManager *DeviceManager_New(void)
 //{
-//    ThingManager *thiz = NULL;
+//    DeviceManager *thiz = NULL;
 //
 //    do
 //    {
-//        thiz = (ThingManager *) tiny_malloc(sizeof(ThingManager));
+//        thiz = (DeviceManager *) tiny_malloc(sizeof(DeviceManager));
 //        if (thiz == NULL)
 //        {
 //            LOG_D(TAG, "tiny_malloc FAILED.");
 //            break;
 //        }
 //
-//        if (RET_FAILED(ThingManager_Construct(thiz)))
+//        if (RET_FAILED(DeviceManager_Construct(thiz)))
 //        {
-//            ThingManager_Delete(thiz);
+//            DeviceManager_Delete(thiz);
 //            thiz = NULL;
 //            break;
 //        }
@@ -42,37 +42,37 @@
 //}
 //
 //TINY_LOR
-//void ThingManager_Delete(ThingManager *thiz)
+//void DeviceManager_Delete(DeviceManager *thiz)
 //{
 //    RETURN_IF_FAIL(thiz);
 //
-//    ThingManager_Dispose(thiz);
+//    DeviceManager_Dispose(thiz);
 //    tiny_free(thiz);
 //}
 
 TINY_LOR
-TinyRet ThingManager_Construct(ThingManager *thiz)
+TinyRet DeviceManager_Construct(DeviceManager *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
-    memset(thiz, 0, sizeof(ThingManager));
+    memset(thiz, 0, sizeof(DeviceManager));
     thiz->started = false;
 
     return ret;
 }
 
 TINY_LOR
-void ThingManager_Dispose(ThingManager *thiz)
+void DeviceManager_Dispose(DeviceManager *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    memset(thiz, 0, sizeof(ThingManager));
+    memset(thiz, 0, sizeof(DeviceManager));
 }
 
 TINY_LOR
-TinyRet ThingManager_SetRuntimeImpl(ThingManager *thiz, ThingRuntime *impl)
+TinyRet DeviceManager_SetRuntimeImpl(DeviceManager *thiz, DeviceRuntime *impl)
 {
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
     RETURN_VAL_IF_FAIL(impl, TINY_RET_E_ARG_NULL);
@@ -82,13 +82,13 @@ TinyRet ThingManager_SetRuntimeImpl(ThingManager *thiz, ThingRuntime *impl)
         return TINY_RET_E_STARTED;
     }
 
-    ThingRuntime_Copy(&thiz->runtime, impl);
+    DeviceRuntime_Copy(&thiz->runtime, impl);
 
     return TINY_RET_OK;
 }
 
 TINY_LOR
-TinyRet ThingManager_Stop(ThingManager *thiz)
+TinyRet DeviceManager_Stop(DeviceManager *thiz)
 {
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
@@ -105,7 +105,7 @@ TinyRet ThingManager_Stop(ThingManager *thiz)
 }
 
 TINY_LOR
-TinyRet ThingManager_Run(ThingManager *thiz, DeviceHost *host)
+TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceHost *host)
 {
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 

@@ -12,14 +12,14 @@ SET(SOURCE_ROOT ${PROJECT_SOURCE_DIR}/source/src)
 SET(TINY_ROOT ${PROJECT_SOURCE_DIR}/../tiny)
 
 INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotTypedef)
-INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotThingManager)
+INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotDeviceManager)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyBase)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyPortable)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyContainer)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyLog)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyStringUtil)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyJson)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Netty)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Json)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyUmm)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyMd5)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyThread)
@@ -108,29 +108,49 @@ SET(IotTypedef_Source
         )
 
 #-----------------------
-# IotThingManager
+# IotDeviceManager
 #-----------------------
 
-SET(IotThingManager_Header
-        ${SOURCE_ROOT}/IotThingManager/thing/ThingRuntime.h
-        ${SOURCE_ROOT}/IotThingManager/thing/ThingManager.h
+SET(IotDeviceManager_Header
+        ${SOURCE_ROOT}/IotDeviceManager/DeviceRuntime.h
+        ${SOURCE_ROOT}/IotDeviceManager/DeviceManager.h
         )
 
-SET(IotThingManager_Source
-        ${SOURCE_ROOT}/IotThingManager/thing/ThingManager.c
-        ${SOURCE_ROOT}/IotThingManager/thing/ThingRuntime.c
+SET(IotDeviceManager_Source
+        ${SOURCE_ROOT}/IotDeviceManager/DeviceManager.c
+        ${SOURCE_ROOT}/IotDeviceManager/DeviceRuntime.c
         )
 
-SOURCE_GROUP(IotTypedef\\headers            FILES     ${IotTypedef_Header})
-SOURCE_GROUP(IotTypedef\\sources            FILES     ${IotTypedef_Source})
-SOURCE_GROUP(IotThingManager\\headers       FILES     ${IotThingManager_Header})
-SOURCE_GROUP(IotThingManager\\sources       FILES     ${IotThingManager_Source})
+#-----------------------
+# IotInstance
+#-----------------------
+
+SET(IotInstance_Header
+        ${SOURCE_ROOT}/IotInstance/HttpInstance.h
+        ${SOURCE_ROOT}/IotInstance/HttpInstanceHandler.h
+        ${SOURCE_ROOT}/IotInstance/HttpInstanceHandlerContext.h
+        )
+
+SET(IotInstance_Source
+        ${SOURCE_ROOT}/IotInstance/HttpInstance.c
+        ${SOURCE_ROOT}/IotInstance/HttpInstanceHandler.c
+        ${SOURCE_ROOT}/IotInstance/HttpInstanceHandlerContext.c
+        )
+
+SOURCE_GROUP(IotTypedef\\headers             FILES     ${IotTypedef_Header})
+SOURCE_GROUP(IotTypedef\\sources             FILES     ${IotTypedef_Source})
+SOURCE_GROUP(IotDeviceManager\\headers       FILES     ${IotDeviceManager_Header})
+SOURCE_GROUP(IotDeviceManager\\sources       FILES     ${IotDeviceManager_Source})
+SOURCE_GROUP(IotInstance\\headers            FILES     ${IotInstance_Header})
+SOURCE_GROUP(IotInstance\\sources            FILES     ${IotInstance_Source})
 
 SET(SRC
         ${IotTypedef_Header}
         ${IotTypedef_Source}
-        ${IotThingManager_Header}
-        ${IotThingManager_Source}
+        ${IotDeviceManager_Header}
+        ${IotDeviceManager_Source}
+        ${IotInstance_Header}
+        ${IotInstance_Source}
    )
 
 #----------------------------------------------------------------------------

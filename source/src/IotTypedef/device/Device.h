@@ -39,7 +39,7 @@ void Device_Delete(Device *thiz);
 
 IOT_API
 TINY_LOR
-void Device_InitializeInstanceID(Device *thiz, uint16_t aid);
+void Device_InitializeHomeKitInstanceID(Device *thiz, uint16_t aid);
 
 
 TINY_END_DECLS

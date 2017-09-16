@@ -4,16 +4,16 @@
  * @author jxfengzi@gmail.com
  * @date   2013-11-19
  *
- * @file   ThingRuntime.c
+ * @file   DeviceRuntime.c
  *
  * @remark
  *
  */
 
-#include "ThingRuntime.h"
+#include "DeviceRuntime.h"
 
 TINY_LOR
-void ThingRuntime_Copy(ThingRuntime *dst, ThingRuntime *src)
+void DeviceRuntime_Copy(DeviceRuntime *dst, DeviceRuntime *src)
 {
     if (dst != src)
     {

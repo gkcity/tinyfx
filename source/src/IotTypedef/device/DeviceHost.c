@@ -123,7 +123,7 @@ void DeviceHost_InitializeInstanceID(DeviceHost *thiz)
     for (uint32_t i = 0; i < thiz->devices.size; ++i)
     {
         Device *a = (Device *) TinyList_GetAt(&thiz->devices, i);
-        Device_InitializeInstanceID(a, aid++);
+        Device_InitializeHomeKitInstanceID(a, aid++);
     }
 }
 

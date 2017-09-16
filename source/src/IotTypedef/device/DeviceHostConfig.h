@@ -4,14 +4,14 @@
  * @author jxfengzi@gmail.com
  * @date   2013-11-19
  *
- * @file   DeviceConfig.h
+ * @file   DeviceHostConfig.h
  *
  * @remark
  *
  */
 
-#ifndef __DEVICE_CONFIG_H__
-#define __DEVICE_CONFIG_H__
+#ifndef __DEVICE_HOST_CONFIG_H__
+#define __DEVICE_HOST_CONFIG_H__
 
 #include "tiny_base.h"
 #include "api/iot_api.h"
@@ -42,7 +42,7 @@ typedef struct _SRPPrecomputed
 #endif
 } SRPPrecomputed;
 
-typedef struct _DeviceConfig
+typedef struct _DeviceHostConfig
 {
     char                ip[TINY_IP_LEN + 1];
     uint16_t            port;
@@ -118,78 +118,78 @@ typedef struct _DeviceConfig
      * SRP precomputed values: salt/v/b/B
      */
     SRPPrecomputed      precomputed;
-} DeviceConfig;
+} DeviceHostConfig;
 
-typedef void (* DeviceConfigurationInitializer)(DeviceConfig *thiz, void *ctx);
+typedef void (* DeviceHostConfigurationInitializer)(DeviceHostConfig *thiz, void *ctx);
 
-//IOT_API DeviceConfig * DeviceConfig_New(void);
-//IOT_API void DeviceConfig_Delete(DeviceConfig *thiz);
-
-IOT_API
-TINY_LOR
-TinyRet DeviceConfig_Construct(DeviceConfig *thiz);
+//IOT_API DeviceHostConfig * DeviceHostConfig_New(void);
+//IOT_API void DeviceHostConfig_Delete(DeviceHostConfig *thiz);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_Dispose(DeviceConfig *thiz);
+TinyRet DeviceHostConfig_Construct(DeviceHostConfig *thiz);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_Initialize(DeviceConfig *thiz, DeviceConfigurationInitializer initializer, void *ctx);
+void DeviceHostConfig_Dispose(DeviceHostConfig *thiz);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_Copy(DeviceConfig *dst, DeviceConfig *src);
+void DeviceHostConfig_Initialize(DeviceHostConfig *thiz, DeviceHostConfigurationInitializer initializer, void *ctx);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetIp(DeviceConfig *thiz, const char *ip);
+void DeviceHostConfig_Copy(DeviceHostConfig *dst, DeviceHostConfig *src);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetIpByInt(DeviceConfig *thiz, uint32_t ip);
+void DeviceHostConfig_SetIp(DeviceHostConfig *thiz, const char *ip);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetPort(DeviceConfig *thiz, uint16_t port);
+void DeviceHostConfig_SetIpByInt(DeviceHostConfig *thiz, uint32_t ip);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetName(DeviceConfig *thiz, const char *name);
+void DeviceHostConfig_SetPort(DeviceHostConfig *thiz, uint16_t port);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetId(DeviceConfig *thiz, const char *id);
+void DeviceHostConfig_SetName(DeviceHostConfig *thiz, const char *name);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetIdByInt(DeviceConfig *thiz, const uint8_t *id, uint32_t len);
+void DeviceHostConfig_SetId(DeviceHostConfig *thiz, const char *id);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetModelName(DeviceConfig *thiz, const char *model);
+void DeviceHostConfig_SetIdByInt(DeviceHostConfig *thiz, const uint8_t *id, uint32_t len);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetConfigurationNumber(DeviceConfig *thiz, uint32_t value);
+void DeviceHostConfig_SetModelName(DeviceHostConfig *thiz, const char *model);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetCurrentStateNumber(DeviceConfig *thiz, uint32_t value);
+void DeviceHostConfig_SetConfigurationNumber(DeviceHostConfig *thiz, uint32_t value);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetFeatureFlags(DeviceConfig *thiz, uint32_t value);
+void DeviceHostConfig_SetCurrentStateNumber(DeviceHostConfig *thiz, uint32_t value);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetCategoryIdentifier(DeviceConfig *thiz, uint32_t value);
+void DeviceHostConfig_SetFeatureFlags(DeviceHostConfig *thiz, uint32_t value);
 
 IOT_API
 TINY_LOR
-void DeviceConfig_SetPinCode(DeviceConfig *thiz, const char *pin, SRPPrecomputed *precomputed);
+void DeviceHostConfig_SetCategoryIdentifier(DeviceHostConfig *thiz, uint32_t value);
+
+IOT_API
+TINY_LOR
+void DeviceHostConfig_SetPinCode(DeviceHostConfig *thiz, const char *pin, SRPPrecomputed *precomputed);
 
 
 TINY_END_DECLS
 
-#endif /* __DEVICE_CONFIG_H__ */
+#endif /* __DEVICE_HOST_CONFIG_H__ */

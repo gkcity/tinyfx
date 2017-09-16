@@ -51,17 +51,17 @@ SET(Data_Source
 # device
 #-----------------------
 SET(Device_Header
+        device/DeviceHost.h
+        device/DeviceHostConfig.h
         device/Device.h
-        device/DeviceConfig.h
-        device/Accessory.h
         device/Service.h
         device/Property.h
     )
 
 SET(Device_Source
+        device/DeviceHost.c
+        device/DeviceHostConfig.c
         device/Device.c
-        device/DeviceConfig.c
-        device/Accessory.c
         device/Service.c
         device/Property.c
     )

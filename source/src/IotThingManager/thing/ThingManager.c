@@ -105,7 +105,7 @@ TinyRet ThingManager_Stop(ThingManager *thiz)
 }
 
 TINY_LOR
-TinyRet ThingManager_Run(ThingManager *thiz, Device *device)
+TinyRet ThingManager_Run(ThingManager *thiz, DeviceHost *host)
 {
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
@@ -117,5 +117,5 @@ TinyRet ThingManager_Run(ThingManager *thiz, Device *device)
     thiz->started = true;
     thiz->runtime.Initialize(&thiz->runtime);
 
-    return thiz->runtime.Run(&thiz->runtime, device);
+    return thiz->runtime.Run(&thiz->runtime, host);
 }

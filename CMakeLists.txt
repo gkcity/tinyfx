@@ -67,9 +67,9 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint16Value.h
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint32Value.h
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint64Value.h
-        ${SOURCE_ROOT}/IotTypedef/device/DeviceConfig.h
+        ${SOURCE_ROOT}/IotTypedef/device/DeviceHostConfig.h
+        ${SOURCE_ROOT}/IotTypedef/device/DeviceHost.h
         ${SOURCE_ROOT}/IotTypedef/device/Device.h
-        ${SOURCE_ROOT}/IotTypedef/device/Accessory.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Property.h
         ${SOURCE_ROOT}/IotTypedef/error/IotError.h
@@ -98,9 +98,9 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint16Value.c
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint32Value.c
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint64Value.c
-        ${SOURCE_ROOT}/IotTypedef/device/DeviceConfig.c
+        ${SOURCE_ROOT}/IotTypedef/device/DeviceHostConfig.c
+        ${SOURCE_ROOT}/IotTypedef/device/DeviceHost.c
         ${SOURCE_ROOT}/IotTypedef/device/Device.c
-        ${SOURCE_ROOT}/IotTypedef/device/Accessory.c
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Property.c
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedObserver.c

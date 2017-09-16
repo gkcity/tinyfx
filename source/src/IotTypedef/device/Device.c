@@ -12,9 +12,10 @@
 
 #include <tiny_malloc.h>
 #include <tiny_log.h>
-#include <controlled/PropertyChangedObserver.h>
+#include "Property.h"
 #include "Device.h"
-#include "Accessory.h"
+#include "Service.h"
+
 
 #define TAG     "Device"
 
@@ -25,17 +26,10 @@ TINY_LOR
 static void Device_Dispose(Device *thiz);
 
 TINY_LOR
-static void accessory_release_handler(void *data, void *ctx)
+static void service_release_handler(void *data, void *ctx)
 {
-    Accessory *p = (Accessory *)data;
-    Accessory_Delete(p);
-}
-
-TINY_LOR
-static void OnChangedObserverDelete (void * data, void *ctx)
-{
-    PropertyChangedObserver * oo = (PropertyChangedObserver *) data;
-    PropertyChangedObserver_Delete(oo);
+    Service *p = (Service *)data;
+    Service_Delete(p);
 }
 
 TINY_LOR
@@ -74,22 +68,15 @@ static TinyRet Device_Construct(Device *thiz)
     {
         memset(thiz, 0, sizeof(Device));
 
-        ret = TinyList_Construct(&thiz->accessories);
+        ret = TinyList_Construct(&thiz->services);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-        thiz->accessories.additionalData = thiz;
-        TinyList_SetDeleteListener(&thiz->accessories, accessory_release_handler, thiz);
 
-        ret = TinyList_Construct(&thiz->changedObservers);
-        if (RET_FAILED(ret))
-        {
-            LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
-            break;
-        }
-        TinyList_SetDeleteListener(&thiz->changedObservers, OnChangedObserverDelete, thiz);
+        thiz->services.additionalData = thiz;
+        TinyList_SetDeleteListener(&thiz->services, service_release_handler, thiz);
     } while (false);
 
     return ret;
@@ -100,8 +87,7 @@ static void Device_Dispose(Device *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    TinyList_Dispose(&thiz->changedObservers);
-    TinyList_Dispose(&thiz->accessories);
+    TinyList_Dispose(&thiz->services);
 }
 
 TINY_LOR
@@ -114,107 +100,23 @@ void Device_Delete(Device *thiz)
 }
 
 TINY_LOR
-void Device_InitializeInstanceID(Device *thiz)
+void Device_InitializeInstanceID(Device *thiz, uint16_t aid)
 {
-    uint16_t aid = 1;
+    uint16_t iid = 1;
+    thiz->iid = aid;
 
-    RETURN_IF_FAIL(thiz);
-
-    for (uint32_t i = 0; i < thiz->accessories.size; ++i)
+    for (uint32_t j = 0; j < thiz->services.size; ++j)
     {
-        Accessory *a = (Accessory *) TinyList_GetAt(&thiz->accessories, i);
-        Accessory_InitializeInstanceID(a, aid++);
-    }
-}
+        Service *s = (Service *) TinyList_GetAt(&thiz->services, j);
+        s->iid = iid++;
+        s->aiid = thiz->iid;
 
-TINY_LOR
-Device* Device_Build(DeviceConfig *config)
-{
-    Device * device = Device_New();
-    if (device != NULL)
-    {
-        DeviceConfig_Copy(&device->config, config);
-    }
-
-    return device;
-}
-
-TINY_LOR
-Property * Device_GetProperty(Device *device, uint16_t aid, uint16_t iid)
-{
-    for (uint32_t i = 0; i < device->accessories.size; ++i)
-    {
-        Accessory * a = (Accessory *)TinyList_GetAt(&device->accessories, i);
-        if (a->iid == aid)
+        for (uint32_t k = 0; k < s->properties.size; ++k)
         {
-            for (uint32_t j = 0; j < a->services.size; ++j)
-            {
-                Service *s = (Service *) TinyList_GetAt(&a->services, j);
-
-                for (uint32_t k = 0; k < s->properties.size; ++k)
-                {
-                    Property *p = (Property *) TinyList_GetAt(&s->properties, k);
-                    if (p->iid == iid)
-                    {
-                        return p;
-                    }
-                }
-            }
+            Property *p = (Property * )TinyList_GetAt(&s->properties, k);
+            p->aiid = thiz->iid;
+            p->siid = s->iid;
+            p->iid = iid++;
         }
     }
-
-    return NULL;
-}
-
-TINY_LOR
-static bool Device_NotifyPropertyChanged(Device *thiz, Property *property)
-{
-    bool notified = false;
-
-    if (property->changed)
-    {
-        for (uint32_t i = 0; i < thiz->changedObservers.size; ++i)
-        {
-            PropertyChangedObserver * observer = (PropertyChangedObserver *) TinyList_GetAt(&thiz->changedObservers, i);
-            printf("PropertyChangedObserver: %d\n", i);
-            observer->listener(property, observer->data, observer->ctx);
-            notified = true;
-        }
-
-        property->changed = false;
-    }
-
-    return notified;
-}
-
-TINY_LOR
-int Device_NotifyPropertiesChanged(Device *thiz)
-{
-    int count = 0;
-
-    LOG_D(TAG, "Device_NotifyPropertiesChanged");
-
-    for (uint32_t i = 0; i < thiz->accessories.size; ++i)
-    {
-        LOG_D(TAG, "Accessory: %d", i);
-        Accessory * a = (Accessory *)TinyList_GetAt(&thiz->accessories, i);
-        for (uint32_t j = 0; j < a->services.size; ++j)
-        {
-            LOG_D(TAG, "Service: %d", j);
-            Service *s = (Service *) TinyList_GetAt(&a->services, j);
-            for (uint32_t k = 0; k < s->properties.size; ++k)
-            {
-                LOG_D(TAG, "Property: %d", k);
-                Property *p = (Property *) TinyList_GetAt(&s->properties, k);
-                if (Device_NotifyPropertyChanged(thiz, p))
-                {
-                    count ++;
-                }
-            }
-        }
-    }
-
-    LOG_D(TAG, "Notify count: %d", count);
-
-    return count;
 }

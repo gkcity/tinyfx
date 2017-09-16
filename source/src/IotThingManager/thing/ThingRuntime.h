@@ -15,7 +15,7 @@
 
 #include <tiny_base.h>
 #include <tiny_lor.h>
-#include <device/Device.h>
+#include <device/DeviceHost.h>
 #include <device/Service.h>
 
 TINY_BEGIN_DECLS
@@ -26,7 +26,7 @@ typedef struct _ThingRuntime ThingRuntime;
 
 typedef TinyRet (* Thing_Initialize)(ThingRuntime *thiz);
 typedef TinyRet (* Thing_Destroy)(ThingRuntime *thiz);
-typedef TinyRet (* Thing_Run)(ThingRuntime *thiz, Device *device);
+typedef TinyRet (* Thing_Run)(ThingRuntime *thiz, DeviceHost *host);
 typedef TinyRet (* Thing_Stop)(ThingRuntime *thiz);
 
 struct _ThingRuntime

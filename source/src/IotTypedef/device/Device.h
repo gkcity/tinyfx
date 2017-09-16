@@ -13,25 +13,18 @@
 #ifndef __DEVICE_H__
 #define __DEVICE_H__
 
-#include <controlled/DeviceIdentifyListener.h>
 #include "tiny_base.h"
 #include "api/iot_api.h"
 #include "urn/Urn.h"
-#include "DeviceConfig.h"
-#include "Property.h"
-#include "Service.h"
-
+#include <TinyList.h>
 
 TINY_BEGIN_DECLS
 
 
 struct _Device
 {
-    DeviceConfig                config;
-    TinyList                    accessories;
-    TinyList                    changedObservers;
-    DeviceIdentifyListener      identifyListener;
-    void                      * ctx;
+    uint16_t            iid;
+    TinyList            services;
 };
 
 typedef struct _Device Device;
@@ -46,19 +39,7 @@ void Device_Delete(Device *thiz);
 
 IOT_API
 TINY_LOR
-void Device_InitializeInstanceID(Device *thiz);
-
-IOT_API
-TINY_LOR
-Device* Device_Build(DeviceConfig *thiz);
-
-IOT_API
-TINY_LOR
-Property * Device_GetProperty(Device *device, uint16_t aid, uint16_t iid);
-
-IOT_API
-TINY_LOR
-int Device_NotifyPropertiesChanged(Device *thiz);
+void Device_InitializeInstanceID(Device *thiz, uint16_t aid);
 
 
 TINY_END_DECLS

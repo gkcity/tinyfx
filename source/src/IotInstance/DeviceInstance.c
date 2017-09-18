@@ -53,9 +53,9 @@ static TinyRet Property_ProcessValueRange(Property *property, JsonArray *range)
         JsonValue *max = NULL;
         JsonValue *step = NULL;
 
-        if (range->type == JSON_NUMBER)
+        if (range->type != JSON_NUMBER)
         {
-            LOG_E(TAG, "range.type not JsonNumber");
+            LOG_E(TAG, "range.type not JsonNumber: %d", range->type);
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }

@@ -10,7 +10,10 @@
  *
  */
 
+#include <tiny_log.h>
 #include "DataType.h"
+
+#define TAG     "DataType"
 
 #define FORMAT_NAME_BOOL        "bool"
 #define FORMAT_NAME_UINT8       "uint8"
@@ -18,6 +21,7 @@
 #define FORMAT_NAME_UINT32      "uint32"
 #define FORMAT_NAME_UINT64      "uint64"
 #define FORMAT_NAME_INT         "int"
+#define FORMAT_NAME_INT32       "int32"
 #define FORMAT_NAME_FLOAT       "float"
 #define FORMAT_NAME_STRING      "string"
 #define FORMAT_NAME_TLV8        "tlv8"
@@ -65,6 +69,8 @@ const char *DataType_GetName(DataType type)
 TINY_LOR
 DataType DataType_Retrieve(const char *value)
 {
+    LOG_D(TAG, "DataType_Retrieve: %s", value);
+
     if (STR_EQUAL(FORMAT_NAME_BOOL, value))
     {
         return DATATYPE_BOOL;
@@ -90,7 +96,7 @@ DataType DataType_Retrieve(const char *value)
         return DATATYPE_UINT64;
     }
 
-    if (STR_EQUAL(FORMAT_NAME_INT, value))
+    if (STR_EQUAL(FORMAT_NAME_INT, value) || STR_EQUAL(FORMAT_NAME_INT32, value))
     {
         return DATATYPE_INT;
     }

@@ -102,7 +102,9 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Property.c
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedObserver.c
+        ${SOURCE_ROOT}/IotTypedef/access/AccessType.c
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.c
+        ${SOURCE_ROOT}/IotTypedef/urn/UrnType.c
         )
 
 #-----------------------

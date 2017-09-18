@@ -99,6 +99,7 @@ SET(Urn_Header
 
 SET(Urn_Source
         urn/Urn.c
+        urn/UrnType.c
         )
 
 #-----------------------
@@ -113,6 +114,10 @@ SET(Unit_Header
 #-----------------------
 SET(Access_Header
         access/AccessType.h
+        )
+
+SET(Access_Source
+        access/AccessType.c
         )
 
 #-----------------------
@@ -138,6 +143,7 @@ SET(SRC
         ${Urn_Source}
         ${Unit_Header}
         ${Access_Header}
+        ${Access_Source}
         ${Api_Header}
     )
 

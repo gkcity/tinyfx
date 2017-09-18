@@ -43,6 +43,10 @@ IOT_API
 TINY_LOR
 const char * DataType_GetName(DataType type);
 
+IOT_API
+TINY_LOR
+DataType DataType_Retrieve(const char *value);
+
 
 TINY_END_DECLS
 

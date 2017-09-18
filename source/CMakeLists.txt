@@ -1,7 +1,7 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
-PROJECT(TinyFX C)
+PROJECT(TinyFX-DEBUG C)
 
-SET(PROJ_NAME "TinyFX")
+SET(PROJ_NAME "TinyFX-DEBUG")
 
 #---------------------------------------------------------------------------------------
 #

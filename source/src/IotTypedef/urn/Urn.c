@@ -37,11 +37,16 @@ void Urn_Dispose(Urn *thiz)
         tiny_free(thiz->name);
     }
 
+    if (thiz->vendor != NULL)
+    {
+        tiny_free(thiz->vendor);
+    }
+
     memset(thiz, 0, sizeof(Urn));
 }
 
 TINY_LOR
-TinyRet Urn_Set(Urn *thiz, const char *ns, UrnType type, const char *name, uint32_t value)
+TinyRet Urn_Set(Urn *thiz, const char *ns, UrnType type, const char *name, uint32_t value, const char *vendor)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -49,6 +54,13 @@ TinyRet Urn_Set(Urn *thiz, const char *ns, UrnType type, const char *name, uint3
     {
         size_t length = 0;
 
+        /**
+         * namespace
+         */
+        if (thiz->namespace != NULL)
+        {
+            tiny_free(thiz->namespace);
+        }
         length = strlen(ns) + 1;
         thiz->namespace = tiny_malloc(length);
         if (thiz->namespace == NULL)
@@ -59,6 +71,13 @@ TinyRet Urn_Set(Urn *thiz, const char *ns, UrnType type, const char *name, uint3
         memset(thiz->namespace, 0, length);
         strncpy(thiz->namespace, ns, length);
 
+        /**
+         * name
+         */
+        if (thiz->name != NULL)
+        {
+            tiny_free(thiz->name);
+        }
         length = strlen(name) + 1;
         thiz->name = tiny_malloc(length);
         if (thiz->name == NULL)
@@ -69,8 +88,32 @@ TinyRet Urn_Set(Urn *thiz, const char *ns, UrnType type, const char *name, uint3
         memset(thiz->name, 0, length);
         strncpy(thiz->name, name, length);
 
+        /**
+         * type
+         */
         thiz->type = type;
+
+        /**
+         * value
+         */
         thiz->value = value;
+
+        /**
+         * vendor
+         */
+        if (thiz->vendor != NULL)
+        {
+            tiny_free(thiz->vendor);
+        }
+        length = strlen(vendor) + 1;
+        thiz->vendor = tiny_malloc(length);
+        if (thiz->vendor == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
+        memset(thiz->vendor, 0, length);
+        strncpy(thiz->vendor, vendor, length);
     } while (false);
 
     return ret;
@@ -117,9 +160,7 @@ TinyRet Urn_SetString(Urn *thiz, const char *string)
         value = (const char *) TinyList_GetAt(&array->values, 4);
         vendor = (const char *) TinyList_GetAt(&array->values, 5);
 
-//        strncpy(thiz->namespace, namespace, URN_NAMESPACE_LENGTH);
-//        strncpy(thiz->name, name, URN_NAME_LENGTH);
-
+        ret = Urn_Set(thiz, namespace, UrnType_Retrieve(type), name, (uint32_t) atoi(value), vendor);
     } while (false);
 
     if (array != NULL)

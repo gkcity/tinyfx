@@ -21,6 +21,177 @@
 
 #define TAG     "DeviceInstance"
 
+TINY_LOR
+static uint16_t AccessType_New(JsonArray *array)
+{
+    uint16_t a = 0;
+
+    for (uint32_t i = 0; i < array->values.size; ++i)
+    {
+        JsonValue *value = (JsonValue *) TinyList_GetAt(&array->values, i);
+        AccessType type = AccessType_Retrieve(value->data.string->value);
+        if (type == ACCESS_UNDEFINED)
+        {
+            LOG_E(TAG, "AccessType INVALID: %s", value->data.string->value);
+            break;
+        }
+
+        a |= type;
+    }
+
+    return a;
+}
+
+TINY_LOR
+static TinyRet Property_ProcessValueRange(Property *property, JsonArray *range)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    do
+    {
+        JsonValue *min = NULL;
+        JsonValue *max = NULL;
+        JsonValue *step = NULL;
+
+        if (range->type == JSON_NUMBER)
+        {
+            LOG_E(TAG, "range.type not JsonNumber");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        if (range->values.size != 3)
+        {
+            LOG_E(TAG, "range values.size not 3");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        min = (JsonValue *)TinyList_GetAt(&range->values, 0);
+        max = (JsonValue *)TinyList_GetAt(&range->values, 1);
+        step = (JsonValue *)TinyList_GetAt(&range->values, 2);
+
+        switch (property->data.type)
+        {
+            case DATATYPE_UINT8:
+                if (min->data.number->type == JSON_NUMBER_INTEGER
+                    && max->data.number->type == JSON_NUMBER_INTEGER
+                    && step->data.number->type == JSON_NUMBER_INTEGER)
+                {
+
+                    Data_SetUint8ValueRange(&property->data,
+                                            (uint8_t)min->data.number->value.intValue,
+                                            (uint8_t)max->data.number->value.intValue,
+                                            (uint8_t)step->data.number->value.intValue);
+                }
+                else
+                {
+                    ret = TINY_RET_E_ARG_INVALID;
+                }
+                break;
+
+            case DATATYPE_UINT16:
+                if (min->data.number->type == JSON_NUMBER_INTEGER
+                    && max->data.number->type == JSON_NUMBER_INTEGER
+                    && step->data.number->type == JSON_NUMBER_INTEGER)
+                {
+
+                    Data_SetUint16ValueRange(&property->data,
+                                             (uint16_t)min->data.number->value.intValue,
+                                             (uint16_t)max->data.number->value.intValue,
+                                             (uint16_t)step->data.number->value.intValue);
+                }
+                else
+                {
+                    ret = TINY_RET_E_ARG_INVALID;
+                }
+                break;
+
+            case DATATYPE_UINT32:
+                if (min->data.number->type == JSON_NUMBER_INTEGER
+                    && max->data.number->type == JSON_NUMBER_INTEGER
+                    && step->data.number->type == JSON_NUMBER_INTEGER)
+                {
+
+                    Data_SetUint32ValueRange(&property->data,
+                                             (uint32_t)min->data.number->value.intValue,
+                                             (uint32_t)max->data.number->value.intValue,
+                                             (uint32_t)step->data.number->value.intValue);
+                }
+                else
+                {
+                    ret = TINY_RET_E_ARG_INVALID;
+                }
+                break;
+
+            case DATATYPE_UINT64:
+                if (min->data.number->type == JSON_NUMBER_INTEGER
+                    && max->data.number->type == JSON_NUMBER_INTEGER
+                    && step->data.number->type == JSON_NUMBER_INTEGER)
+                {
+
+                    Data_SetUint64ValueRange(&property->data,
+                                             (uint64_t)min->data.number->value.intValue,
+                                             (uint64_t)max->data.number->value.intValue,
+                                             (uint64_t)step->data.number->value.intValue);
+                }
+                else
+                {
+                    ret = TINY_RET_E_ARG_INVALID;
+                }
+                break;
+
+            case DATATYPE_INT:
+                if (min->data.number->type == JSON_NUMBER_INTEGER
+                    && max->data.number->type == JSON_NUMBER_INTEGER
+                    && step->data.number->type == JSON_NUMBER_INTEGER)
+                {
+
+                    Data_SetIntValueRange(&property->data,
+                                          min->data.number->value.intValue,
+                                          max->data.number->value.intValue,
+                                          step->data.number->value.intValue);
+                }
+                else
+                {
+                    ret = TINY_RET_E_ARG_INVALID;
+                }
+                break;
+
+            case DATATYPE_FLOAT:
+                if (min->data.number->type == JSON_NUMBER_FLOAT
+                    && max->data.number->type == JSON_NUMBER_FLOAT
+                    && step->data.number->type == JSON_NUMBER_FLOAT)
+                {
+                    Data_SetFloatValueRange(&property->data,
+                                            min->data.number->value.floatValue,
+                                            max->data.number->value.floatValue,
+                                            step->data.number->value.floatValue);
+                }
+                else
+                {
+                    ret = TINY_RET_E_ARG_INVALID;
+                }
+                break;
+
+            default:
+                ret = TINY_RET_E_ARG_INVALID;
+                break;
+        }
+    } while (false);
+
+    return ret;
+}
+
+TINY_LOR
+static TinyRet Property_ProcessValueList(Property *property, JsonArray *list)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    // TODO: ...
+
+    return ret;
+}
 
 TINY_LOR
 static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *object)
@@ -35,6 +206,8 @@ static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *
         JsonString *description = NULL;
         JsonString *format = NULL;
         JsonArray *access = NULL;
+        JsonArray *valueRange = NULL;
+        JsonArray *valueList = NULL;
 
         iid = JsonObject_GetNumber(object, "iid");
         if (iid == NULL)
@@ -90,8 +263,6 @@ static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *
             break;
         }
 
-        // TODO: how to process value-range & value-list ?
-
         property = Property_New();
         if (property == NULL)
         {
@@ -107,11 +278,45 @@ static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *
         if (RET_FAILED(ret))
         {
             LOG_E(TAG, "Urn_SetString failed");
+            ret = TINY_RET_E_ARG_INVALID;
             break;
         }
 
-//        property->data.type = DataType_?
-//        property->accessType = ?;
+        if (property->type.type != PROPERTY)
+        {
+            LOG_E(TAG, "property.type invalid");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        property->data.type = DataType_Retrieve(format->value);
+        if (property->data.type == DATATYPE_UNDEFINED)
+        {
+            LOG_E(TAG, "DataType_Retrieve failed");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        property->accessType = AccessType_New(access);
+
+        valueRange = JsonObject_GetArray(object, "value-range");
+        valueList = JsonObject_GetArray(object, "value-list");
+        if (valueRange != NULL && valueList != NULL)
+        {
+            LOG_E(TAG, "value-range & value-list exist at the same time");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        if (valueRange != NULL)
+        {
+            ret = Property_ProcessValueRange(property, valueRange);
+        }
+
+        if (valueList != NULL)
+        {
+            ret = Property_ProcessValueList(property, valueList);
+        }
     } while (false);
 
     if (RET_FAILED(ret) && property != NULL)
@@ -195,13 +400,21 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
         ret = Urn_SetString(&service->type, type->value);
         if (RET_FAILED(ret))
         {
-            LOG_E(TAG, "Urn_Parse failed");
+            LOG_E(TAG, "Urn_SetString failed");
+            break;
+        }
+
+        if (service->type.type != SERVICE)
+        {
+            LOG_E(TAG, "property.type invalid");
+            ret = TINY_RET_E_ARG_INVALID;
             break;
         }
 
         for (uint32_t i = 0; i < properties->values.size; ++i)
         {
-            Property *property = Property_NewInstance(diid, service->iid, (JsonObject *) TinyList_GetAt(&properties->values, i));
+            JsonValue *value = (JsonValue *) TinyList_GetAt(&properties->values, i);
+            Property *property = Property_NewInstance(diid, service->iid, value->data.object);
             if (property == NULL)
             {
                 LOG_E(TAG, "Property_NewInstance failed");
@@ -260,7 +473,8 @@ static Device* Device_NewInstance(uint16_t instanceID, JsonObject *object)
 
         for (uint32_t i = 0; i < array->values.size; ++i)
         {
-            Service *service = Service_NewInstance(device->iid, (JsonObject *) TinyList_GetAt(&array->values, i));
+            JsonValue *value = (JsonValue *) TinyList_GetAt(&array->values, i);
+            Service *service = Service_NewInstance(device->iid, value->data.object);
             if (service == NULL)
             {
                 LOG_E(TAG, "Service_NewInstance failed");

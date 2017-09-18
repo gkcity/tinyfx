@@ -61,3 +61,54 @@ const char *DataType_GetName(DataType type)
 
     return NULL;
 }
+
+TINY_LOR
+DataType DataType_Retrieve(const char *value)
+{
+    if (STR_EQUAL(FORMAT_NAME_BOOL, value))
+    {
+        return DATATYPE_BOOL;
+    }
+
+    if (STR_EQUAL(FORMAT_NAME_UINT8, value))
+    {
+        return DATATYPE_UINT8;
+    }
+
+    if (STR_EQUAL(FORMAT_NAME_UINT16, value))
+    {
+        return DATATYPE_UINT16;
+    }
+
+    if (STR_EQUAL(FORMAT_NAME_UINT32, value))
+    {
+        return DATATYPE_UINT32;
+    }
+
+    if (STR_EQUAL(FORMAT_NAME_UINT64, value))
+    {
+        return DATATYPE_UINT64;
+    }
+
+    if (STR_EQUAL(FORMAT_NAME_INT, value))
+    {
+        return DATATYPE_INT;
+    }
+
+    if (STR_EQUAL(FORMAT_NAME_FLOAT, value))
+    {
+        return DATATYPE_FLOAT;
+    }
+
+    if (STR_EQUAL(FORMAT_NAME_STRING, value))
+    {
+        return DATATYPE_STRING;
+    }
+
+    if (STR_EQUAL(FORMAT_NAME_TLV8, value))
+    {
+        return DATATYPE_TLV8;
+    }
+
+    return DATATYPE_UNDEFINED;
+}

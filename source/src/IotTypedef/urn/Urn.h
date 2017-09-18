@@ -32,10 +32,11 @@ TINY_BEGIN_DECLS
 
 typedef struct _Urn
 {
-    char       * namespace;
-    UrnType      type;
-    char       * name;
-    uint32_t     value;
+    char        * namespace;
+    UrnType       type;
+    char        * name;
+    uint32_t      value;
+    char        * vendor;
 } Urn;
 
 IOT_API
@@ -48,7 +49,7 @@ void Urn_Dispose(Urn *thiz);
 
 IOT_API
 TINY_LOR
-TinyRet Urn_Set(Urn *thiz, const char *ns, UrnType type, const char *name, uint32_t value);
+TinyRet Urn_Set(Urn *thiz, const char *ns, UrnType type, const char *name, uint32_t value, const char *vendor);
 
 IOT_API
 TINY_LOR

@@ -27,10 +27,7 @@ struct _Service
     uint16_t            iid;
     Urn                 type;
     TinyList            properties;
-
-#ifdef SPEC_ACTION
     TinyList            actions;
-#endif
 };
 
 typedef struct _Service Service;

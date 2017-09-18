@@ -14,10 +14,7 @@
 #include <tiny_log.h>
 #include "Service.h"
 #include "Property.h"
-
-#ifdef SPEC_ACTION
 #include "Action.h"
-#endif
 
 #define TAG     "Service"
 
@@ -33,13 +30,11 @@ static void property_release_handler(void *data, void *ctx)
     Property_Delete((Property *)data);
 }
 
-#ifdef SPEC_ACTION
 TINY_LOR
 static void action_release_handler(void *data, void *ctx)
 {
     Action_Delete((Action *)data);
 }
-#endif /* SPEC_ACTION */
 
 TINY_LOR
 Service* Service_New(void)
@@ -94,7 +89,6 @@ static TinyRet Service_Construct(Service *thiz)
         thiz->properties.additionalData = thiz;
         TinyList_SetDeleteListener(&thiz->properties, property_release_handler, thiz);
 
-#ifdef SPEC_ACTION
         ret = TinyList_Construct(&thiz->actions);
         if (RET_FAILED(ret))
         {
@@ -104,7 +98,6 @@ static TinyRet Service_Construct(Service *thiz)
 
         thiz->actions.additionalData = thiz;
         TinyList_SetDeleteListener(&thiz->actions, action_release_handler, thiz);
-#endif
     } while (false);
 
     return ret;

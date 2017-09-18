@@ -3,7 +3,6 @@
 #include <device/Property.h>
 #include "../DeviceInstance.h"
 
-//#define URI "/homekit/instance/device?type=urn:homtkit-spec:device:lightbulb:00000000:arrizo-v1"
 #define URI "/instance/device?type=urn:miot-spec:device:fan:00000A04:zhimi"
 
 int main(void)

@@ -69,6 +69,7 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/device/DeviceHost.h
         ${SOURCE_ROOT}/IotTypedef/device/Device.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
+        ${SOURCE_ROOT}/IotTypedef/device/Action.h
         ${SOURCE_ROOT}/IotTypedef/device/Property.h
         ${SOURCE_ROOT}/IotTypedef/error/IotError.h
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyOnControl.h
@@ -100,6 +101,7 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/device/DeviceHost.c
         ${SOURCE_ROOT}/IotTypedef/device/Device.c
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
+        ${SOURCE_ROOT}/IotTypedef/device/Action.c
         ${SOURCE_ROOT}/IotTypedef/device/Property.c
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedObserver.c
         ${SOURCE_ROOT}/IotTypedef/access/AccessType.c

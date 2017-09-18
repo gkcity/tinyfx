@@ -13,6 +13,7 @@ SET(TINY_ROOT ${PROJECT_SOURCE_DIR}/../tiny)
 
 INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotTypedef)
 INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotDeviceManager)
+INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotInstance)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyBase)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyPortable)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyContainer)
@@ -20,11 +21,8 @@ INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyLog)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyStringUtil)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Netty)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Json)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyUmm)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyMd5)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyThread)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyUuid)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyWorker)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/HttpClient)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/StringArray)
 
 #---------------------------------------------------------------------------------------
 #
@@ -126,15 +124,11 @@ SET(IotDeviceManager_Source
 #-----------------------
 
 SET(IotInstance_Header
-        ${SOURCE_ROOT}/IotInstance/HttpInstance.h
-        ${SOURCE_ROOT}/IotInstance/HttpInstanceHandler.h
-        ${SOURCE_ROOT}/IotInstance/HttpInstanceHandlerContext.h
+        ${SOURCE_ROOT}/IotInstance/DeviceInstance.h
         )
 
 SET(IotInstance_Source
-        ${SOURCE_ROOT}/IotInstance/HttpInstance.c
-        ${SOURCE_ROOT}/IotInstance/HttpInstanceHandler.c
-        ${SOURCE_ROOT}/IotInstance/HttpInstanceHandlerContext.c
+        ${SOURCE_ROOT}/IotInstance/DeviceInstance.c
         )
 
 SOURCE_GROUP(IotTypedef\\headers             FILES     ${IotTypedef_Header})

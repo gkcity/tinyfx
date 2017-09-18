@@ -107,12 +107,12 @@ void Device_InitializeHomeKitInstanceID(Device *thiz, uint16_t aid)
     {
         Service *s = (Service *) TinyList_GetAt(&thiz->services, j);
         s->iid = iid++;
-        s->aiid = thiz->iid;
+        s->diid = thiz->iid;
 
         for (uint32_t k = 0; k < s->properties.size; ++k)
         {
             Property *p = (Property * )TinyList_GetAt(&s->properties, k);
-            p->aiid = thiz->iid;
+            p->diid = thiz->iid;
             p->siid = s->iid;
             p->iid = iid++;
         }

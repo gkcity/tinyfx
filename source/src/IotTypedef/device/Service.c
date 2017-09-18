@@ -77,6 +77,13 @@ static TinyRet Service_Construct(Service *thiz)
     {
         memset(thiz, 0, sizeof(Service));
 
+        ret = Urn_Construct(&thiz->type);
+        if (RET_FAILED(ret))
+        {
+            LOG_D(TAG, "Urn_Construct FAILED: %s", tiny_ret_to_str( ret));
+            break;
+        }
+
         ret = TinyList_Construct(&thiz->properties);
         if (RET_FAILED(ret))
         {
@@ -108,6 +115,7 @@ static void Service_Dispose(Service *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
+    Urn_Dispose(&thiz->type);
     TinyList_Dispose(&thiz->properties);
 }
 

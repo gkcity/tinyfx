@@ -5,15 +5,11 @@
 #-----------------------------------------------------------------------------
 
 SET(IotInstance_Header
-        HttpInstance.h
-        HttpInstanceHandler.h
-        HttpInstanceHandlerContext.h
+        DeviceInstance.h
         )
 
 SET(IotInstance_Source
-        HttpInstance.c
-        HttpInstanceHandler.c
-        HttpInstanceHandlerContext.c
+        DeviceInstance.c
         )
 
 SOURCE_GROUP(IotInstance\\headers        FILES     ${IotInstance_Header})

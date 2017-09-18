@@ -23,7 +23,7 @@ TINY_BEGIN_DECLS
 
 struct _Service
 {
-    uint16_t            aiid;
+    uint16_t            diid;
     uint16_t            iid;
     Urn                 type;
     TinyList            properties;

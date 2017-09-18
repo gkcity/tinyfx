@@ -64,6 +64,7 @@ SET(Device_Source
         device/DeviceHostConfig.c
         device/Device.c
         device/Service.c
+        device/Action.c
         device/Property.c
     )
 

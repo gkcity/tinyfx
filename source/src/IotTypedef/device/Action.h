@@ -23,7 +23,7 @@ TINY_BEGIN_DECLS
 
 struct _Action
 {
-    uint16_t            aiid;
+    uint16_t            diid;
     uint16_t            siid;
     uint16_t            iid;
     Urn                 type;

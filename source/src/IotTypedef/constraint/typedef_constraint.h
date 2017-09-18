@@ -20,8 +20,6 @@
 #define DEVICE_ID_LENGTH           128
 #define DEVICE_MODEL_LENGTH        128
 #define DEVICE_PIN_LENGTH          10   // 034-31-154
-#define URN_NAMESPACE_LENGTH       32
-#define URN_NAME_LENGTH            32
 
 
 #endif /* __TYPEDEF_CONSTRAINT_H__ */

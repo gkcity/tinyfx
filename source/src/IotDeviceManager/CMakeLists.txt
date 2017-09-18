@@ -4,27 +4,27 @@
 #
 #-----------------------------------------------------------------------------
 
-SET(Thing_Header
+SET(DeviceManager_Header
         DeviceRuntime.h
         DeviceManager.h
     )
 
-SET(Thing_Source
+SET(DeviceManager_Source
         DeviceManager.c
         DeviceRuntime.c
     )
 
 SET(SRC
-        ${Thing_Header}
-        ${Thing_Source}
+        ${DeviceManager_Header}
+        ${DeviceManager_Source}
     )
 
 #----------------------------------------------------------------------------
 # static library
 #----------------------------------------------------------------------------
-ADD_LIBRARY(iot_thing_static STATIC ${SRC})
-SET_TARGET_PROPERTIES(iot_thing_static PROPERTIES OUTPUT_NAME "iot_thing_static")
-SET_TARGET_PROPERTIES(iot_thing_static PROPERTIES LINKER_LANGUAGE C)
+ADD_LIBRARY(iot_device_static STATIC ${SRC})
+SET_TARGET_PROPERTIES(iot_device_static PROPERTIES OUTPUT_NAME "iot_device_static")
+SET_TARGET_PROPERTIES(iot_device_static PROPERTIES LINKER_LANGUAGE C)
 
 #----------------------------------------------------------------------------
 # shared library

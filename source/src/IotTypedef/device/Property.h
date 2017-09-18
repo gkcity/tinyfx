@@ -27,7 +27,7 @@ TINY_BEGIN_DECLS
 
 struct _Property
 {
-    uint16_t            aiid;
+    uint16_t            diid;
     uint16_t            siid;
     uint16_t            iid;
     uint16_t            accessType;

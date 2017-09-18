@@ -58,6 +58,13 @@ static TinyRet Property_Construct(Property *thiz)
     {
         memset(thiz, 0, sizeof(Property));
 
+        ret = Urn_Construct(&thiz->type);
+        if (RET_FAILED(ret))
+        {
+            LOG_D(TAG, "Urn_Construct FAILED: %s", tiny_ret_to_str( ret));
+            break;
+        }
+
         ret = Data_Construct(&thiz->data);
         if (RET_FAILED(ret)) {
             LOG_D(TAG, "Data_Construct FAILED: %s", tiny_ret_to_str(ret));
@@ -73,6 +80,7 @@ static void Property_Dispose(Property *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
+    Urn_Dispose(&thiz->type);
     Data_Dispose(&thiz->data);
 }
 

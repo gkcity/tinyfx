@@ -21,11 +21,9 @@ INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyLog)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyStringUtil)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Netty)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Json)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyUmm)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyMd5)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/HttpClient)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/StringArray)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyThread)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyUuid)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyWorker)
 
 #---------------------------------------------------------------------------------------
 #

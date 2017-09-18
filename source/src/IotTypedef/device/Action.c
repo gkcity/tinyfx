@@ -69,6 +69,13 @@ static TinyRet Action_Construct(Action *thiz)
     {
         memset(thiz, 0, sizeof(Action));
 
+        ret = Urn_Construct(&thiz->type);
+        if (RET_FAILED(ret))
+        {
+            LOG_D(TAG, "Urn_Construct FAILED: %s", tiny_ret_to_str( ret));
+            break;
+        }
+
         ret = TinyList_Construct(&thiz->in);
         if (RET_FAILED(ret))
         {
@@ -98,7 +105,9 @@ static void Action_Dispose(Action *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    TinyList_Dispose(&thiz->properties);
+    Urn_Dispose(&thiz->type);
+    TinyList_Dispose(&thiz->in);
+    TinyList_Dispose(&thiz->out);
 }
 
 TINY_LOR

@@ -13,8 +13,10 @@
 #include <tiny_str_split.h>
 #include <StringArray.h>
 #include <tiny_malloc.h>
+#include <tiny_log.h>
 #include "Urn.h"
 
+#define TAG     "Urn"
 
 TINY_LOR
 TinyRet Urn_Construct(Urn *thiz)
@@ -104,16 +106,20 @@ TinyRet Urn_Set(Urn *thiz, const char *ns, UrnType type, const char *name, uint3
         if (thiz->vendor != NULL)
         {
             tiny_free(thiz->vendor);
+            thiz->vendor = NULL;
         }
-        length = strlen(vendor) + 1;
-        thiz->vendor = tiny_malloc(length);
-        if (thiz->vendor == NULL)
+        if (vendor != NULL)
         {
-            ret = TINY_RET_E_NEW;
-            break;
+            length = strlen(vendor) + 1;
+            thiz->vendor = tiny_malloc(length);
+            if (thiz->vendor == NULL)
+            {
+                ret = TINY_RET_E_NEW;
+                break;
+            }
+            memset(thiz->vendor, 0, length);
+            strncpy(thiz->vendor, vendor, length);
         }
-        memset(thiz->vendor, 0, length);
-        strncpy(thiz->vendor, vendor, length);
     } while (false);
 
     return ret;
@@ -133,16 +139,20 @@ TinyRet Urn_SetString(Urn *thiz, const char *string)
         const char *name = NULL;
         const char *value = NULL;
         const char *vendor = NULL;
+        uint32_t v = 0;
+        char *p = NULL;
 
         array = StringArray_NewString(string, ":");
         if (array == NULL)
         {
+            LOG_E(TAG, "StringArray_NewString FAILED");
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
 
         if (! (array->values.size == 5 || array->values.size == 6))
         {
+            LOG_E(TAG, "array.values.size INVALID: %d", array->values.size);
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
@@ -150,6 +160,7 @@ TinyRet Urn_SetString(Urn *thiz, const char *string)
         urn = (const char *) TinyList_GetAt(&array->values, 0);
         if (! STR_EQUAL(urn, "urn"))
         {
+            LOG_E(TAG, "urn FAILED: %s", urn);
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
@@ -160,7 +171,14 @@ TinyRet Urn_SetString(Urn *thiz, const char *string)
         value = (const char *) TinyList_GetAt(&array->values, 4);
         vendor = (const char *) TinyList_GetAt(&array->values, 5);
 
-        ret = Urn_Set(thiz, namespace, UrnType_Retrieve(type), name, (uint32_t) atoi(value), vendor);
+        v = (uint32_t) strtol(value, &p, 16);
+
+        ret = Urn_Set(thiz, namespace, UrnType_Retrieve(type), name, v, vendor);
+        if (RET_FAILED(ret))
+        {
+            LOG_E(TAG, "Urn_Set FAILED");
+            break;
+        }
     } while (false);
 
     if (array != NULL)

@@ -140,7 +140,7 @@ DeviceHost* DeviceHost_Build(DeviceHostConfig *config)
 }
 
 TINY_LOR
-Property * DeviceHost_GetProperty(DeviceHost *thiz, uint16_t diid, uint16_t piid)
+Property * DeviceHost_GetProperty(DeviceHost *thiz, uint16_t diid, uint16_t siid, uint16_t piid)
 {
     for (uint32_t i = 0; i < thiz->devices.size; ++i)
     {
@@ -150,13 +150,15 @@ Property * DeviceHost_GetProperty(DeviceHost *thiz, uint16_t diid, uint16_t piid
             for (uint32_t j = 0; j < d->services.size; ++j)
             {
                 Service *s = (Service *) TinyList_GetAt(&d->services, j);
-
-                for (uint32_t k = 0; k < s->properties.size; ++k)
+                if (s->iid == siid)
                 {
-                    Property *p = (Property *) TinyList_GetAt(&s->properties, k);
-                    if (p->iid == piid)
+                    for (uint32_t k = 0; k < s->properties.size; ++k)
                     {
-                        return p;
+                        Property *p = (Property *) TinyList_GetAt(&s->properties, k);
+                        if (p->iid == piid)
+                        {
+                            return p;
+                        }
                     }
                 }
             }

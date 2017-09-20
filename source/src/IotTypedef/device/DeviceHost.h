@@ -54,7 +54,7 @@ DeviceHost* DeviceHost_Build(DeviceHostConfig *thiz);
 
 IOT_API
 TINY_LOR
-Property * DeviceHost_GetProperty(DeviceHost *thiz, uint16_t diid, uint16_t piid);
+Property * DeviceHost_GetProperty(DeviceHost *thiz, uint16_t diid, uint16_t siid, uint16_t piid);
 
 IOT_API
 TINY_LOR

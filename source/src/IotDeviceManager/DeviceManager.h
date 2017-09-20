@@ -16,6 +16,7 @@
 #include "tiny_base.h"
 #include "DeviceRuntime.h"
 #include <device/DeviceHost.h>
+#include <bootstrap/Bootstrap.h>
 
 TINY_BEGIN_DECLS
 
@@ -24,6 +25,7 @@ struct _DeviceManager
 {
     bool                    started;
     DeviceRuntime           runtime;
+    Bootstrap               bootstrap;
 };
 
 typedef struct _DeviceManager DeviceManager;
@@ -46,7 +48,7 @@ void DeviceManager_Dispose(DeviceManager *thiz);
 
 IOT_API
 TINY_LOR
-TinyRet DeviceManager_SetRuntimeImpl(DeviceManager *thiz, DeviceRuntime *impl);
+TinyRet DeviceManager_AddRuntime(DeviceManager *thiz, DeviceRuntime *runtime);
 
 IOT_API
 TINY_LOR

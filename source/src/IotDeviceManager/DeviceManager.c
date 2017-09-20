@@ -57,8 +57,17 @@ TinyRet DeviceManager_Construct(DeviceManager *thiz)
 
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
-    memset(thiz, 0, sizeof(DeviceManager));
-    thiz->started = false;
+    do
+    {
+        memset(thiz, 0, sizeof(DeviceManager));
+        thiz->started = false;
+
+        ret = Bootstrap_Construct(&thiz->bootstrap);
+        if (RET_FAILED(ret))
+        {
+            break;
+        }
+    } while (false);
 
     return ret;
 }
@@ -68,21 +77,22 @@ void DeviceManager_Dispose(DeviceManager *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
+    Bootstrap_Dispose(&thiz->bootstrap);
     memset(thiz, 0, sizeof(DeviceManager));
 }
 
 TINY_LOR
-TinyRet DeviceManager_SetRuntimeImpl(DeviceManager *thiz, DeviceRuntime *impl)
+TinyRet DeviceManager_AddRuntime(DeviceManager *thiz, DeviceRuntime *runtime)
 {
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
-    RETURN_VAL_IF_FAIL(impl, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(runtime, TINY_RET_E_ARG_NULL);
 
     if (thiz->started)
     {
         return TINY_RET_E_STARTED;
     }
 
-    DeviceRuntime_Copy(&thiz->runtime, impl);
+    DeviceRuntime_Copy(&thiz->runtime, runtime);
 
     return TINY_RET_OK;
 }
@@ -97,6 +107,8 @@ TinyRet DeviceManager_Stop(DeviceManager *thiz)
         return TINY_RET_E_STOPPED;
     }
 
+    Bootstrap_Shutdown(&thiz->bootstrap);
+
     thiz->runtime.Stop(&thiz->runtime);
     thiz->runtime.Destroy(&thiz->runtime);
     thiz->started = false;
@@ -107,15 +119,35 @@ TinyRet DeviceManager_Stop(DeviceManager *thiz)
 TINY_LOR
 TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceHost *host)
 {
+    TinyRet ret = TINY_RET_OK;
+
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
-    if (thiz->started)
+    do
     {
-        return TINY_RET_E_STARTED;
-    }
+        if (thiz->started)
+        {
+            ret = TINY_RET_E_STARTED;
+            break;
+        }
 
-    thiz->started = true;
-    thiz->runtime.Initialize(&thiz->runtime);
+        thiz->started = true;
+        thiz->runtime.Initialize(&thiz->runtime);
 
-    return thiz->runtime.Run(&thiz->runtime, host);
+        ret = thiz->runtime.Run(&thiz->runtime, &thiz->bootstrap, host);
+        if (RET_FAILED(ret))
+        {
+            LOG_D(TAG, "Runtime.Run failed");
+            break;
+        }
+
+        ret = Bootstrap_Sync(&thiz->bootstrap);
+        if (RET_FAILED(ret))
+        {
+            LOG_D(TAG, "Bootstrap_Sync failed");
+            break;
+        }
+    } while (false);
+
+    return ret;
 }

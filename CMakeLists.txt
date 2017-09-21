@@ -135,12 +135,26 @@ SET(IotInstance_Source
         ${SOURCE_ROOT}/IotInstance/DeviceInstance.c
         )
 
+#-----------------------
+# IotOperation
+#-----------------------
+
+SET(IotOperation_Header
+        ${SOURCE_ROOT}/IotOperation/PropertySetter.h
+        )
+
+SET(IotOperation_Source
+        ${SOURCE_ROOT}/IotOperation/PropertySetter.c
+        )
+
 SOURCE_GROUP(IotTypedef\\headers             FILES     ${IotTypedef_Header})
 SOURCE_GROUP(IotTypedef\\sources             FILES     ${IotTypedef_Source})
 SOURCE_GROUP(IotDeviceManager\\headers       FILES     ${IotDeviceManager_Header})
 SOURCE_GROUP(IotDeviceManager\\sources       FILES     ${IotDeviceManager_Source})
 SOURCE_GROUP(IotInstance\\headers            FILES     ${IotInstance_Header})
 SOURCE_GROUP(IotInstance\\sources            FILES     ${IotInstance_Source})
+SOURCE_GROUP(IotOperation\\headers           FILES     ${IotOperation_Header})
+SOURCE_GROUP(IotOperation\\sources           FILES     ${IotOperation_Source})
 
 SET(SRC
         ${IotTypedef_Header}
@@ -149,7 +163,9 @@ SET(SRC
         ${IotDeviceManager_Source}
         ${IotInstance_Header}
         ${IotInstance_Source}
-   )
+        ${IotOperation_Header}
+        ${IotOperation_Source}
+    )
 
 #----------------------------------------------------------------------------
 # static library

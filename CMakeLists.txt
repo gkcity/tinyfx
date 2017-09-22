@@ -141,10 +141,12 @@ SET(IotInstance_Source
 
 SET(IotOperation_Header
         ${SOURCE_ROOT}/IotOperation/PropertySetter.h
+        ${SOURCE_ROOT}/IotOperation/ActionInvoker.h
         )
 
 SET(IotOperation_Source
         ${SOURCE_ROOT}/IotOperation/PropertySetter.c
+        ${SOURCE_ROOT}/IotOperation/ActionInvoker.c
         )
 
 SOURCE_GROUP(IotTypedef\\headers             FILES     ${IotTypedef_Header})

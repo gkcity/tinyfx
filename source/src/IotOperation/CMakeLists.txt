@@ -6,10 +6,12 @@
 
 SET(IotOperation_Header
         PropertySetter.h
+        ActionInvoker.h
         )
 
 SET(IotOperation_Source
         PropertySetter.c
+        ActionInvoker.c
         )
 
 SOURCE_GROUP(IotOperation\\headers        FILES     ${IotOperation_Header})

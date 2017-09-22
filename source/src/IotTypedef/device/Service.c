@@ -79,23 +79,27 @@ static TinyRet Service_Construct(Service *thiz)
             break;
         }
 
+        /**
+         * Properties
+         */
         ret = TinyList_Construct(&thiz->properties);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-
         thiz->properties.additionalData = thiz;
         TinyList_SetDeleteListener(&thiz->properties, property_release_handler, thiz);
 
+        /**
+         * Actions
+         */
         ret = TinyList_Construct(&thiz->actions);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-
         thiz->actions.additionalData = thiz;
         TinyList_SetDeleteListener(&thiz->actions, action_release_handler, thiz);
     } while (false);
@@ -110,6 +114,7 @@ static void Service_Dispose(Service *thiz)
 
     Urn_Dispose(&thiz->type);
     TinyList_Dispose(&thiz->properties);
+    TinyList_Dispose(&thiz->actions);
 }
 
 TINY_LOR

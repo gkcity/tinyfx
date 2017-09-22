@@ -83,7 +83,8 @@ SET(Controlled_Header
         controlled/PropertyChangedListener.h
         controlled/DeviceIdentifyListener.h
         controlled/PropertyChangedObserver.h
-    )
+        controlled/ActionOnInvoke.h
+        )
 
 SET(Controlled_Source
         controlled/PropertyChangedObserver.c

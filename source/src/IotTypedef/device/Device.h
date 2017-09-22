@@ -17,6 +17,7 @@
 #include "api/iot_api.h"
 #include "urn/Urn.h"
 #include <TinyList.h>
+#include <controlled/ActionOnInvoke.h>
 
 TINY_BEGIN_DECLS
 
@@ -40,6 +41,10 @@ void Device_Delete(Device *thiz);
 IOT_API
 TINY_LOR
 void Device_InitializeInstanceID(Device *thiz, uint16_t diid);
+
+IOT_API
+TINY_LOR
+void Device_SetHandler(Device *thiz, PropertyOnGet onGet, PropertyOnSet onSet, ActionOnInvoke onInvoke);
 
 
 TINY_END_DECLS

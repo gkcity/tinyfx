@@ -14,6 +14,7 @@
 #define __ACTION_H__
 
 #include <TinyList.h>
+#include <controlled/ActionOnInvoke.h>
 #include "tiny_base.h"
 #include "api/iot_api.h"
 #include "urn/Urn.h"
@@ -29,6 +30,7 @@ struct _Action
     Urn                 type;
     TinyList            in;
     TinyList            out;
+    ActionOnInvoke      onInvoke;
 };
 
 typedef struct _Action Action;

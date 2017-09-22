@@ -76,6 +76,7 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedListener.h
         ${SOURCE_ROOT}/IotTypedef/controlled/DeviceIdentifyListener.h
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedObserver.h
+        ${SOURCE_ROOT}/IotTypedef/controlled/ActionOnInvoke.h
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.h
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.h
         ${SOURCE_ROOT}/IotTypedef/unit/Unit.h

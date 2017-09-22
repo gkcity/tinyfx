@@ -15,6 +15,7 @@
 #include "Property.h"
 #include "Device.h"
 #include "Service.h"
+#include "Action.h"
 
 #define TAG     "Device"
 
@@ -116,6 +117,32 @@ void Device_InitializeInstanceID(Device *thiz, uint16_t diid)
             p->diid = thiz->iid;
             p->siid = s->iid;
             p->iid = piid++;
+        }
+    }
+}
+
+TINY_LOR
+void Device_SetHandler(Device *thiz, PropertyOnGet onGet, PropertyOnSet onSet, ActionOnInvoke onInvoke)
+{
+    RETURN_IF_FAIL(thiz);
+
+    LOG_D(TAG, "Device_SetHandler");
+
+    for (uint32_t i = 0; i < thiz->services.size; ++i)
+    {
+        Service *s = (Service *) TinyList_GetAt(&thiz->services, i);
+
+        for (uint32_t j = 0; j < s->properties.size; ++j)
+        {
+            Property *p = (Property * )TinyList_GetAt(&s->properties, j);
+            p->onSet = onSet;
+            p->onGet = onGet;
+        }
+
+        for (uint32_t j = 0; j < s->actions.size; ++j)
+        {
+            Action *a = (Action * )TinyList_GetAt(&s->actions, j);
+            a->onInvoke = onInvoke;
         }
     }
 }

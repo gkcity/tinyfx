@@ -14,9 +14,10 @@
 #include <tiny_log.h>
 #include <JsonArray.h>
 #include <JsonNumber.h>
+#include <JsonString.h>
+#include <JsonObject.h>
 #include <device/Service.h>
 #include <device/Property.h>
-#include <JsonString.h>
 #include "DeviceInstance.h"
 
 #define TAG     "DeviceInstance"

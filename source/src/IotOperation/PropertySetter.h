@@ -23,6 +23,7 @@
 TINY_BEGIN_DECLS
 
 
+TINY_LOR
 bool PropertySetter_Set(Property *property, JsonValue *value);
 
 

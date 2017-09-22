@@ -116,14 +116,14 @@ void DeviceHost_Delete(DeviceHost *thiz)
 TINY_LOR
 void DeviceHost_InitializeInstanceID(DeviceHost *thiz)
 {
-    uint16_t aid = 1;
+    uint16_t iid = 1;
 
     RETURN_IF_FAIL(thiz);
 
     for (uint32_t i = 0; i < thiz->devices.size; ++i)
     {
-        Device *a = (Device *) TinyList_GetAt(&thiz->devices, i);
-        Device_InitializeHomeKitInstanceID(a, aid++);
+        Device *device = (Device *) TinyList_GetAt(&thiz->devices, i);
+        Device_InitializeInstanceID(device, iid++);
     }
 }
 
@@ -137,6 +137,75 @@ DeviceHost* DeviceHost_Build(DeviceHostConfig *config)
     }
 
     return device;
+}
+
+IOT_API
+TINY_LOR
+Device * DeviceHost_GetDevice(DeviceHost *thiz, uint16_t diid)
+{
+    for (uint32_t i = 0; i < thiz->devices.size; ++i)
+    {
+        Device * d = (Device *)TinyList_GetAt(&thiz->devices, i);
+        if (d->iid == diid)
+        {
+            return d;
+        }
+    }
+
+    return NULL;
+}
+
+IOT_API
+TINY_LOR
+Service * DeviceHost_GetService(DeviceHost *thiz, uint16_t diid, uint16_t siid)
+{
+    for (uint32_t i = 0; i < thiz->devices.size; ++i)
+    {
+        Device * d = (Device *)TinyList_GetAt(&thiz->devices, i);
+        if (d->iid == diid)
+        {
+            for (uint32_t j = 0; j < d->services.size; ++j)
+            {
+                Service *s = (Service *) TinyList_GetAt(&d->services, j);
+                if (s->iid == siid)
+                {
+                    return s;
+                }
+            }
+        }
+    }
+
+    return NULL;
+}
+
+IOT_API
+TINY_LOR
+Action * DeviceHost_GetAction(DeviceHost *thiz, uint16_t diid, uint16_t siid, uint16_t aiid)
+{
+    for (uint32_t i = 0; i < thiz->devices.size; ++i)
+    {
+        Device * d = (Device *)TinyList_GetAt(&thiz->devices, i);
+        if (d->iid == diid)
+        {
+            for (uint32_t j = 0; j < d->services.size; ++j)
+            {
+                Service *s = (Service *) TinyList_GetAt(&d->services, j);
+                if (s->iid == siid)
+                {
+                    for (uint32_t k = 0; k < s->actions.size; ++k)
+                    {
+                        Action *a = (Action *) TinyList_GetAt(&s->actions, k);
+                        if (a->iid == aiid)
+                        {
+                            return a;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return NULL;
 }
 
 TINY_LOR

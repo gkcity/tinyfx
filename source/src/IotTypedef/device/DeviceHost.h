@@ -20,6 +20,8 @@
 #include "DeviceHostConfig.h"
 #include "Property.h"
 #include "Service.h"
+#include "Device.h"
+#include "Action.h"
 
 
 TINY_BEGIN_DECLS
@@ -51,6 +53,18 @@ void DeviceHost_InitializeInstanceID(DeviceHost *thiz);
 IOT_API
 TINY_LOR
 DeviceHost* DeviceHost_Build(DeviceHostConfig *thiz);
+
+IOT_API
+TINY_LOR
+Device * DeviceHost_GetDevice(DeviceHost *thiz, uint16_t diid);
+
+IOT_API
+TINY_LOR
+Service * DeviceHost_GetService(DeviceHost *thiz, uint16_t diid, uint16_t siid);
+
+IOT_API
+TINY_LOR
+Action * DeviceHost_GetAction(DeviceHost *thiz, uint16_t diid, uint16_t siid, uint16_t aiid);
 
 IOT_API
 TINY_LOR

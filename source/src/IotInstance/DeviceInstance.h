@@ -14,7 +14,6 @@
 #define __DEVICE_INSTANCE_H__
 
 #include <tiny_base.h>
-#include <JsonObject.h>
 #include <controlled/PropertyOnControl.h>
 #include <api/iot_api.h>
 #include <device/Device.h>

@@ -18,6 +18,7 @@
 
 #define TAG     "PropertySetter"
 
+TINY_LOR
 bool PropertySetter_Set(Property *property, JsonValue *value)
 {
     TinyRet ret = TINY_RET_E_ARG_INVALID;

@@ -25,11 +25,17 @@ typedef enum _UrnType
     DEVICE      = 1,
     SERVICE     = 2,
     PROPERTY    = 3,
+    ACTION      = 4,
+    EVENT       = 5,
 } UrnType;
 
 IOT_API
 TINY_LOR
 UrnType UrnType_Retrieve(const char *string);
+
+IOT_API
+TINY_LOR
+const char * UrnType_ToString(UrnType type);
 
 
 TINY_END_DECLS

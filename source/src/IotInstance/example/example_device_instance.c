@@ -1,13 +1,27 @@
 #include <tiny_log.h>
 #include <device/Service.h>
 #include <device/Property.h>
+#include <device/Action.h>
 #include "../DeviceInstance.h"
 
-#define URI "/instance/device?type=urn:miot-spec:device:fan:00000A04:zhimi"
+/**
+ * NO ACTION
+ */
+#define ZHIMI_FAN "/instance/device?type=urn:miot-spec:device:fan:00000A04:zhimi"
+
+/**
+ * Contains Action without arguments
+ */
+#define ROCK_SWEEPER "/instance/device?type=urn:miot-spec:device:sweeper:00000A0A:rock"
+
+/**
+ * Contains Action with arguments
+ */
+#define CHUNMI_COOKER "/instance/device?type=urn:miot-spec:device:cooker:00000A08:chunmi"
 
 int main(void)
 {
-    Device * device = DeviceInstance_New("47.93.60.147", 8080, URI, 5);
+    Device * device = DeviceInstance_New("47.93.60.147", 8080, CHUNMI_COOKER, 5);
     if (device == NULL)
     {
         printf("DeviceInstance_New failed!\n");
@@ -30,6 +44,30 @@ int main(void)
             printf("      property: %d\n", property->iid);
             printf("        type: urn:%s:<%d>:%s:%08x\n", property->type.namespace, property->type.type, property->type.name, property->type.value);
             printf("        format: %s\n", DataType_GetName(property->data.type));
+        }
+
+        for (uint32_t j = 0; j < service->actions.size; ++j)
+        {
+            Action *action = (Action *) TinyList_GetAt(&service->actions, j);
+            printf("      action: %d\n", action->iid);
+            printf("        type: urn:%s:<%d>:%s:%08x\n", action->type.namespace, action->type.type, action->type.name, action->type.value);
+            printf("        in(%d): \n", action->in.size);
+
+            for (uint32_t k = 0; k < action->in.size; ++k)
+            {
+                Property *property = (Property *) TinyList_GetAt(&action->in, j);
+                printf("          iid: %d\n", property->iid);
+                printf("          type: urn:%s:<%d>:%s:%08x\n", service->type.namespace, service->type.type, service->type.name, service->type.value);
+            }
+
+            printf("        out(%d): \n", action->out.size);
+
+            for (uint32_t k = 0; k < action->out.size; ++k)
+            {
+                Property *property = (Property *) TinyList_GetAt(&action->out, j);
+                printf("          iid: %d\n", property->iid);
+                printf("          type: urn:%s:<%d>:%s:%08x\n", service->type.namespace, service->type.type, service->type.name, service->type.value);
+            }
         }
     }
 

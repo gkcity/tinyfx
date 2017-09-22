@@ -18,6 +18,7 @@
 #include <JsonObject.h>
 #include <device/Service.h>
 #include <device/Property.h>
+#include <device/Action.h>
 #include "DeviceInstance.h"
 
 #define TAG     "DeviceInstance"
@@ -257,13 +258,6 @@ static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *
             break;
         }
 
-        if (access->type != JSON_STRING)
-        {
-            LOG_E(TAG, "property.access is not JsonString");
-            ret = TINY_RET_E_ARG_INVALID;
-            break;
-        }
-
         property = Property_New();
         if (property == NULL)
         {
@@ -298,7 +292,21 @@ static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *
             break;
         }
 
-        property->accessType = AccessType_New(access);
+        if (access->values.size == 0)
+        {
+            property->accessType = 0;
+        }
+        else
+        {
+            if (access->type != JSON_STRING)
+            {
+                LOG_E(TAG, "%d %s access.type is not JsonString: %d", iid->value.intValue, type->value, access->type);
+                ret = TINY_RET_E_ARG_INVALID;
+                break;
+            }
+
+            property->accessType = AccessType_New(access);
+        }
 
         valueRange = JsonObject_GetArray(object, "value-range");
         valueList = JsonObject_GetArray(object, "value-list");
@@ -330,6 +338,155 @@ static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *
 }
 
 TINY_LOR
+static Property * getProperty(TinyList *properties, uint16_t iid)
+{
+    for (uint32_t i = 0; i < properties->size; ++i)
+    {
+        Property * p = (Property *) TinyList_GetAt(properties, i);
+        if (p->iid == iid)
+        {
+            return p;
+        }
+    }
+
+    return NULL;
+}
+
+TINY_LOR
+static TinyRet ParseArguments(TinyList *list, JsonArray *arguments, TinyList *properties)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    RETURN_VAL_IF_FAIL(list, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(properties, TINY_RET_E_ARG_NULL);
+
+    do
+    {
+        if (arguments == NULL)
+        {
+            break;
+        }
+
+        if (arguments->values.size == 0)
+        {
+            break;
+        }
+
+        if (arguments->type != JSON_NUMBER)
+        {
+            LOG_E(TAG, "in.type is not JSON_NUMBER");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        for (uint32_t i = 0; i < arguments->values.size; ++i)
+        {
+            JsonNumber *v = ((JsonValue *) TinyList_GetAt(&arguments->values, i))->data.number;
+            Property * p = getProperty(properties, (uint16_t)v->value.intValue);
+            if (p == NULL)
+            {
+                LOG_E(TAG, "action.in [%d] invalid", v->value.intValue);
+                ret = TINY_RET_E_ARG_INVALID;
+                break;
+            }
+
+            TinyList_AddTail(list, p);
+        }
+    } while (false);
+
+    return ret;
+}
+
+TINY_LOR
+static Action* Action_NewInstance(uint16_t diid, uint16_t siid, JsonObject *object, TinyList *properties)
+{
+    TinyRet ret = TINY_RET_OK;
+    Action *action = NULL;
+
+    do
+    {
+        JsonNumber *iid = NULL;
+        JsonString *type = NULL;
+        JsonString *description = NULL;
+
+        iid = JsonObject_GetNumber(object, "iid");
+        if (iid == NULL)
+        {
+            LOG_E(TAG, "action.iid not found");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        if (iid->type != JSON_NUMBER_INTEGER)
+        {
+            LOG_E(TAG, "action.iid is not integer");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        type = JsonObject_GetString(object, "type");
+        if (type == NULL)
+        {
+            LOG_E(TAG, "action.type not found");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        description = JsonObject_GetString(object, "description");
+        if (description == NULL)
+        {
+            LOG_E(TAG, "action.description not found");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        action = Action_New();
+        if (action == NULL)
+        {
+            LOG_E(TAG, "Property_New failed");
+            break;
+        }
+
+        action->diid = diid;
+        action->siid = siid;
+        action->iid = (uint16_t) (iid->value.intValue);
+        ret = Urn_SetString(&action->type, type->value);
+        if (RET_FAILED(ret))
+        {
+            LOG_E(TAG, "Urn_SetString failed");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        /**
+         * in is optional
+         */
+        ret = ParseArguments(&action->in, JsonObject_GetArray(object, "in"), properties);
+        if (RET_FAILED(ret))
+        {
+            break;
+        }
+
+        /**
+         * out is optional
+         */
+        ret = ParseArguments(&action->out, JsonObject_GetArray(object, "out"), properties);
+        if (RET_FAILED(ret))
+        {
+            break;
+        }
+    } while (false);
+
+    if (RET_FAILED(ret) && action != NULL)
+    {
+        Action_Delete(action);
+        action = NULL;
+    }
+
+    return action;
+}
+
+TINY_LOR
 static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
@@ -341,6 +498,7 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
         JsonString *type = NULL;
         JsonString *description = NULL;
         JsonArray *properties = NULL;
+        JsonArray *actions = NULL;
 
         iid = JsonObject_GetNumber(object, "iid");
         if (iid == NULL)
@@ -383,7 +541,7 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
 
         if (properties->type != JSON_OBJECT)
         {
-            LOG_E(TAG, "service.property is not JsonObject");
+            LOG_E(TAG, "properties.type is not JsonObject");
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
@@ -427,6 +585,38 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
             if (RET_FAILED(ret))
             {
                 break;
+            }
+        }
+
+        /**
+         * Actions is optional
+         */
+        actions = JsonObject_GetArray(object, "actions");
+        if (actions != NULL)
+        {
+            if (actions->type != JSON_OBJECT)
+            {
+                LOG_E(TAG, "actions.type is not JsonObject");
+                ret = TINY_RET_E_ARG_INVALID;
+                break;
+            }
+
+            for (uint32_t i = 0; i < actions->values.size; ++i)
+            {
+                JsonValue *value = (JsonValue *) TinyList_GetAt(&actions->values, i);
+                Action *action = Action_NewInstance(diid, service->iid, value->data.object, &service->properties);
+                if (action == NULL)
+                {
+                    LOG_E(TAG, "Action_NewInstance failed");
+                    ret = TINY_RET_E_ARG_INVALID;
+                    break;
+                }
+
+                ret = TinyList_AddTail(&service->actions, action);
+                if (RET_FAILED(ret))
+                {
+                    break;
+                }
             }
         }
     } while (false);

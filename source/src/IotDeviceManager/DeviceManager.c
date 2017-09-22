@@ -131,6 +131,21 @@ TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceHost *host)
             break;
         }
 
+        for (uint32_t  i = 0; host->devices.size; ++i)
+        {
+            Device *device = (Device *) TinyList_GetAt(&host->devices, i);
+            if (! Device_CheckHandler(device))
+            {
+                ret = TINY_RET_E_NOT_IMPLEMENTED;
+                break;
+            }
+        }
+
+        if (RET_FAILED(ret))
+        {
+            break;
+        }
+
         thiz->started = true;
         thiz->runtime.Initialize(&thiz->runtime);
 

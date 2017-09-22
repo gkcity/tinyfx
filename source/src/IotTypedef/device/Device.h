@@ -46,6 +46,10 @@ IOT_API
 TINY_LOR
 void Device_SetHandler(Device *thiz, PropertyOnGet onGet, PropertyOnSet onSet, ActionOnInvoke onInvoke);
 
+IOT_API
+TINY_LOR
+bool Device_CheckHandler(Device *thiz);
+
 
 TINY_END_DECLS
 

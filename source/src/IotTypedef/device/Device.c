@@ -146,3 +146,44 @@ void Device_SetHandler(Device *thiz, PropertyOnGet onGet, PropertyOnSet onSet, A
         }
     }
 }
+
+TINY_LOR
+bool Device_CheckHandler(Device *thiz)
+{
+    RETURN_VAL_IF_FAIL(thiz, false);
+
+    LOG_D(TAG, "DeviceManager_CheckHandler");
+
+    for (uint32_t i = 0; i < thiz->services.size; ++i)
+    {
+        Service *s = (Service *) TinyList_GetAt(&thiz->services, i);
+
+        for (uint32_t j = 0; j < s->properties.size; ++j)
+        {
+            Property *p = (Property * )TinyList_GetAt(&s->properties, j);
+            if (Property_IsReadable(p) && (p->onGet == NULL))
+            {
+                LOG_E(TAG, "Property.onGet not handle: %s", p->type.name);
+                return false;
+            }
+
+            if (Property_IsWritable(p) && p->onSet == NULL)
+            {
+                LOG_E(TAG, "Property.onSet not handle: %s", p->type.name);
+                return false;
+            }
+        }
+
+        for (uint32_t j = 0; j < s->actions.size; ++j)
+        {
+            Action *a = (Action * )TinyList_GetAt(&s->actions, j);
+            if (a->onInvoke == NULL)
+            {
+                LOG_E(TAG, "Action.onInvoke not handle: %s", a->type.name);
+                return false;
+            }
+        }
+    }
+
+    return true;
+}

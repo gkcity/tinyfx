@@ -59,7 +59,7 @@ void DeviceHostConfig_SetKey(DeviceHostConfig *thiz, const char *key);
 
 IOT_API
 TINY_LOR
-void DeviceHostConfig_SetModel(DeviceHostConfig *thiz, const const char *model);
+void DeviceHostConfig_SetModel(DeviceHostConfig *thiz, const char *model);
 
 IOT_API
 TINY_LOR

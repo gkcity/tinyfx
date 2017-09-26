@@ -698,6 +698,8 @@ Device* DeviceInstance_New(const char *ip, uint16_t port, const char *uri, uint3
     HttpExchange *exchange = NULL;
     JsonObject *object = NULL;
 
+    LOG_I(TAG, "DeviceInstance_New -> http://%s:%d/%s", ip, port, uri);
+
     do
     {
         client = HttpClient_New();
@@ -750,6 +752,8 @@ Device* DeviceInstance_New(const char *ip, uint16_t port, const char *uri, uint3
     {
         HttpClient_Delete(client);
     }
+
+    LOG_I(TAG, "DeviceInstance_New finished!");
 
     return device;
 }

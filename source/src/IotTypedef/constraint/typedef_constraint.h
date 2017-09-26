@@ -16,10 +16,10 @@
 #define __TYPEDEF_CONSTRAINT_H__
 
 
-#define DEVICE_NAME_LENGTH         128
 #define DEVICE_ID_LENGTH           128
+#define DEVICE_KEY_LENGTH          20
 #define DEVICE_MODEL_LENGTH        128
-#define DEVICE_PIN_LENGTH          10   // 034-31-154
+#define DEVICE_VENDOR_LENGTH       32
 
 
 #endif /* __TYPEDEF_CONSTRAINT_H__ */

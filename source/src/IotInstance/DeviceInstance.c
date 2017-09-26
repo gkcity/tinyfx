@@ -12,10 +12,10 @@
 
 #include <HttpClient.h>
 #include <tiny_log.h>
-#include <JsonArray.h>
-#include <JsonNumber.h>
-#include <JsonString.h>
 #include <JsonObject.h>
+#include <JsonArray.h>
+#include <value/JsonNumber.h>
+#include <value/JsonString.h>
 #include <device/Service.h>
 #include <device/Property.h>
 #include <device/Action.h>
@@ -707,7 +707,7 @@ Device* DeviceInstance_New(const char *ip, uint16_t port, const char *uri, uint3
             break;
         }
 
-        exchange = HttpExchange_New(ip, port, "GET", uri, second);
+        exchange = HttpExchange_New(ip, port, "GET", uri, second, NULL, 0);
         if (exchange == NULL)
         {
             LOG_E(TAG, "HttpExchange_New failed!");

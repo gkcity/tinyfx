@@ -12,7 +12,7 @@
 
 #include <device/Property.h>
 #include <JsonObject.h>
-#include <JsonNumber.h>
+#include <value/JsonNumber.h>
 #include "ActionInvoker.h"
 #include "PropertySetter.h"
 

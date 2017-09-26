@@ -11,9 +11,9 @@
  */
 
 #include <tiny_log.h>
-#include <JsonBoolean.h>
-#include <JsonNumber.h>
-#include <JsonString.h>
+#include <value/JsonBoolean.h>
+#include <value/JsonNumber.h>
+#include <value/JsonString.h>
 #include "PropertySetter.h"
 
 #define TAG     "PropertySetter"

@@ -37,7 +37,7 @@ struct _DeviceRuntime
     Device_Run              Run;
     Device_Stop             Stop;
     Device_Destroy          Destroy;
-    void                  * persistence;
+    void                  * context;
 };
 
 TINY_LOR

@@ -22,6 +22,6 @@ void DeviceRuntime_Copy(DeviceRuntime *dst, DeviceRuntime *src)
         dst->Run            = src->Run;
         dst->Stop           = src->Stop;
         dst->Destroy        = src->Destroy;
-        dst->persistence    = src->persistence;
+        dst->context        = src->context;
     }
 }

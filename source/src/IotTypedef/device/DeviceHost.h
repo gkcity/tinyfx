@@ -33,7 +33,7 @@ struct _DeviceHost
     TinyList                    devices;
     TinyList                    changedObservers;
     DeviceIdentifyListener      identifyListener;
-    void                      * ctx;
+    void                      * context;
 };
 
 typedef struct _DeviceHost DeviceHost;

@@ -74,7 +74,7 @@ static TinyRet Device_Construct(Device *thiz)
             break;
         }
 
-        thiz->services.additionalData = thiz;
+        thiz->services.context = thiz;
         TinyList_SetDeleteListener(&thiz->services, service_release_handler, thiz);
     } while (false);
 

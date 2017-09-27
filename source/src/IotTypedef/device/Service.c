@@ -88,7 +88,7 @@ static TinyRet Service_Construct(Service *thiz)
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-        thiz->properties.additionalData = thiz;
+        thiz->properties.context = thiz;
         TinyList_SetDeleteListener(&thiz->properties, property_release_handler, thiz);
 
         /**
@@ -100,7 +100,7 @@ static TinyRet Service_Construct(Service *thiz)
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-        thiz->actions.additionalData = thiz;
+        thiz->actions.context = thiz;
         TinyList_SetDeleteListener(&thiz->actions, action_release_handler, thiz);
     } while (false);
 

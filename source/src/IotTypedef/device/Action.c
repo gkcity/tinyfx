@@ -83,7 +83,7 @@ static TinyRet Action_Construct(Action *thiz)
             break;
         }
 
-        thiz->in.additionalData = thiz;
+        thiz->in.context = thiz;
         TinyList_SetDeleteListener(&thiz->in, in_release_handler, thiz);
 
         ret = TinyList_Construct(&thiz->out);
@@ -93,7 +93,7 @@ static TinyRet Action_Construct(Action *thiz)
             break;
         }
 
-        thiz->out.additionalData = thiz;
+        thiz->out.context = thiz;
         TinyList_SetDeleteListener(&thiz->out, out_release_handler, thiz);
     } while (false);
 

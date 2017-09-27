@@ -80,7 +80,7 @@ static TinyRet DeviceHost_Construct(DeviceHost *thiz)
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-        thiz->devices.additionalData = thiz;
+        thiz->devices.context = thiz;
         TinyList_SetDeleteListener(&thiz->devices, accessory_release_handler, thiz);
 
         ret = TinyList_Construct(&thiz->changedObservers);

@@ -23,7 +23,7 @@ TINY_BEGIN_DECLS
 
 typedef struct _DeviceHostConfig
 {
-    char                id[DEVICE_ID_LENGTH + 1];
+    uint64_t            id;
     char                key[DEVICE_KEY_LENGTH + 1];
     char                model[DEVICE_MODEL_LENGTH + 1];
     char                vendor[DEVICE_VENDOR_LENGTH + 1];
@@ -51,7 +51,7 @@ TINY_LOR
 void DeviceHostConfig_Copy(DeviceHostConfig *dst, DeviceHostConfig *src);
 
 TINY_LOR
-void DeviceHostConfig_SetId(DeviceHostConfig *thiz, const char *id);
+void DeviceHostConfig_SetId(DeviceHostConfig *thiz, uint64_t id);
 
 IOT_API
 TINY_LOR

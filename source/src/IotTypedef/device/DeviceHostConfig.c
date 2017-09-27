@@ -79,7 +79,7 @@ void DeviceHostConfig_Copy(DeviceHostConfig *dst, DeviceHostConfig *src)
 {
     if (dst != src)
     {
-        strncpy(dst->id, src->id, DEVICE_ID_LENGTH);
+        dst->id = src->id;
         strncpy(dst->key, src->key, DEVICE_KEY_LENGTH);
         strncpy(dst->model, src->model, DEVICE_MODEL_LENGTH);
         strncpy(dst->vendor, src->vendor, DEVICE_MODEL_LENGTH);
@@ -87,9 +87,9 @@ void DeviceHostConfig_Copy(DeviceHostConfig *dst, DeviceHostConfig *src)
 }
 
 TINY_LOR
-void DeviceHostConfig_SetId(DeviceHostConfig *thiz, const char *id)
+void DeviceHostConfig_SetId(DeviceHostConfig *thiz, uint64_t id)
 {
-    strncpy(thiz->id, id, DEVICE_ID_LENGTH);
+    thiz->id = id;
 }
 
 IOT_API

@@ -73,6 +73,7 @@ SET(Device_Source
 #-----------------------
 SET(Error_Header
         error/IotError.h
+        error/IotStatus.h
     )
 
 #-----------------------
@@ -128,10 +129,28 @@ SET(Api_Header
         api/iot_api.h
     )
 
+#-----------------------
+# bean
+#-----------------------
+SET(Bean_Header
+        bean/AID.h
+        bean/PID.h
+        bean/ActionBean.h
+        bean/PropertyBean.h
+        bean/PropertiesBean.h
+        )
+
+SET(Bean_Source
+        bean/ActionBean.c
+        bean/PropertyBean.c
+        bean/PropertiesBean.h
+        )
+
 #----------------------------------------------------------------------------
 # source
 #----------------------------------------------------------------------------
 SET(SRC
+        ${Api_Header}
         ${Constraint_Header}
         ${Error_Header}
         ${Data_Header}
@@ -145,7 +164,8 @@ SET(SRC
         ${Unit_Header}
         ${Access_Header}
         ${Access_Source}
-        ${Api_Header}
+        ${Bean_Header}
+        ${Bean_Source}
     )
 
 #----------------------------------------------------------------------------

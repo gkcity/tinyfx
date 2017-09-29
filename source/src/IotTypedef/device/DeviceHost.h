@@ -14,7 +14,8 @@
 #define __DEVICE_HOST_H__
 
 #include <controlled/DeviceIdentifyListener.h>
-#include "tiny_base.h"
+#include <bean/ActionBean.h>
+#include <tiny_base.h>
 #include "api/iot_api.h"
 #include "urn/Urn.h"
 #include "DeviceHostConfig.h"
@@ -73,6 +74,19 @@ Property * DeviceHost_GetProperty(DeviceHost *thiz, uint16_t diid, uint16_t siid
 IOT_API
 TINY_LOR
 int DeviceHost_NotifyPropertiesChanged(DeviceHost *thiz);
+
+IOT_API
+TINY_LOR
+void DeviceHost_OnPropertiesSet(DeviceHost *thiz, PropertiesBean *beans);
+
+IOT_API
+TINY_LOR
+void DeviceHost_OnPropertiesGet(DeviceHost *thiz, PropertiesBean *beans);
+
+IOT_API
+TINY_LOR
+void DeviceHost_OnActionInvoke(DeviceHost *thiz, ActionBean *actionBean);
+
 
 
 TINY_END_DECLS

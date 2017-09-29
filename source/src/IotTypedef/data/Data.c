@@ -52,11 +52,71 @@ void Data_Dispose(Data *thiz)
     memset(thiz, 0, sizeof(Data));
 }
 
-#if 0
-void Data_Copy(Data *dst, Data *src)
+TINY_LOR
+TinyRet Data_Set(Data *thiz, Data *data)
 {
-    RETURN_IF_FAIL(dst);
-    RETURN_IF_FAIL(src);
+    TinyRet ret = TINY_RET_OK;
+
+    RETURN_VAL_IF_FAIL(dst, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(src, TINY_RET_E_ARG_NULL);
+
+    switch (data->type)
+    {
+        case DATATYPE_BOOL:
+            Data_SetBoolValue(thiz, data->value.boolValue.value);
+            break;
+
+        case DATATYPE_UINT8:
+            Data_SetUint8Value(thiz, data->value.uint8Value.value);
+            break;
+
+        case DATATYPE_UINT16:
+            Data_SetUint16Value(thiz, data->value.uint16Value.value);
+            break;
+
+        case DATATYPE_UINT32:
+            Data_SetUint32Value(thiz, data->value.uint32Value.value);
+            break;
+
+        case DATATYPE_UINT64:
+            Data_SetUint64Value(thiz, data->value.uint64Value.value);
+            break;
+
+        case DATATYPE_INT:
+            Data_SetIntValue(thiz, data->value.intValue.value);
+            break;
+
+        case DATATYPE_FLOAT:
+            Data_SetFloatValue(thiz, data->value.floatValue.value);
+            break;
+
+        case DATATYPE_STRING:
+            Data_SetStringValue(thiz, data->value.stringValue.value);
+            break;
+
+        case DATATYPE_TLV8:
+            Data_SetTlv8Value(thiz, data->value.tlv8Value._bytes, data->value.tlv8Value._size);
+            break;
+
+        case DATATYPE_DATA:
+            Data_SetDataValue(thiz, data->value.dataBlobValue.value);
+            break;
+
+        case DATATYPE_UNDEFINED:
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+    }
+
+    return ret;
+}
+
+TINY_LOR
+TinyRet Data_Copy(Data *dst, Data *src)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    RETURN_VAL_IF_FAIL(dst, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(src, TINY_RET_E_ARG_NULL);
 
     if (dst != src)
     {
@@ -64,15 +124,11 @@ void Data_Copy(Data *dst, Data *src)
 
         switch (src->type) {
             case DATATYPE_STRING:
-                StringValue_Copy(&src->value.stringValue, &src->value.stringValue);
-                break;
-
-            case DATATYPE_TLV8:
-                Tlv8Value_Copy(&src->value.tlv8Value, &src->value.tlv8Value);
+                ret = StringValue_Copy(&src->value.stringValue, &src->value.stringValue);
                 break;
 
             case DATATYPE_DATA:
-                DataBlobValue_Copy(&src->value.dataBlobValue, &src->value.dataBlobValue);
+                ret = DataBlobValue_Copy(&src->value.dataBlobValue, &src->value.dataBlobValue);
                 break;
 
             default:
@@ -80,8 +136,9 @@ void Data_Copy(Data *dst, Data *src)
                 break;
         }
     }
+
+    return ret;
 }
-#endif
 
 TINY_LOR
 TinyRet Data_SetMaxLength(Data *thiz, uint32_t length)
@@ -420,7 +477,7 @@ TinyRet Data_SetStringValue(Data *thiz, const char * value)
 }
 
 TINY_LOR
-TinyRet Data_SetTlv8Value(Data *thiz, const char * value, uint32_t len)
+TinyRet Data_SetTlv8Value(Data *thiz, const uint8_t * value, uint32_t len)
 {
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
     RETURN_VAL_IF_FAIL(value, TINY_RET_E_ARG_NULL);

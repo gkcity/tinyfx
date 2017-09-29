@@ -13,8 +13,10 @@
 #include <tiny_malloc.h>
 #include <tiny_log.h>
 #include <controlled/PropertyChangedObserver.h>
+#include <error/IotStatus.h>
+#include <bean/PropertyBean.h>
+#include <bean/AID.h>
 #include "DeviceHost.h"
-#include "Device.h"
 
 #define TAG     "DeviceHost"
 
@@ -288,4 +290,151 @@ int DeviceHost_NotifyPropertiesChanged(DeviceHost *thiz)
     LOG_D(TAG, "Notify count: %d", count);
 
     return count;
+}
+
+TINY_LOR
+void DeviceHost_OnPropertiesSet(DeviceHost *thiz, PropertiesBean *beans)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(propertyBeans);
+
+    for (uint32_t i = 0; i < beans->properties.size; ++i)
+    {
+        PropertyBean *bean = (PropertyBean *)TinyList_GetAt(&beans->properties, i);
+        Property *property = DeviceHost_GetProperty(thiz, bean->pid.diid, bean->pid.siid, bean->pid.iid);
+        if (property == NULL)
+        {
+            bean->status = IOT_STATUS_NOT_EXIST;
+            continue;
+        }
+
+        if (! Property_IsReadable(property))
+        {
+            bean->status = IOT_STATUS_CANNOT_WRITE;
+            continue;
+        }
+
+        if (property->onSet == NULL)
+        {
+            bean->status = IOT_STATUS_INTERNAL_ERROR;
+            continue;
+        }
+
+        if (RET_FAILED(Data_Set(&bean->value, &property->data)))
+        {
+            bean->status = IOT_STATUS_VALUE_ERROR;
+            continue;
+        }
+
+        property->onSet(property);
+        bean->status = IOT_STATUS_OK;
+    }
+}
+
+TINY_LOR
+void DeviceHost_OnPropertiesGet(DeviceHost *thiz, PropertiesBean *beans)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(propertyBeans);
+
+    for (uint32_t i = 0; i < beans->properties.size; ++i)
+    {
+        PropertyBean *bean = (PropertyBean *)TinyList_GetAt(&beans->properties, i);
+        Property *property = DeviceHost_GetProperty(thiz, bean->pid.diid, bean->pid.siid, bean->pid.iid);
+        if (property == NULL)
+        {
+            bean->status = IOT_STATUS_NOT_EXIST;
+            continue;
+        }
+
+        if (! Property_IsReadable(property))
+        {
+            bean->status = IOT_STATUS_CANNOT_READ;
+            continue;
+        }
+
+        if (property->onGet == NULL)
+        {
+            bean->status = IOT_STATUS_INTERNAL_ERROR;
+            continue;
+        }
+
+        property->onGet(property);
+
+        if (RET_FAILED(Data_Copy(&bean->value, &property->data)))
+        {
+            bean->status = IOT_STATUS_INTERNAL_ERROR;
+            continue;
+        }
+
+        bean->status = IOT_STATUS_OK;
+    }
+}
+
+TINY_LOR
+void DeviceHost_OnActionInvoke(DeviceHost *thiz, ActionBean *actionBean)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(actionBean);
+
+    actionBean->status = IOT_STATUS_OK;
+
+    do
+    {
+        Action *action = DeviceHost_GetAction(thiz, actionBean->aid.diid, actionBean->aid.siid, actionBean->aid.diid);
+        if (action == NULL)
+        {
+            actionBean->status = IOT_STATUS_NOT_EXIST;
+            break;
+        }
+
+        if (action->in.size != actionBean->in.properties.size)
+        {
+            actionBean->status = IOT_STATUS_ACTION_IN_ERROR;
+            break;
+        }
+
+        if (action->onInvoke == NULL)
+        {
+            actionBean->status = IOT_STATUS_INTERNAL_ERROR;
+            break;
+        }
+
+        for (uint32_t i = 0; i < action->in.size; ++i)
+        {
+            Property *property = (Property *)TinyList_GetAt(&action->in, i);
+            PropertyBean *bean = (PropertyBean *)TinyList_GetAt(&actionBean->in.properties, i);
+
+            if (RET_FAILED(Data_Set(&property->data, &bean->value)))
+            {
+                actionBean->status = IOT_STATUS_VALUE_ERROR;
+                break;
+            }
+        }
+
+        if (actionBean->status == IOT_STATUS_OK)
+        {
+            break;
+        }
+
+        action->onInvoke(action);
+
+        for (uint32_t i = 0; i < action->out.size; ++i)
+        {
+            Property *property = (Property *)TinyList_GetAt(&action->out, i);
+            PropertyBean *bean = PropertyBean_New();
+            if (bean == NULL)
+            {
+                actionBean->status = IOT_STATUS_INTERNAL_ERROR;
+                break;
+            }
+
+            bean->pid.diid = property->diid;
+            bean->pid.siid = property->siid;
+            bean->pid.iid = property->iid;
+            Data_Copy(&bean->value, &property->data);
+
+            TinyList_AddTail(&actionBean->out.properties, bean);
+        }
+    } while (false);
 }

@@ -37,6 +37,14 @@ void Data_Dispose(Data *thiz);
 
 IOT_API
 TINY_LOR
+TinyRet Data_Set(Data *thiz, Data *data);
+
+IOT_API
+TINY_LOR
+TinyRet Data_Copy(Data *dst, Data *src);
+
+IOT_API
+TINY_LOR
 TinyRet Data_SetMaxLength(Data *thiz, uint32_t length);
 
 IOT_API
@@ -97,7 +105,7 @@ TinyRet Data_SetStringValue(Data *thiz, const char * value);
 
 IOT_API
 TINY_LOR
-TinyRet Data_SetTlv8Value(Data *thiz, const char * value, uint32_t len);
+TinyRet Data_SetTlv8Value(Data *thiz, const uint8_t * value, uint32_t len);
 
 IOT_API
 TINY_LOR

@@ -71,7 +71,13 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
         ${SOURCE_ROOT}/IotTypedef/device/Property.h
+        ${SOURCE_ROOT}/IotTypedef/bean/AID.h
+        ${SOURCE_ROOT}/IotTypedef/bean/PID.h
+        ${SOURCE_ROOT}/IotTypedef/bean/ActionBean.h
+        ${SOURCE_ROOT}/IotTypedef/bean/PropertyBean.h
+        ${SOURCE_ROOT}/IotTypedef/bean/PropertiesBean.h
         ${SOURCE_ROOT}/IotTypedef/error/IotError.h
+        ${SOURCE_ROOT}/IotTypedef/error/IotStatus.h
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyOnControl.h
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedListener.h
         ${SOURCE_ROOT}/IotTypedef/controlled/DeviceIdentifyListener.h
@@ -104,6 +110,9 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Action.c
         ${SOURCE_ROOT}/IotTypedef/device/Property.c
+        ${SOURCE_ROOT}/IotTypedef/bean/ActionBean.c
+        ${SOURCE_ROOT}/IotTypedef/bean/PropertyBean.c
+        ${SOURCE_ROOT}/IotTypedef/bean/PropertiesBean.c
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedObserver.c
         ${SOURCE_ROOT}/IotTypedef/access/AccessType.c
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.c

@@ -20,12 +20,14 @@
 
 
 #define IOT_STATUS_OK                  (0)
+#define IOT_STATUS_ACCEPT              (1)
 #define IOT_STATUS_CANNOT_READ         (-1)
 #define IOT_STATUS_CANNOT_WRITE        (-2)
 #define IOT_STATUS_NOT_EXIST           (-3)
 #define IOT_STATUS_INTERNAL_ERROR      (-4)
 #define IOT_STATUS_VALUE_ERROR         (-5)
 #define IOT_STATUS_ACTION_IN_ERROR     (-6)
+#define IOT_STATUS_VERIFY_ERROR        (-7)
 
 
 #endif /* __IOT_STATUS_H__ */

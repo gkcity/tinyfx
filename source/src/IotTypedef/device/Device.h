@@ -17,6 +17,7 @@
 #include "api/iot_api.h"
 #include "urn/Urn.h"
 #include <TinyList.h>
+#include <controlled/PropertyOnControl.h>
 #include <controlled/ActionOnInvoke.h>
 
 TINY_BEGIN_DECLS

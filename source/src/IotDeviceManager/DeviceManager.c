@@ -131,7 +131,7 @@ TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceHost *host)
             break;
         }
 
-        for (uint32_t  i = 0; host->devices.size; ++i)
+        for (uint32_t  i = 0; i < host->devices.size; ++i)
         {
             Device *device = (Device *) TinyList_GetAt(&host->devices, i);
             if (! Device_CheckHandler(device))

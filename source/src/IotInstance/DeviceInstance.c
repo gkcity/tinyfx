@@ -676,6 +676,7 @@ static Device* Device_NewInstance(uint16_t instanceID, JsonObject *object)
             ret = TinyList_AddTail(&device->services, service);
             if (RET_FAILED(ret))
             {
+                Service_Delete(service);
                 break;
             }
         }

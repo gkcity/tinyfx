@@ -117,7 +117,7 @@ TinyRet DeviceManager_Stop(DeviceManager *thiz)
 }
 
 TINY_LOR
-TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceHost *host)
+TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceControllable *host)
 {
     TinyRet ret = TINY_RET_OK;
 

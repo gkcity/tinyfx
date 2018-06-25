@@ -10,7 +10,7 @@
  *
  */
 
-#include "DeviceHostConfig.h"
+#include "DeviceConfig.h"
 #include <tiny_malloc.h>
 #include <tiny_snprintf.h>
 #include "tiny_log.h"

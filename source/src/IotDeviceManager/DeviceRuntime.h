@@ -15,7 +15,7 @@
 
 #include <tiny_base.h>
 #include <tiny_lor.h>
-#include <device/DeviceHost.h>
+#include <controlled/DeviceControllalbe.h>
 #include <device/Service.h>
 #include <bootstrap/Bootstrap.h>
 
@@ -27,7 +27,7 @@ typedef struct _DeviceRuntime DeviceRuntime;
 
 typedef TinyRet (* Device_Initialize)(DeviceRuntime *thiz);
 typedef TinyRet (* Device_Destroy)(DeviceRuntime *thiz);
-typedef TinyRet (* Device_Run)(DeviceRuntime *thiz, Bootstrap *bootstrap, DeviceHost *host);
+typedef TinyRet (* Device_Run)(DeviceRuntime *thiz, Bootstrap *bootstrap, DeviceControllable *host);
 typedef TinyRet (* Device_Stop)(DeviceRuntime *thiz);
 
 struct _DeviceRuntime

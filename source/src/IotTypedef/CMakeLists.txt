@@ -51,8 +51,6 @@ SET(Data_Source
 # device
 #-----------------------
 SET(Device_Header
-        device/DeviceHost.h
-        device/DeviceHostConfig.h
         device/Device.h
         device/Service.h
         device/Action.h
@@ -60,8 +58,6 @@ SET(Device_Header
     )
 
 SET(Device_Source
-        device/DeviceHost.c
-        device/DeviceHostConfig.c
         device/Device.c
         device/Service.c
         device/Action.c
@@ -80,6 +76,8 @@ SET(Error_Header
 # controlled
 #-----------------------
 SET(Controlled_Header
+        controlled/DeviceControllalbe.h
+        controlled/DeviceConfig.h
         controlled/PropertyOnControl.h
         controlled/PropertyChangedListener.h
         controlled/DeviceIdentifyListener.h
@@ -88,6 +86,8 @@ SET(Controlled_Header
         )
 
 SET(Controlled_Source
+        controlled/DeviceControllalbe.c
+        controlled/DeviceConfig.c
         controlled/PropertyChangedObserver.c
     )
 

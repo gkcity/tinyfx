@@ -15,7 +15,7 @@
 
 #include "tiny_base.h"
 #include "DeviceRuntime.h"
-#include <device/DeviceHost.h>
+#include <controlled/DeviceControllalbe.h>
 #include <bootstrap/Bootstrap.h>
 
 TINY_BEGIN_DECLS
@@ -52,7 +52,7 @@ TinyRet DeviceManager_AddRuntime(DeviceManager *thiz, DeviceRuntime *runtime);
 
 IOT_API
 TINY_LOR
-TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceHost *host);
+TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceControllable *host);
 
 IOT_API
 TINY_LOR

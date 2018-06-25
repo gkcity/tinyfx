@@ -16,15 +16,15 @@
 #include <error/IotStatus.h>
 #include <operation/PropertyOperation.h>
 #include <operation/AID.h>
-#include "DeviceHost.h"
+#include "DeviceControllalbe.h"
 
 #define TAG     "DeviceHost"
 
 TINY_LOR
-static TinyRet DeviceHost_Construct(DeviceHost *thiz);
+static TinyRet DeviceHost_Construct(DeviceControllable *thiz);
 
 TINY_LOR
-static void DeviceHost_Dispose(DeviceHost *thiz);
+static void DeviceHost_Dispose(DeviceControllable *thiz);
 
 TINY_LOR
 static void accessory_release_handler(void *data, void *ctx)
@@ -41,13 +41,13 @@ static void OnChangedObserverDelete (void * data, void *ctx)
 }
 
 TINY_LOR
-DeviceHost* DeviceHost_New(void)
+DeviceControllable* DeviceHost_New(void)
 {
-    DeviceHost *thiz = NULL;
+    DeviceControllable *thiz = NULL;
 
     do
     {
-        thiz = (DeviceHost *)tiny_malloc(sizeof(DeviceHost));
+        thiz = (DeviceControllable *)tiny_malloc(sizeof(DeviceControllable));
         if (thiz == NULL)
         {
             LOG_D(TAG, "tiny_malloc FAILED");
@@ -66,7 +66,7 @@ DeviceHost* DeviceHost_New(void)
 }
 
 TINY_LOR
-static TinyRet DeviceHost_Construct(DeviceHost *thiz)
+static TinyRet DeviceHost_Construct(DeviceControllable *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -74,7 +74,7 @@ static TinyRet DeviceHost_Construct(DeviceHost *thiz)
 
     do
     {
-        memset(thiz, 0, sizeof(DeviceHost));
+        memset(thiz, 0, sizeof(DeviceControllable));
 
         ret = TinyList_Construct(&thiz->devices);
         if (RET_FAILED(ret))
@@ -98,7 +98,7 @@ static TinyRet DeviceHost_Construct(DeviceHost *thiz)
 }
 
 TINY_LOR
-static void DeviceHost_Dispose(DeviceHost *thiz)
+static void DeviceHost_Dispose(DeviceControllable *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
@@ -107,7 +107,7 @@ static void DeviceHost_Dispose(DeviceHost *thiz)
 }
 
 TINY_LOR
-void DeviceHost_Delete(DeviceHost *thiz)
+void DeviceHost_Delete(DeviceControllable *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
@@ -116,7 +116,7 @@ void DeviceHost_Delete(DeviceHost *thiz)
 }
 
 TINY_LOR
-void DeviceHost_InitializeInstanceID(DeviceHost *thiz)
+void DeviceHost_InitializeInstanceID(DeviceControllable *thiz)
 {
     uint16_t iid = 1;
 
@@ -130,9 +130,9 @@ void DeviceHost_InitializeInstanceID(DeviceHost *thiz)
 }
 
 TINY_LOR
-DeviceHost* DeviceHost_Build(DeviceHostConfig *config)
+DeviceControllable* DeviceHost_Build(DeviceHostConfig *config)
 {
-    DeviceHost * device = DeviceHost_New();
+    DeviceControllable * device = DeviceHost_New();
     if (device != NULL)
     {
         DeviceHostConfig_Copy(&device->config, config);
@@ -143,7 +143,7 @@ DeviceHost* DeviceHost_Build(DeviceHostConfig *config)
 
 IOT_API
 TINY_LOR
-Device * DeviceHost_GetDevice(DeviceHost *thiz, uint16_t diid)
+Device * DeviceHost_GetDevice(DeviceControllable *thiz, uint16_t diid)
 {
     for (uint32_t i = 0; i < thiz->devices.size; ++i)
     {
@@ -159,7 +159,7 @@ Device * DeviceHost_GetDevice(DeviceHost *thiz, uint16_t diid)
 
 IOT_API
 TINY_LOR
-Service * DeviceHost_GetService(DeviceHost *thiz, uint16_t diid, uint16_t siid)
+Service * DeviceHost_GetService(DeviceControllable *thiz, uint16_t diid, uint16_t siid)
 {
     for (uint32_t i = 0; i < thiz->devices.size; ++i)
     {
@@ -182,7 +182,7 @@ Service * DeviceHost_GetService(DeviceHost *thiz, uint16_t diid, uint16_t siid)
 
 IOT_API
 TINY_LOR
-Action * DeviceHost_GetAction(DeviceHost *thiz, uint16_t diid, uint16_t siid, uint16_t aiid)
+Action * DeviceHost_GetAction(DeviceControllable *thiz, uint16_t diid, uint16_t siid, uint16_t aiid)
 {
     for (uint32_t i = 0; i < thiz->devices.size; ++i)
     {
@@ -211,7 +211,7 @@ Action * DeviceHost_GetAction(DeviceHost *thiz, uint16_t diid, uint16_t siid, ui
 }
 
 TINY_LOR
-Property * DeviceHost_GetProperty(DeviceHost *thiz, uint16_t diid, uint16_t siid, uint16_t piid)
+Property * DeviceHost_GetProperty(DeviceControllable *thiz, uint16_t diid, uint16_t siid, uint16_t piid)
 {
     for (uint32_t i = 0; i < thiz->devices.size; ++i)
     {
@@ -240,7 +240,7 @@ Property * DeviceHost_GetProperty(DeviceHost *thiz, uint16_t diid, uint16_t siid
 }
 
 TINY_LOR
-static bool DeviceHost_NotifyPropertyChanged(DeviceHost *thiz, Property *property)
+static bool DeviceHost_NotifyPropertyChanged(DeviceControllable *thiz, Property *property)
 {
     bool notified = false;
 
@@ -261,7 +261,7 @@ static bool DeviceHost_NotifyPropertyChanged(DeviceHost *thiz, Property *propert
 }
 
 TINY_LOR
-int DeviceHost_NotifyPropertiesChanged(DeviceHost *thiz)
+int DeviceHost_NotifyPropertiesChanged(DeviceControllable *thiz)
 {
     int count = 0;
 
@@ -293,7 +293,7 @@ int DeviceHost_NotifyPropertiesChanged(DeviceHost *thiz)
 }
 
 TINY_LOR
-void DeviceHost_OnPropertiesSet(DeviceHost *thiz, PropertyOperations *beans)
+void DeviceHost_OnPropertiesSet(DeviceControllable *thiz, PropertyOperations *beans)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(propertyBeans);
@@ -332,7 +332,7 @@ void DeviceHost_OnPropertiesSet(DeviceHost *thiz, PropertyOperations *beans)
 }
 
 TINY_LOR
-void DeviceHost_OnPropertiesGet(DeviceHost *thiz, PropertyOperations *beans)
+void DeviceHost_OnPropertiesGet(DeviceControllable *thiz, PropertyOperations *beans)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(propertyBeans);
@@ -372,7 +372,7 @@ void DeviceHost_OnPropertiesGet(DeviceHost *thiz, PropertyOperations *beans)
 }
 
 TINY_LOR
-void DeviceHost_OnActionInvoke(DeviceHost *thiz, ActionOperation *actionBean)
+void DeviceHost_OnActionInvoke(DeviceControllable *thiz, ActionOperation *actionBean)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(actionBean);

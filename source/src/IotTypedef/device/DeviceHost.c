@@ -14,8 +14,8 @@
 #include <tiny_log.h>
 #include <controlled/PropertyChangedObserver.h>
 #include <error/IotStatus.h>
-#include <bean/PropertyBean.h>
-#include <bean/AID.h>
+#include <operation/PropertyOperation.h>
+#include <operation/AID.h>
 #include "DeviceHost.h"
 
 #define TAG     "DeviceHost"
@@ -293,14 +293,14 @@ int DeviceHost_NotifyPropertiesChanged(DeviceHost *thiz)
 }
 
 TINY_LOR
-void DeviceHost_OnPropertiesSet(DeviceHost *thiz, PropertiesBean *beans)
+void DeviceHost_OnPropertiesSet(DeviceHost *thiz, PropertyOperations *beans)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(propertyBeans);
 
     for (uint32_t i = 0; i < beans->properties.size; ++i)
     {
-        PropertyBean *bean = (PropertyBean *)TinyList_GetAt(&beans->properties, i);
+        PropertyOperation *bean = (PropertyOperation *)TinyList_GetAt(&beans->properties, i);
         Property *property = DeviceHost_GetProperty(thiz, bean->pid.diid, bean->pid.siid, bean->pid.iid);
         if (property == NULL)
         {
@@ -332,14 +332,14 @@ void DeviceHost_OnPropertiesSet(DeviceHost *thiz, PropertiesBean *beans)
 }
 
 TINY_LOR
-void DeviceHost_OnPropertiesGet(DeviceHost *thiz, PropertiesBean *beans)
+void DeviceHost_OnPropertiesGet(DeviceHost *thiz, PropertyOperations *beans)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(propertyBeans);
 
     for (uint32_t i = 0; i < beans->properties.size; ++i)
     {
-        PropertyBean *bean = (PropertyBean *)TinyList_GetAt(&beans->properties, i);
+        PropertyOperation *bean = (PropertyOperation *)TinyList_GetAt(&beans->properties, i);
         Property *property = DeviceHost_GetProperty(thiz, bean->pid.diid, bean->pid.siid, bean->pid.iid);
         if (property == NULL)
         {
@@ -372,7 +372,7 @@ void DeviceHost_OnPropertiesGet(DeviceHost *thiz, PropertiesBean *beans)
 }
 
 TINY_LOR
-void DeviceHost_OnActionInvoke(DeviceHost *thiz, ActionBean *actionBean)
+void DeviceHost_OnActionInvoke(DeviceHost *thiz, ActionOperation *actionBean)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(actionBean);
@@ -403,7 +403,7 @@ void DeviceHost_OnActionInvoke(DeviceHost *thiz, ActionBean *actionBean)
         for (uint32_t i = 0; i < action->in.size; ++i)
         {
             Property *property = (Property *)TinyList_GetAt(&action->in, i);
-            PropertyBean *bean = (PropertyBean *)TinyList_GetAt(&actionBean->in.properties, i);
+            PropertyOperation *bean = (PropertyOperation *)TinyList_GetAt(&actionBean->in.properties, i);
 
             if (RET_FAILED(Data_Set(&property->data, &bean->value)))
             {
@@ -422,7 +422,7 @@ void DeviceHost_OnActionInvoke(DeviceHost *thiz, ActionBean *actionBean)
         for (uint32_t i = 0; i < action->out.size; ++i)
         {
             Property *property = (Property *)TinyList_GetAt(&action->out, i);
-            PropertyBean *bean = PropertyBean_New();
+            PropertyOperation *bean = PropertyOperation_New();
             if (bean == NULL)
             {
                 actionBean->status = IOT_STATUS_INTERNAL_ERROR;

@@ -55,13 +55,6 @@ static TinyRet Property_ProcessValueRange(Property *property, JsonArray *range)
         JsonValue *max = NULL;
         JsonValue *step = NULL;
 
-        if (range->type != JSON_NUMBER)
-        {
-            LOG_E(TAG, "range.type not JsonNumber: %d", range->type);
-            ret = TINY_RET_E_ARG_INVALID;
-            break;
-        }
-
         if (range->values.size != 3)
         {
             LOG_E(TAG, "range values.size not 3");
@@ -88,6 +81,7 @@ static TinyRet Property_ProcessValueRange(Property *property, JsonArray *range)
                 }
                 else
                 {
+                    LOG_E(TAG, "range must be JsonNumber");
                     ret = TINY_RET_E_ARG_INVALID;
                 }
                 break;
@@ -105,6 +99,7 @@ static TinyRet Property_ProcessValueRange(Property *property, JsonArray *range)
                 }
                 else
                 {
+                    LOG_E(TAG, "range must be JsonNumber");
                     ret = TINY_RET_E_ARG_INVALID;
                 }
                 break;
@@ -122,6 +117,7 @@ static TinyRet Property_ProcessValueRange(Property *property, JsonArray *range)
                 }
                 else
                 {
+                    LOG_E(TAG, "range must be JsonNumber");
                     ret = TINY_RET_E_ARG_INVALID;
                 }
                 break;
@@ -139,6 +135,7 @@ static TinyRet Property_ProcessValueRange(Property *property, JsonArray *range)
                 }
                 else
                 {
+                    LOG_E(TAG, "range must be JsonNumber");
                     ret = TINY_RET_E_ARG_INVALID;
                 }
                 break;
@@ -156,6 +153,7 @@ static TinyRet Property_ProcessValueRange(Property *property, JsonArray *range)
                 }
                 else
                 {
+                    LOG_E(TAG, "range must be JsonNumber");
                     ret = TINY_RET_E_ARG_INVALID;
                 }
                 break;
@@ -172,6 +170,7 @@ static TinyRet Property_ProcessValueRange(Property *property, JsonArray *range)
                 }
                 else
                 {
+                    LOG_E(TAG, "range must be JsonNumber");
                     ret = TINY_RET_E_ARG_INVALID;
                 }
                 break;
@@ -298,13 +297,6 @@ static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *
         }
         else
         {
-            if (access->type != JSON_STRING)
-            {
-                LOG_E(TAG, "%d %s access.type is not JsonString: %d", iid->value.intValue, type->value, access->type);
-                ret = TINY_RET_E_ARG_INVALID;
-                break;
-            }
-
             property->accessType = AccessType_New(access);
         }
 
@@ -372,20 +364,19 @@ static TinyRet ParseArguments(TinyList *list, JsonArray *arguments, TinyList *pr
             break;
         }
 
-        if (arguments->type != JSON_NUMBER)
-        {
-            LOG_E(TAG, "in.type is not JSON_NUMBER");
-            ret = TINY_RET_E_ARG_INVALID;
-            break;
-        }
-
         for (uint32_t i = 0; i < arguments->values.size; ++i)
         {
-            JsonNumber *v = ((JsonValue *) TinyList_GetAt(&arguments->values, i))->data.number;
-            Property * p = getProperty(properties, (uint16_t)v->value.intValue);
+            JsonValue *v = (JsonValue *) TinyList_GetAt(&arguments->values, i);
+            Property * p = NULL;
+
+            if (v->type != JSON_NUMBER) {
+                break;
+            }
+
+            p = getProperty(properties, (uint16_t)v->data.number->value.intValue);
             if (p == NULL)
             {
-                LOG_E(TAG, "action.in [%d] invalid", v->value.intValue);
+                LOG_E(TAG, "action.in [%ld] invalid", v->data.number->value.intValue);
                 ret = TINY_RET_E_ARG_INVALID;
                 break;
             }
@@ -539,9 +530,8 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
             break;
         }
 
-        if (properties->type != JSON_OBJECT)
-        {
-            LOG_E(TAG, "properties.type is not JsonObject");
+        if (! JsonArray_CheckValuesType(properties, JSON_OBJECT)) {
+            LOG_E(TAG, "check properties failed");
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
@@ -592,31 +582,32 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
          * Actions is optional
          */
         actions = JsonObject_GetArray(object, "actions");
-        if (actions != NULL)
+        if (actions == NULL)
         {
-            if (actions->type != JSON_OBJECT)
+            break;
+        }
+
+        if (! JsonArray_CheckValuesType(actions, JSON_OBJECT)) {
+            LOG_E(TAG, "check actions failed");
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        for (uint32_t i = 0; i < actions->values.size; ++i)
+        {
+            JsonValue *value = (JsonValue *) TinyList_GetAt(&actions->values, i);
+            Action *action = Action_NewInstance(diid, service->iid, value->data.object, &service->properties);
+            if (action == NULL)
             {
-                LOG_E(TAG, "actions.type is not JsonObject");
+                LOG_E(TAG, "Action_NewInstance failed");
                 ret = TINY_RET_E_ARG_INVALID;
                 break;
             }
 
-            for (uint32_t i = 0; i < actions->values.size; ++i)
+            ret = TinyList_AddTail(&service->actions, action);
+            if (RET_FAILED(ret))
             {
-                JsonValue *value = (JsonValue *) TinyList_GetAt(&actions->values, i);
-                Action *action = Action_NewInstance(diid, service->iid, value->data.object, &service->properties);
-                if (action == NULL)
-                {
-                    LOG_E(TAG, "Action_NewInstance failed");
-                    ret = TINY_RET_E_ARG_INVALID;
-                    break;
-                }
-
-                ret = TinyList_AddTail(&service->actions, action);
-                if (RET_FAILED(ret))
-                {
-                    break;
-                }
+                break;
             }
         }
     } while (false);
@@ -638,17 +629,17 @@ static Device* Device_NewInstance(uint16_t instanceID, JsonObject *object)
 
     do
     {
-        JsonArray * array = JsonObject_GetArray(object, "services");
-        if (array == NULL)
+        JsonArray * services = JsonObject_GetArray(object, "services");
+        if (services == NULL)
         {
             LOG_E(TAG, "services not found!");
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
 
-        if (array->type != JSON_OBJECT)
+        if (! JsonArray_CheckValuesType(services, JSON_OBJECT))
         {
-            LOG_E(TAG, "service is not JsonObject");
+            LOG_E(TAG, "check services failed");
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
@@ -662,9 +653,9 @@ static Device* Device_NewInstance(uint16_t instanceID, JsonObject *object)
 
         device->iid = instanceID;
 
-        for (uint32_t i = 0; i < array->values.size; ++i)
+        for (uint32_t i = 0; i < services->values.size; ++i)
         {
-            JsonValue *value = (JsonValue *) TinyList_GetAt(&array->values, i);
+            JsonValue *value = (JsonValue *) TinyList_GetAt(&services->values, i);
             Service *service = Service_NewInstance(device->iid, value->data.object);
             if (service == NULL)
             {

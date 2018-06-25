@@ -114,43 +114,43 @@ SET(Unit_Header
 #-----------------------
 # access
 #-----------------------
-SET(Access_Header
+SET(access_Header
         access/AccessType.h
         )
 
-SET(Access_Source
+SET(access_Source
         access/AccessType.c
         )
 
 #-----------------------
 # api
 #-----------------------
-SET(Api_Header
+SET(api_Header
         api/iot_api.h
     )
 
 #-----------------------
-# bean
+# operation
 #-----------------------
-SET(Bean_Header
-        bean/AID.h
-        bean/PID.h
-        bean/ActionBean.h
-        bean/PropertyBean.h
-        bean/PropertiesBean.h
+SET(operation_Header
+        operation/AID.h
+        operation/PID.h
+        operation/ActionOperation.h
+        operation/PropertyOperation.h
+        operation/PropertyOperations.h
         )
 
-SET(Bean_Source
-        bean/ActionBean.c
-        bean/PropertyBean.c
-        bean/PropertiesBean.h
+SET(operation_Source
+        operation/ActionOperation.c
+        operation/PropertyOperation.c
+        operation/PropertyOperations.h
         )
 
 #----------------------------------------------------------------------------
 # source
 #----------------------------------------------------------------------------
 SET(SRC
-        ${Api_Header}
+        ${api_Header}
         ${Constraint_Header}
         ${Error_Header}
         ${Data_Header}
@@ -162,10 +162,10 @@ SET(SRC
         ${Urn_Header}
         ${Urn_Source}
         ${Unit_Header}
-        ${Access_Header}
-        ${Access_Source}
-        ${Bean_Header}
-        ${Bean_Source}
+        ${access_Header}
+        ${access_Source}
+        ${operation_Header}
+        ${operation_Source}
     )
 
 #----------------------------------------------------------------------------

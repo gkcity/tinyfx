@@ -1,25 +1,23 @@
 #-----------------------------------------------------------------------------
 #
-# IotOperation
+# IotExecute
 #
 #-----------------------------------------------------------------------------
 
-SET(IotOperation_Header
-        PropertySetter.h
-        ActionInvoker.h
+SET(IotExecute_Header
+        IotExcute.h
         )
 
-SET(IotOperation_Source
-        PropertySetter.c
-        ActionInvoker.c
+SET(IotExecute_Source
+        IotExcute.c
         )
 
-SOURCE_GROUP(IotOperation\\headers        FILES     ${IotOperation_Header})
-SOURCE_GROUP(IotOperation\\sources        FILES     ${IotOperation_Source})
+SOURCE_GROUP(IotExecute\\headers        FILES     ${IotExecute_Header})
+SOURCE_GROUP(IotExecute\\sources        FILES     ${IotExecute_Source})
 
 SET(SRC
-        ${IotOperation_Header}
-        ${IotOperation_Source}
+        ${IotExecute_Header}
+        ${IotExecute_Source}
         )
 
 #----------------------------------------------------------------------------

@@ -4,7 +4,7 @@
  * @author wenzhenwei@xiaomi.com
  * @date   2017-7-1
  *
- * @file   PropertyBean.c
+ * @file   PropertyOperation.c
  *
  * @remark
  *      set tabstop=4
@@ -14,23 +14,23 @@
 
 #include <tiny_log.h>
 #include <tiny_malloc.h>
-#include "PropertyBean.h"
+#include "PropertyOperation.h"
 
-#define TAG     "PropertyBean"
+#define TAG     "PropertyOperation"
 
 TINY_LOR
-TinyRet PropertyBean_Construct(PropertyBean *thiz)
+TinyRet PropertyOperation_Construct(PropertyOperation *thiz)
 {
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
-    memset(thiz, 0, sizeof(PropertyBean));
+    memset(thiz, 0, sizeof(PropertyOperation));
     Data_Construct(&thiz->value);
 
     return TINY_RET_OK;
 }
 
 TINY_LOR
-void PropertyBean_Dispose(PropertyBean *thiz)
+void PropertyOperation_Dispose(PropertyOperation *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
@@ -38,22 +38,22 @@ void PropertyBean_Dispose(PropertyBean *thiz)
 }
 
 TINY_LOR
-PropertyBean * PropertyBean_New(void)
+PropertyOperation * PropertyOperation_New(void)
 {
-    PropertyBean *thiz = NULL;
+    PropertyOperation *thiz = NULL;
 
     do
     {
-        thiz = (PropertyBean *)tiny_malloc(sizeof(PropertyBean));
+        thiz = (PropertyOperation *)tiny_malloc(sizeof(PropertyOperation));
         if (thiz == NULL)
         {
             LOG_D(TAG, "tiny_malloc FAILED");
             break;
         }
 
-        if (RET_FAILED(PropertyBean_Construct(thiz)))
+        if (RET_FAILED(PropertyOperation_Construct(thiz)))
         {
-            PropertyBean_Delete(thiz);
+            PropertyOperation_Delete(thiz);
             thiz = NULL;
             break;
         }
@@ -63,10 +63,10 @@ PropertyBean * PropertyBean_New(void)
 }
 
 TINY_LOR
-void PropertyBean_Delete(PropertyBean *thiz)
+void PropertyOperation_Delete(PropertyOperation *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    PropertyBean_Dispose(thiz);
+    PropertyOperation_Dispose(thiz);
     tiny_free(thiz);
 }

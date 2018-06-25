@@ -4,7 +4,7 @@
  * @author wenzhenwei@xiaomi.com
  * @date   2017-7-1
  *
- * @file   PropertiesBean.h
+ * @file   PropertyOperations.h
  *
  * @remark
  *      set tabstop=4
@@ -14,34 +14,34 @@
 
 #include <tiny_malloc.h>
 #include <tiny_log.h>
-#include "PropertiesBean.h"
-#include "PropertyBean.h"
+#include "PropertyOperations.h"
+#include "PropertyOperation.h"
 
-#define TAG     "PropertiesBean"
+#define TAG     "PropertyOperations"
 
 TINY_LOR
 static void OnPropertyBeanDelete (void * data, void *ctx)
 {
-    PropertyBean_Delete((PropertyBean *)data);
+    PropertyOperation_Delete((PropertyOperation *) data);
 }
 
 TINY_LOR
-PropertiesBean * PropertiesBean_New(void)
+PropertyOperations * PropertyOperations_New(void)
 {
-    PropertiesBean *thiz = NULL;
+    PropertyOperations *thiz = NULL;
 
     do
     {
-        thiz = (PropertiesBean *)tiny_malloc(sizeof(PropertiesBean));
+        thiz = (PropertyOperations *)tiny_malloc(sizeof(PropertyOperations));
         if (thiz == NULL)
         {
             LOG_D(TAG, "tiny_malloc FAILED");
             break;
         }
 
-        if (RET_FAILED(PropertiesBean_Construct(thiz)))
+        if (RET_FAILED(PropertyOperations_Construct(thiz)))
         {
-            PropertiesBean_Delete(thiz);
+            PropertyOperations_Delete(thiz);
             thiz = NULL;
             break;
         }
@@ -51,14 +51,14 @@ PropertiesBean * PropertiesBean_New(void)
 }
 
 TINY_LOR
-void PropertiesBean_Delete(PropertiesBean *thiz)
+void PropertyOperations_Delete(PropertyOperations *thiz)
 {
-    PropertiesBean_Dispose(thiz);
+    PropertyOperations_Dispose(thiz);
     tiny_free(thiz);
 }
 
 TINY_LOR
-TinyRet PropertiesBean_Construct(PropertiesBean *thiz)
+TinyRet PropertyOperations_Construct(PropertyOperations *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -77,7 +77,7 @@ TinyRet PropertiesBean_Construct(PropertiesBean *thiz)
 }
 
 TINY_LOR
-void PropertiesBean_Dispose(PropertiesBean *thiz)
+void PropertyOperations_Dispose(PropertyOperations *thiz)
 {
     RETURN_IF_FAIL(thiz);
 

@@ -71,11 +71,11 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
         ${SOURCE_ROOT}/IotTypedef/device/Property.h
-        ${SOURCE_ROOT}/IotTypedef/bean/AID.h
-        ${SOURCE_ROOT}/IotTypedef/bean/PID.h
-        ${SOURCE_ROOT}/IotTypedef/bean/ActionBean.h
-        ${SOURCE_ROOT}/IotTypedef/bean/PropertyBean.h
-        ${SOURCE_ROOT}/IotTypedef/bean/PropertiesBean.h
+        ${SOURCE_ROOT}/IotTypedef/operation/AID.h
+        ${SOURCE_ROOT}/IotTypedef/operation/PID.h
+        ${SOURCE_ROOT}/IotTypedef/operation/ActionOperation.h
+        ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.h
+        ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
         ${SOURCE_ROOT}/IotTypedef/error/IotError.h
         ${SOURCE_ROOT}/IotTypedef/error/IotStatus.h
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyOnControl.h
@@ -110,9 +110,9 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Action.c
         ${SOURCE_ROOT}/IotTypedef/device/Property.c
-        ${SOURCE_ROOT}/IotTypedef/bean/ActionBean.c
-        ${SOURCE_ROOT}/IotTypedef/bean/PropertyBean.c
-        ${SOURCE_ROOT}/IotTypedef/bean/PropertiesBean.c
+        ${SOURCE_ROOT}/IotTypedef/operation/ActionOperation.c
+        ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.c
+        ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.c
         ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedObserver.c
         ${SOURCE_ROOT}/IotTypedef/access/AccessType.c
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.c
@@ -146,17 +146,15 @@ SET(IotInstance_Source
         )
 
 #-----------------------
-# IotOperation
+# IotExecute
 #-----------------------
 
-SET(IotOperation_Header
-        ${SOURCE_ROOT}/IotOperation/PropertySetter.h
-        ${SOURCE_ROOT}/IotOperation/ActionInvoker.h
+SET(IotExecute_Header
+        ${SOURCE_ROOT}/IotExecute/IotExcute.h
         )
 
-SET(IotOperation_Source
-        ${SOURCE_ROOT}/IotOperation/PropertySetter.c
-        ${SOURCE_ROOT}/IotOperation/ActionInvoker.c
+SET(IotExecute_Source
+        ${SOURCE_ROOT}/IotExecute/IotExcute.c
         )
 
 SOURCE_GROUP(IotTypedef\\headers             FILES     ${IotTypedef_Header})
@@ -165,8 +163,8 @@ SOURCE_GROUP(IotDeviceManager\\headers       FILES     ${IotDeviceManager_Header
 SOURCE_GROUP(IotDeviceManager\\sources       FILES     ${IotDeviceManager_Source})
 SOURCE_GROUP(IotInstance\\headers            FILES     ${IotInstance_Header})
 SOURCE_GROUP(IotInstance\\sources            FILES     ${IotInstance_Source})
-SOURCE_GROUP(IotOperation\\headers           FILES     ${IotOperation_Header})
-SOURCE_GROUP(IotOperation\\sources           FILES     ${IotOperation_Source})
+SOURCE_GROUP(IotExecute\\headers             FILES     ${IotExecute_Header})
+SOURCE_GROUP(IotExecute\\sources             FILES     ${IotExecute_Source})
 
 SET(SRC
         ${IotTypedef_Header}
@@ -175,8 +173,8 @@ SET(SRC
         ${IotDeviceManager_Source}
         ${IotInstance_Header}
         ${IotInstance_Source}
-        ${IotOperation_Header}
-        ${IotOperation_Source}
+        ${IotExecute_Header}
+        ${IotExecute_Source}
     )
 
 #----------------------------------------------------------------------------

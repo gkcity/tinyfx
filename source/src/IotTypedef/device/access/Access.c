@@ -48,19 +48,19 @@ Access Access_FromJsonArray(JsonArray *array)
 }
 
 TINY_LOR
-bool Property_IsReadable(Access access)
+bool Access_IsReadable(Access access)
 {
     return ((access & ACCESS_READ) != 0);
 }
 
 TINY_LOR
-bool Property_IsWritable(Access access)
+bool Access_IsWritable(Access access)
 {
     return ((access & ACCESS_WRITE) != 0);
 }
 
 TINY_LOR
-bool Property_IsNotifiable(Access access)
+bool Access_IsNotifiable(Access access)
 {
     return ((access & ACCESS_NOTIFY) != 0);
 }

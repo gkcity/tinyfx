@@ -4,16 +4,16 @@
  * @author jxfengzi@gmail.com
  * @date   2013-11-19
  *
- * @file   DeviceRuntime.c
+ * @file   IotRuntime.c
  *
  * @remark
  *
  */
 
-#include "DeviceRuntime.h"
+#include "IotRuntime.h"
 
 TINY_LOR
-void DeviceRuntime_Copy(DeviceRuntime *dst, DeviceRuntime *src)
+void IotRuntime_Copy(IotRuntime *dst, IotRuntime *src)
 {
     if (dst != src)
     {

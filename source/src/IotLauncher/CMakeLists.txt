@@ -1,30 +1,30 @@
 #-----------------------------------------------------------------------------
 #
-# IotDeviceManager
+# IotLauncher
 #
 #-----------------------------------------------------------------------------
 
-SET(DeviceManager_Header
-        DeviceRuntime.h
-        DeviceManager.h
+SET(IotLauncher_Header
+        IotRuntime.h
+        IotLauncher.h
     )
 
-SET(DeviceManager_Source
-        DeviceManager.c
-        DeviceRuntime.c
+SET(IotLauncher_Source
+        IotLauncher.c
+        IotRuntime.c
     )
 
 SET(SRC
-        ${DeviceManager_Header}
-        ${DeviceManager_Source}
+        ${IotLauncher_Header}
+        ${IotLauncher_Source}
     )
 
 #----------------------------------------------------------------------------
 # static library
 #----------------------------------------------------------------------------
-ADD_LIBRARY(iot_device_static STATIC ${SRC})
-SET_TARGET_PROPERTIES(iot_device_static PROPERTIES OUTPUT_NAME "iot_device_static")
-SET_TARGET_PROPERTIES(iot_device_static PROPERTIES LINKER_LANGUAGE C)
+ADD_LIBRARY(iot_launcher_static STATIC ${SRC})
+SET_TARGET_PROPERTIES(iot_launcher_static PROPERTIES OUTPUT_NAME "iot_launcher_static")
+SET_TARGET_PROPERTIES(iot_launcher_static PROPERTIES LINKER_LANGUAGE C)
 
 #----------------------------------------------------------------------------
 # shared library

@@ -2,7 +2,7 @@
 #include <device/Service.h>
 #include <device/Property.h>
 #include <device/Action.h>
-#include "../DeviceInstance.h"
+#include "DeviceFactory.h"
 #include <tiny_socket.h>
 
 /**

@@ -123,29 +123,29 @@ SET(IotTypedef_Source
         )
 
 #-----------------------
-# IotDeviceManager
+# IotLauncher
 #-----------------------
 
-SET(IotDeviceManager_Header
-        ${SOURCE_ROOT}/IotDeviceManager/DeviceRuntime.h
-        ${SOURCE_ROOT}/IotDeviceManager/DeviceManager.h
+SET(IotLauncher_Header
+        ${SOURCE_ROOT}/IotLauncher/IotLauncher.h
+        ${SOURCE_ROOT}/IotLauncher/IotRuntime.h
         )
 
-SET(IotDeviceManager_Source
-        ${SOURCE_ROOT}/IotDeviceManager/DeviceManager.c
-        ${SOURCE_ROOT}/IotDeviceManager/DeviceRuntime.c
+SET(IotLauncher_Source
+        ${SOURCE_ROOT}/IotLauncher/IotLauncher.c
+        ${SOURCE_ROOT}/IotLauncher/IotRuntime.c
         )
 
 #-----------------------
-# IotInstance
+# IotFactory
 #-----------------------
 
-SET(IotInstance_Header
-        ${SOURCE_ROOT}/IotInstance/DeviceInstance.h
+SET(IotFactory_Header
+        ${SOURCE_ROOT}/IotFactory/DeviceFactory.h
         )
 
-SET(IotInstance_Source
-        ${SOURCE_ROOT}/IotInstance/DeviceInstance.c
+SET(IotFactory_Source
+        ${SOURCE_ROOT}/IotFactory/DeviceFactory.c
         )
 
 #-----------------------
@@ -162,20 +162,20 @@ SET(IotExecute_Source
 
 SOURCE_GROUP(IotTypedef\\headers             FILES     ${IotTypedef_Header})
 SOURCE_GROUP(IotTypedef\\sources             FILES     ${IotTypedef_Source})
-SOURCE_GROUP(IotDeviceManager\\headers       FILES     ${IotDeviceManager_Header})
-SOURCE_GROUP(IotDeviceManager\\sources       FILES     ${IotDeviceManager_Source})
-SOURCE_GROUP(IotInstance\\headers            FILES     ${IotInstance_Header})
-SOURCE_GROUP(IotInstance\\sources            FILES     ${IotInstance_Source})
+SOURCE_GROUP(IotLauncher\\headers            FILES     ${IotLauncher_Header})
+SOURCE_GROUP(IotLauncher\\sources            FILES     ${IotLauncher_Source})
+SOURCE_GROUP(IotFactory\\headers             FILES     ${IotFactory_Header})
+SOURCE_GROUP(IotFactory\\sources             FILES     ${IotFactory_Source})
 SOURCE_GROUP(IotExecute\\headers             FILES     ${IotExecute_Header})
 SOURCE_GROUP(IotExecute\\sources             FILES     ${IotExecute_Source})
 
 SET(SRC
         ${IotTypedef_Header}
         ${IotTypedef_Source}
-        ${IotDeviceManager_Header}
-        ${IotDeviceManager_Source}
-        ${IotInstance_Header}
-        ${IotInstance_Source}
+        ${IotLauncher_Header}
+        ${IotLauncher_Source}
+        ${IotFactory_Header}
+        ${IotFactory_Source}
         ${IotExecute_Header}
         ${IotExecute_Source}
     )

@@ -19,9 +19,10 @@
 #include <device/Service.h>
 #include <device/Property.h>
 #include <device/Action.h>
-#include "DeviceInstance.h"
+#include <tiny_snprintf.h>
+#include "DeviceFactory.h"
 
-#define TAG     "DeviceInstance"
+#define TAG     "DeviceFactory"
 
 //TINY_LOR
 //static uint16_t AccessType_New(JsonArray *array)
@@ -624,7 +625,7 @@ static Service* Service_NewInstance(JsonObject *object)
 }
 
 TINY_LOR
-static Device* Device_NewInstance(const char *did, JsonObject *object)
+static Device* Device_NewInstance(const char *did, const char *ltsk, JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Device* device = NULL;
@@ -654,6 +655,7 @@ static Device* Device_NewInstance(const char *did, JsonObject *object)
         }
 
         strncpy(device->did, did, DEVICE_ID_LENGTH);
+        strncpy(device->ltsk, ltsk, DEVICE_LTSK_LENGTH);
 
         for (uint32_t i = 0; i < services->values.size; ++i)
         {
@@ -684,18 +686,26 @@ static Device* Device_NewInstance(const char *did, JsonObject *object)
     return device;
 }
 
+#define HOST "39.106.171.204"
+#define PORT 80
+
 TINY_LOR
-Device* DeviceInstance_New(const char *ip, uint16_t port, const char *uri, uint32_t second)
+Device* DeviceFactory_Create(const char *did, const char *type, const char *ltsk, uint32_t second)
 {
     Device *device = NULL;
     HttpClient *client = NULL;
     HttpExchange *exchange = NULL;
     JsonObject *object = NULL;
 
-    LOG_I(TAG, "DeviceInstance_New -> http://%s:%d/%s", ip, port, uri);
+    LOG_I(TAG, "DeviceFactory_Create -> http://%s:%d/dd/instance/%s", HOST, PORT, type);
 
     do
     {
+        char uri[1024];
+
+        memset(uri, 0, 1024);
+        tiny_snprintf(uri, 1014, "/dd/instance/%s", type);
+
         client = HttpClient_New();
         if (client == NULL)
         {
@@ -703,7 +713,7 @@ Device* DeviceInstance_New(const char *ip, uint16_t port, const char *uri, uint3
             break;
         }
 
-        exchange = HttpExchange_New(ip, port, "GET", uri, second, NULL, 0);
+        exchange = HttpExchange_New(HOST, PORT, "GET", uri, second, NULL, 0);
         if (exchange == NULL)
         {
             LOG_E(TAG, "HttpExchange_New failed!");
@@ -729,7 +739,7 @@ Device* DeviceInstance_New(const char *ip, uint16_t port, const char *uri, uint3
             break;
         }
 
-        device = Device_NewInstance("10001", object);
+        device = Device_NewInstance(did, ltsk, object);
     } while (false);
 
     if (object != NULL)

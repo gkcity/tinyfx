@@ -12,8 +12,12 @@
 
 #include <tiny_malloc.h>
 #include <tiny_log.h>
+#include <status/IotStatus.h>
+#include <value/JsonString.h>
 #include "Action.h"
 #include "Property.h"
+#include "Argument.h"
+#include "Service.h"
 
 #define TAG     "Action"
 
@@ -26,11 +30,13 @@ static void Action_Dispose(Action *thiz);
 TINY_LOR
 static void in_release_handler(void *data, void *ctx)
 {
+    Argument_Delete(data);
 }
 
 TINY_LOR
 static void out_release_handler(void *data, void *ctx)
 {
+    Argument_Delete(data);
 }
 
 TINY_LOR
@@ -119,4 +125,88 @@ void Action_Delete(Action *thiz)
 
     Action_Dispose(thiz);
     tiny_free(thiz);
+}
+
+TINY_LOR
+static Property* Action_GetProperty(Action *thiz, TinyList *arguments, int index)
+{
+    Argument * argument = NULL;
+
+    RETURN_VAL_IF_FAIL(thiz, NULL);
+    RETURN_VAL_IF_FAIL(arguments, NULL);
+
+    argument = (Argument *) TinyList_GetAt(arguments, index);
+    if (argument == NULL)
+    {
+        return NULL;
+    }
+
+    return Service_GetProperty(thiz->service, argument->iid);
+}
+
+TINY_LOR
+void Action_TryInvoke(Action *thiz, ActionOperation *o)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    do
+    {
+        if (thiz->in.size != o->in->values.size)
+        {
+            o->status = IOT_STATUS_ACTION_IN_ERROR;
+            break;
+        }
+
+        if (thiz->onInvoke == NULL)
+        {
+            o->status = IOT_STATUS_INTERNAL_ERROR;
+            break;
+        }
+
+        for (uint32_t i = 0; i < thiz->in.size; ++i)
+        {
+            JsonValue * value = (JsonValue *)TinyList_GetAt(&o->in->values, i);
+            Property *property = Action_GetProperty(thiz, &thiz->in, i);
+            if (property == NULL)
+            {
+                LOG_E(TAG, "property not found");
+                o->status = IOT_STATUS_INTERNAL_ERROR;
+                break;
+            }
+
+            if (! Property_TrySet(property, value))
+            {
+                LOG_E(TAG, "property value invalid");
+                o->status = IOT_STATUS_VALUE_ERROR;
+                break;
+            }
+        }
+
+        if (o->status != IOT_STATUS_OK)
+        {
+            break;
+        }
+
+        thiz->onInvoke(o);
+
+        for (uint32_t i = 0; i < thiz->out.size; ++i)
+        {
+            JsonValue * value = (JsonValue *)TinyList_GetAt(&o->out->values, i);
+            Property *property = Action_GetProperty(thiz, &thiz->out, i);
+            if (property == NULL)
+            {
+                LOG_E(TAG, "property not found");
+                o->status = IOT_STATUS_INTERNAL_ERROR;
+                break;
+            }
+
+            if (! Property_TrySet(property, value))
+            {
+                LOG_E(TAG, "property value invalid");
+                o->status = IOT_STATUS_VALUE_ERROR;
+                break;
+            }
+        }
+    } while (false);
 }

@@ -65,12 +65,16 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint16Value.h
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint32Value.h
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint64Value.h
-        ${SOURCE_ROOT}/IotTypedef/device/DeviceHostConfig.h
-        ${SOURCE_ROOT}/IotTypedef/device/DeviceHost.h
         ${SOURCE_ROOT}/IotTypedef/device/Device.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
         ${SOURCE_ROOT}/IotTypedef/device/Property.h
+        ${SOURCE_ROOT}/IotTypedef/device/Argument.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyOnControl.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyChangedListener.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/DeviceIdentifyListener.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyChangedObserver.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/ActionOnInvoke.h
         ${SOURCE_ROOT}/IotTypedef/operation/AID.h
         ${SOURCE_ROOT}/IotTypedef/operation/PID.h
         ${SOURCE_ROOT}/IotTypedef/operation/ActionOperation.h
@@ -78,11 +82,6 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
         ${SOURCE_ROOT}/IotTypedef/error/IotError.h
         ${SOURCE_ROOT}/IotTypedef/error/IotStatus.h
-        ${SOURCE_ROOT}/IotTypedef/controlled/PropertyOnControl.h
-        ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedListener.h
-        ${SOURCE_ROOT}/IotTypedef/controlled/DeviceIdentifyListener.h
-        ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedObserver.h
-        ${SOURCE_ROOT}/IotTypedef/controlled/ActionOnInvoke.h
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.h
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.h
         ${SOURCE_ROOT}/IotTypedef/unit/Unit.h
@@ -104,16 +103,15 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint16Value.c
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint32Value.c
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint64Value.c
-        ${SOURCE_ROOT}/IotTypedef/device/DeviceHostConfig.c
-        ${SOURCE_ROOT}/IotTypedef/device/DeviceHost.c
         ${SOURCE_ROOT}/IotTypedef/device/Device.c
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Action.c
         ${SOURCE_ROOT}/IotTypedef/device/Property.c
+        ${SOURCE_ROOT}/IotTypedef/device/Argument.c
+        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyChangedObserver.c
         ${SOURCE_ROOT}/IotTypedef/operation/ActionOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.c
-        ${SOURCE_ROOT}/IotTypedef/controlled/PropertyChangedObserver.c
         ${SOURCE_ROOT}/IotTypedef/access/AccessType.c
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.c
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.c

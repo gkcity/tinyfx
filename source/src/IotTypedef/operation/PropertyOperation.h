@@ -16,7 +16,7 @@
 #define __PROPERTY_OPERATION_H__
 
 #include <tiny_base.h>
-#include <data/Data.h>
+#include <JsonValue.h>
 #include "PID.h"
 
 TINY_BEGIN_DECLS
@@ -24,9 +24,9 @@ TINY_BEGIN_DECLS
 
 typedef struct _PropertyOperation
 {
-    PID         pid;
-    int         status;
-    Data        value;
+    PID             pid;
+    int             status;
+    JsonValue     * value;
 } PropertyOperation;
 
 TINY_LOR

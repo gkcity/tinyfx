@@ -14,14 +14,12 @@
 #define __ACTION_ON_INVOKE_H__
 
 #include <tiny_base.h>
+#include <operation/ActionOperation.h>
 
 TINY_BEGIN_DECLS
 
 
-struct _Action;
-typedef struct _Action Action;
-
-typedef void (*ActionOnInvoke)(Action *action);
+typedef void (*ActionOnInvoke)(ActionOperation *operation);
 
 
 TINY_END_DECLS

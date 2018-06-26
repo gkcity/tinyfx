@@ -117,7 +117,7 @@ TinyRet DeviceManager_Stop(DeviceManager *thiz)
 }
 
 TINY_LOR
-TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceControllable *host)
+TinyRet DeviceManager_Run(DeviceManager *thiz, Device *device)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -131,10 +131,16 @@ TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceControllable *host)
             break;
         }
 
-        for (uint32_t  i = 0; i < host->devices.size; ++i)
+        if (! Device_CheckHandler(device))
         {
-            Device *device = (Device *) TinyList_GetAt(&host->devices, i);
-            if (! Device_CheckHandler(device))
+            ret = TINY_RET_E_NOT_IMPLEMENTED;
+            break;
+        }
+
+        for (uint32_t  i = 0; i < device->children.size; ++i)
+        {
+            Device *child = (Device *) TinyList_GetAt(&device->children, i);
+            if (! Device_CheckHandler(child))
             {
                 ret = TINY_RET_E_NOT_IMPLEMENTED;
                 break;
@@ -149,7 +155,7 @@ TinyRet DeviceManager_Run(DeviceManager *thiz, DeviceControllable *host)
         thiz->started = true;
         thiz->runtime.Initialize(&thiz->runtime);
 
-        ret = thiz->runtime.Run(&thiz->runtime, &thiz->bootstrap, host);
+        ret = thiz->runtime.Run(&thiz->runtime, &thiz->bootstrap, device);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "Runtime.Run failed");

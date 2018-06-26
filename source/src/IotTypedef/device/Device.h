@@ -16,17 +16,26 @@
 #include "tiny_base.h"
 #include "api/iot_api.h"
 #include "urn/Urn.h"
+#include "constraint/typedef_constraint.h"
 #include <TinyList.h>
-#include <controlled/PropertyOnControl.h>
-#include <controlled/ActionOnInvoke.h>
+#include <device/handler/PropertyOnControl.h>
+#include <device/handler/ActionOnInvoke.h>
+#include <device/handler/DeviceIdentifyListener.h>
+#include <operation/PropertyOperations.h>
+#include <operation/ActionOperation.h>
 
 TINY_BEGIN_DECLS
 
 
 struct _Device
 {
-    uint16_t            iid;
-    TinyList            services;
+    char                        did[DEVICE_ID_LENGTH + 1];
+    char                        ltsk[DEVICE_LTSK_LENGTH + 1];
+    TinyList                    services;
+    TinyList                    children;
+    TinyList                    changedObservers;
+    DeviceIdentifyListener      identifyListener;
+    void                      * context;
 };
 
 typedef struct _Device Device;
@@ -41,7 +50,11 @@ void Device_Delete(Device *thiz);
 
 IOT_API
 TINY_LOR
-void Device_InitializeInstanceID(Device *thiz, uint16_t diid);
+void Device_SetLtsk(Device *thiz, const char *ltsk);
+
+IOT_API
+TINY_LOR
+void Device_InitializeIID(Device *thiz, uint16_t iid);
 
 IOT_API
 TINY_LOR
@@ -50,6 +63,18 @@ void Device_SetHandler(Device *thiz, PropertyOnGet onGet, PropertyOnSet onSet, A
 IOT_API
 TINY_LOR
 bool Device_CheckHandler(Device *thiz);
+
+IOT_API
+TINY_LOR
+void Device_TryReadProperties(Device *thiz, PropertyOperations *operations);
+
+IOT_API
+TINY_LOR
+void Device_TryWriteProperties(Device *thiz, PropertyOperations *operations);
+
+IOT_API
+TINY_LOR
+void Device_TryInvokeAction(Device *thiz, ActionOperation *operation);
 
 
 TINY_END_DECLS

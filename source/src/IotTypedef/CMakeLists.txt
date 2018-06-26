@@ -55,6 +55,7 @@ SET(Device_Header
         device/Service.h
         device/Action.h
         device/Property.h
+        device/Argument.h
     )
 
 SET(Device_Source
@@ -62,33 +63,32 @@ SET(Device_Source
         device/Service.c
         device/Action.c
         device/Property.c
+        device/Argument.c
     )
 
 #-----------------------
-# error
+# status
 #-----------------------
 SET(Error_Header
-        error/IotError.h
-        error/IotStatus.h
+        status/IotError.h
+        status/IotStatus.h
     )
 
 #-----------------------
 # controlled
 #-----------------------
 SET(Controlled_Header
-        controlled/DeviceControllalbe.h
-        controlled/DeviceConfig.h
-        controlled/PropertyOnControl.h
-        controlled/PropertyChangedListener.h
-        controlled/DeviceIdentifyListener.h
-        controlled/PropertyChangedObserver.h
-        controlled/ActionOnInvoke.h
+        controlled/DeviceControllable.h
+        device/handler/PropertyOnControl.h
+        device/handler/PropertyChangedListener.h
+        device/handler/DeviceIdentifyListener.h
+        device/handler/PropertyChangedObserver.h
+        device/handler/ActionOnInvoke.h
         )
 
 SET(Controlled_Source
-        controlled/DeviceControllalbe.c
-        controlled/DeviceConfig.c
-        controlled/PropertyChangedObserver.c
+        controlled/DeviceControllable.c
+        device/handler/PropertyChangedObserver.c
     )
 
 #-----------------------

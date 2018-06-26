@@ -20,7 +20,7 @@
 #define TAG     "PropertyOperations"
 
 TINY_LOR
-static void OnPropertyBeanDelete (void * data, void *ctx)
+static void OnPropertyOperationDelete(void *data, void *ctx)
 {
     PropertyOperation_Delete((PropertyOperation *) data);
 }
@@ -70,7 +70,7 @@ TinyRet PropertyOperations_Construct(PropertyOperations *thiz)
             break;
         }
 
-        TinyList_SetDeleteListener(&thiz->properties, OnPropertyBeanDelete, NULL);
+        TinyList_SetDeleteListener(&thiz->properties, OnPropertyOperationDelete, NULL);
     } while (false);
 
     return ret;

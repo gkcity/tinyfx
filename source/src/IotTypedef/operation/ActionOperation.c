@@ -59,24 +59,9 @@ TinyRet ActionOperation_Construct(ActionOperation *thiz)
 
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
-    do
-    {
-        memset(thiz, 0, sizeof(ActionOperation));
+    memset(thiz, 0, sizeof(ActionOperation));
 
-        ret = PropertyOperations_Construct(&thiz->in);
-        if (RET_FAILED(ret))
-        {
-            break;
-        }
-
-        ret = PropertyOperations_Construct(&thiz->out);
-        if (RET_FAILED(ret))
-        {
-            break;
-        }
-    } while (false);
-
-    return TINY_RET_OK;
+    return ret;
 }
 
 TINY_LOR
@@ -84,6 +69,13 @@ void ActionOperation_Dispose(ActionOperation *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    PropertyOperations_Dispose(&thiz->in);
-    PropertyOperations_Dispose(&thiz->out);
+    if (thiz->in != NULL)
+    {
+        JsonArray_Delete(thiz->in);
+    }
+
+    if (thiz->out != NULL)
+    {
+        JsonArray_Delete(thiz->out);
+    }
 }

@@ -24,7 +24,6 @@ TinyRet PropertyOperation_Construct(PropertyOperation *thiz)
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
     memset(thiz, 0, sizeof(PropertyOperation));
-    Data_Construct(&thiz->value);
 
     return TINY_RET_OK;
 }
@@ -34,7 +33,11 @@ void PropertyOperation_Dispose(PropertyOperation *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    Data_Dispose(&thiz->value);
+    if (thiz->value != NULL)
+    {
+        JsonValue_Delete(thiz->value);
+        thiz->value = NULL;
+    }
 }
 
 TINY_LOR

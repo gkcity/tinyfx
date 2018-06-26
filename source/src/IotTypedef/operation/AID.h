@@ -16,13 +16,14 @@
 #define __AID_H__
 
 #include <tiny_base.h>
+#include <constraint/typedef_constraint.h>
 
 TINY_BEGIN_DECLS
 
 
 typedef struct _AID
 {
-    uint16_t            diid;
+    char                did[DEVICE_ID_LENGTH];
     uint16_t            siid;
     uint16_t            iid;
 } AID;

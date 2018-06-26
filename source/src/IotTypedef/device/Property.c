@@ -112,3 +112,87 @@ bool Property_IsNotifiable(Property *thiz)
 {
     return ((thiz->accessType & ACCESS_NOTIFY) != 0);
 }
+
+TINY_LOR
+void Property_TryRead(Property *thiz, PropertyOperation *o)
+{
+//    do
+//    {
+//
+//
+//
+//        Property *property = Device_GetProperty(thiz, o->pid.did, o->pid.siid, o->pid.iid);
+//        if (property == NULL)
+//        {
+//            o->status = IOT_STATUS_NOT_EXIST;
+//            break;
+//        }
+//
+//        if (! Property_IsReadable(property))
+//        {
+//            bean->status = IOT_STATUS_CANNOT_READ;
+//            continue;
+//        }
+//
+//        if (property->onGet == NULL)
+//        {
+//            bean->status = IOT_STATUS_INTERNAL_ERROR;
+//            continue;
+//        }
+//
+//        property->onGet(property);
+//
+//        if (RET_FAILED(Data_Copy(&bean->value, &property->data)))
+//        {
+//            bean->status = IOT_STATUS_INTERNAL_ERROR;
+//            continue;
+//        }
+//
+//        bean->status = IOT_STATUS_OK;
+//    }
+//    while (false);
+}
+
+TINY_LOR
+void Property_TryWrite(Property *thiz, PropertyOperation *o)
+{
+
+//    for (uint32_t i = 0; i < operations->properties.size; ++i)
+//    {
+//        PropertyOperation *o = (PropertyOperation *) TinyList_GetAt(&operations->properties, i);
+//
+//        Property *property = DeviceControllable_GetProperty(thiz, o->pid.diid, o->pid.siid, o->pid.iid);
+//        if (property == NULL)
+//        {
+//            bean->status = IOT_STATUS_NOT_EXIST;
+//            continue;
+//        }
+//
+//        if (!Property_IsReadable(property))
+//        {
+//            bean->status = IOT_STATUS_CANNOT_WRITE;
+//            continue;
+//        }
+//
+//        if (property->onSet == NULL)
+//        {
+//            bean->status = IOT_STATUS_INTERNAL_ERROR;
+//            continue;
+//        }
+//
+//        if (RET_FAILED(Data_Set(&bean->value, &property->data)))
+//        {
+//            bean->status = IOT_STATUS_VALUE_ERROR;
+//            continue;
+//        }
+//
+//        property->onSet(property);
+//        bean->status = IOT_STATUS_OK;
+//    }
+}
+
+TINY_LOR
+bool Property_TrySet(Property *thiz, JsonValue* value)
+{
+
+}

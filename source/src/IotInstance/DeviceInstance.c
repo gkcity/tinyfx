@@ -195,7 +195,7 @@ static TinyRet Property_ProcessValueList(Property *property, JsonArray *list)
 }
 
 TINY_LOR
-static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *object)
+static Property* Property_NewInstance(JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Property *property = NULL;
@@ -264,8 +264,6 @@ static Property* Property_NewInstance(uint16_t diid, uint16_t siid, JsonObject *
             break;
         }
 
-        property->diid = diid;
-        property->siid = siid;
         property->iid = (uint16_t) (iid->value.intValue);
 
         ret = Urn_SetString(&property->type, type->value);
@@ -389,7 +387,7 @@ static TinyRet ParseArguments(TinyList *list, JsonArray *arguments, TinyList *pr
 }
 
 TINY_LOR
-static Action* Action_NewInstance(uint16_t diid, uint16_t siid, JsonObject *object, TinyList *properties)
+static Action* Action_NewInstance(JsonObject *object, Service *service)
 {
     TinyRet ret = TINY_RET_OK;
     Action *action = NULL;
@@ -438,8 +436,6 @@ static Action* Action_NewInstance(uint16_t diid, uint16_t siid, JsonObject *obje
             break;
         }
 
-        action->diid = diid;
-        action->siid = siid;
         action->iid = (uint16_t) (iid->value.intValue);
         ret = Urn_SetString(&action->type, type->value);
         if (RET_FAILED(ret))
@@ -449,23 +445,23 @@ static Action* Action_NewInstance(uint16_t diid, uint16_t siid, JsonObject *obje
             break;
         }
 
-        /**
-         * in is optional
-         */
-        ret = ParseArguments(&action->in, JsonObject_GetArray(object, "in"), properties);
-        if (RET_FAILED(ret))
-        {
-            break;
-        }
-
-        /**
-         * out is optional
-         */
-        ret = ParseArguments(&action->out, JsonObject_GetArray(object, "out"), properties);
-        if (RET_FAILED(ret))
-        {
-            break;
-        }
+//        /**
+//         * in is optional
+//         */
+//        ret = ParseArguments(&action->in, JsonObject_GetArray(object, "in"), properties);
+//        if (RET_FAILED(ret))
+//        {
+//            break;
+//        }
+//
+//        /**
+//         * out is optional
+//         */
+//        ret = ParseArguments(&action->out, JsonObject_GetArray(object, "out"), properties);
+//        if (RET_FAILED(ret))
+//        {
+//            break;
+//        }
     } while (false);
 
     if (RET_FAILED(ret) && action != NULL)
@@ -478,7 +474,7 @@ static Action* Action_NewInstance(uint16_t diid, uint16_t siid, JsonObject *obje
 }
 
 TINY_LOR
-static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
+static Service* Service_NewInstance(JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Service *service = NULL;
@@ -543,7 +539,6 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
             break;
         }
 
-        service->diid = diid;
         service->iid = (uint16_t) (iid->value.intValue);
 
         ret = Urn_SetString(&service->type, type->value);
@@ -563,7 +558,7 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
         for (uint32_t i = 0; i < properties->values.size; ++i)
         {
             JsonValue *value = (JsonValue *) TinyList_GetAt(&properties->values, i);
-            Property *property = Property_NewInstance(diid, service->iid, value->data.object);
+            Property *property = Property_NewInstance(value->data.object);
             if (property == NULL)
             {
                 LOG_E(TAG, "Property_NewInstance failed");
@@ -596,7 +591,7 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
         for (uint32_t i = 0; i < actions->values.size; ++i)
         {
             JsonValue *value = (JsonValue *) TinyList_GetAt(&actions->values, i);
-            Action *action = Action_NewInstance(diid, service->iid, value->data.object, &service->properties);
+            Action *action = Action_NewInstance(value->data.object, service);
             if (action == NULL)
             {
                 LOG_E(TAG, "Action_NewInstance failed");
@@ -622,7 +617,7 @@ static Service* Service_NewInstance(uint16_t diid, JsonObject *object)
 }
 
 TINY_LOR
-static Device* Device_NewInstance(uint16_t instanceID, JsonObject *object)
+static Device* Device_NewInstance(const char *did, JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Device* device = NULL;
@@ -651,12 +646,12 @@ static Device* Device_NewInstance(uint16_t instanceID, JsonObject *object)
             break;
         }
 
-        device->iid = instanceID;
+        strncpy(device->did, did, DEVICE_ID_LENGTH);
 
         for (uint32_t i = 0; i < services->values.size; ++i)
         {
             JsonValue *value = (JsonValue *) TinyList_GetAt(&services->values, i);
-            Service *service = Service_NewInstance(device->iid, value->data.object);
+            Service *service = Service_NewInstance(value->data.object);
             if (service == NULL)
             {
                 LOG_E(TAG, "Service_NewInstance failed");
@@ -727,7 +722,7 @@ Device* DeviceInstance_New(const char *ip, uint16_t port, const char *uri, uint3
             break;
         }
 
-        device = Device_NewInstance(1, object);
+        device = Device_NewInstance("10001", object);
     } while (false);
 
     if (object != NULL)

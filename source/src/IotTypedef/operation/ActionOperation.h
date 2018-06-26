@@ -16,6 +16,7 @@
 #define __ACTION_OPERATION_H__
 
 #include <tiny_base.h>
+#include <JsonArray.h>
 #include "AID.h"
 #include "PropertyOperations.h"
 
@@ -26,8 +27,8 @@ typedef struct _ActionOperation
 {
     AID                     aid;
     int                     status;
-    PropertyOperations      in;
-    PropertyOperations      out;
+    JsonArray             * in;
+    JsonArray             * out;
 } ActionOperation;
 
 TINY_LOR

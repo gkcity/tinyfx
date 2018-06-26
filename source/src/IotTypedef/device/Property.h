@@ -14,31 +14,30 @@
 #define __PROPERTY_H__
 
 #include "tiny_base.h"
-#include "error/IotError.h"
 #include "api/iot_api.h"
 #include "unit/Unit.h"
 #include "urn/Urn.h"
 #include "data/Data.h"
 #include "access/AccessType.h"
-#include <controlled/PropertyOnControl.h>
+#include <device/handler/PropertyOnControl.h>
+#include <operation/PropertyOperation.h>
+#include <JsonValue.h>
 
 TINY_BEGIN_DECLS
 
 
 struct _Property
 {
-    uint16_t            diid;
-    uint16_t            siid;
     uint16_t            iid;
     uint16_t            accessType;
     Urn                 type;
-    Unit                unit;
+//    Unit                unit;
     Data                data;
-    bool                changed;
+//    bool                changed;
     PropertyOnGet       onGet;
     PropertyOnSet       onSet;
-    int                 status;
-    uint8_t             operation;
+//    int                 status;
+//    uint8_t             operation;
 };
 
 IOT_API
@@ -60,6 +59,19 @@ bool Property_IsWritable(Property *thiz);
 IOT_API
 TINY_LOR
 bool Property_IsNotifiable(Property *thiz);
+
+IOT_API
+TINY_LOR
+void Property_TryRead(Property *thiz, PropertyOperation *o);
+
+IOT_API
+TINY_LOR
+void Property_TryWrite(Property *thiz, PropertyOperation *o);
+
+IOT_API
+TINY_LOR
+bool Property_TrySet(Property *thiz, JsonValue* value);
+
 
 
 TINY_END_DECLS

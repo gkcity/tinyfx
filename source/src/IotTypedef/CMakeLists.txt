@@ -56,6 +56,10 @@ SET(Device_Header
         device/Action.h
         device/Property.h
         device/Argument.h
+        device/access/Access.h
+        device/format/Format.h
+        device/constraint/ValueList.h
+        device/constraint/ValueRange.h
     )
 
 SET(Device_Source
@@ -64,6 +68,10 @@ SET(Device_Source
         device/Action.c
         device/Property.c
         device/Argument.c
+        device/access/Access.c
+        device/format/Format.c
+        device/constraint/ValueList.c
+        device/constraint/ValueRange.c
     )
 
 #-----------------------
@@ -84,7 +92,7 @@ SET(Controlled_Header
         device/handler/DeviceIdentifyListener.h
         device/handler/PropertyChangedObserver.h
         device/handler/ActionOnInvoke.h
-        )
+    )
 
 SET(Controlled_Source
         controlled/DeviceControllable.c
@@ -97,30 +105,19 @@ SET(Controlled_Source
 SET(Urn_Header
         urn/Urn.h
         urn/UrnType.h
-        )
+    )
 
 SET(Urn_Source
         urn/Urn.c
         urn/UrnType.c
-        )
+    )
 
 #-----------------------
 # unit
 #-----------------------
 SET(Unit_Header
         unit/Unit.h
-        )
-
-#-----------------------
-# access
-#-----------------------
-SET(access_Header
-        access/AccessType.h
-        )
-
-SET(access_Source
-        access/AccessType.c
-        )
+    )
 
 #-----------------------
 # api
@@ -138,13 +135,13 @@ SET(operation_Header
         operation/ActionOperation.h
         operation/PropertyOperation.h
         operation/PropertyOperations.h
-        )
+    )
 
 SET(operation_Source
         operation/ActionOperation.c
         operation/PropertyOperation.c
         operation/PropertyOperations.h
-        )
+    )
 
 #----------------------------------------------------------------------------
 # source
@@ -162,8 +159,6 @@ SET(SRC
         ${Urn_Header}
         ${Urn_Source}
         ${Unit_Header}
-        ${access_Header}
-        ${access_Source}
         ${operation_Header}
         ${operation_Source}
     )

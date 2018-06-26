@@ -12,6 +12,8 @@
 
 #include <tiny_malloc.h>
 #include <tiny_log.h>
+#include <status/IotStatus.h>
+#include <value/JsonNumber.h>
 #include "Property.h"
 
 #define TAG     "Property"
@@ -64,12 +66,6 @@ static TinyRet Property_Construct(Property *thiz)
             LOG_D(TAG, "Urn_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-
-        ret = Data_Construct(&thiz->data);
-        if (RET_FAILED(ret)) {
-            LOG_D(TAG, "Data_Construct FAILED: %s", tiny_ret_to_str(ret));
-            break;
-        }
     } while (false);
 
     return ret;
@@ -81,7 +77,18 @@ static void Property_Dispose(Property *thiz)
     RETURN_IF_FAIL(thiz);
 
     Urn_Dispose(&thiz->type);
-    Data_Dispose(&thiz->data);
+
+    if (thiz->valueList != NULL)
+    {
+        ValueList_Delete(thiz->valueList);
+        thiz->valueList = NULL;
+    }
+
+    if (thiz->valueRange != NULL)
+    {
+        ValueRange_Delete(thiz->valueRange);
+        thiz->valueRange = NULL;
+    }
 }
 
 TINY_LOR
@@ -96,103 +103,185 @@ void Property_Delete(Property *thiz)
 }
 
 TINY_LOR
-bool Property_IsReadable(Property *thiz)
-{
-    return ((thiz->accessType & ACCESS_READ) != 0);
-}
-
-TINY_LOR
-bool Property_IsWritable(Property *thiz)
-{
-    return ((thiz->accessType & ACCESS_WRITE) != 0);
-}
-
-TINY_LOR
-bool Property_IsNotifiable(Property *thiz)
-{
-    return ((thiz->accessType & ACCESS_NOTIFY) != 0);
-}
-
-TINY_LOR
 void Property_TryRead(Property *thiz, PropertyOperation *o)
 {
-//    do
-//    {
-//
-//
-//
-//        Property *property = Device_GetProperty(thiz, o->pid.did, o->pid.siid, o->pid.iid);
-//        if (property == NULL)
-//        {
-//            o->status = IOT_STATUS_NOT_EXIST;
-//            break;
-//        }
-//
-//        if (! Property_IsReadable(property))
-//        {
-//            bean->status = IOT_STATUS_CANNOT_READ;
-//            continue;
-//        }
-//
-//        if (property->onGet == NULL)
-//        {
-//            bean->status = IOT_STATUS_INTERNAL_ERROR;
-//            continue;
-//        }
-//
-//        property->onGet(property);
-//
-//        if (RET_FAILED(Data_Copy(&bean->value, &property->data)))
-//        {
-//            bean->status = IOT_STATUS_INTERNAL_ERROR;
-//            continue;
-//        }
-//
-//        bean->status = IOT_STATUS_OK;
-//    }
-//    while (false);
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    do
+    {
+        if (! Access_IsReadable(thiz->access))
+        {
+            o->status = IOT_STATUS_CANNOT_READ;
+            break;
+        }
+
+        if (thiz->onGet == NULL)
+        {
+            o->status = IOT_STATUS_INTERNAL_ERROR;
+            break;
+        }
+
+        thiz->onGet(o);
+
+        if (! Property_CheckValue(thiz, o->value))
+        {
+            o->status = IOT_STATUS_INTERNAL_ERROR;
+            break;
+        }
+    } while (false);
 }
 
 TINY_LOR
 void Property_TryWrite(Property *thiz, PropertyOperation *o)
 {
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
 
-//    for (uint32_t i = 0; i < operations->properties.size; ++i)
-//    {
-//        PropertyOperation *o = (PropertyOperation *) TinyList_GetAt(&operations->properties, i);
-//
-//        Property *property = DeviceControllable_GetProperty(thiz, o->pid.diid, o->pid.siid, o->pid.iid);
-//        if (property == NULL)
-//        {
-//            bean->status = IOT_STATUS_NOT_EXIST;
-//            continue;
-//        }
-//
-//        if (!Property_IsReadable(property))
-//        {
-//            bean->status = IOT_STATUS_CANNOT_WRITE;
-//            continue;
-//        }
-//
-//        if (property->onSet == NULL)
-//        {
-//            bean->status = IOT_STATUS_INTERNAL_ERROR;
-//            continue;
-//        }
-//
-//        if (RET_FAILED(Data_Set(&bean->value, &property->data)))
-//        {
-//            bean->status = IOT_STATUS_VALUE_ERROR;
-//            continue;
-//        }
-//
-//        property->onSet(property);
-//        bean->status = IOT_STATUS_OK;
-//    }
+    do
+    {
+        if (! Access_IsWritable(thiz->access))
+        {
+            o->status = IOT_STATUS_CANNOT_WRITE;
+            break;
+        }
+
+        if (! Property_CheckValue(thiz, o->value))
+        {
+            o->status = IOT_STATUS_VALUE_ERROR;
+            break;
+        }
+
+        if (thiz->onSet == NULL)
+        {
+            o->status = IOT_STATUS_INTERNAL_ERROR;
+            break;
+        }
+
+        thiz->onSet(o);
+
+    } while (false);
 }
 
 TINY_LOR
-bool Property_TrySet(Property *thiz, JsonValue* value)
+static bool Property_CheckValueType(Property *thiz, JsonValue* value)
 {
+    RETURN_VAL_IF_FAIL(thiz, false);
+    RETURN_VAL_IF_FAIL(value, false);
 
+    switch (thiz->format)
+    {
+        case FORMAT_BOOL:
+            return (value->type == JSON_BOOLEAN);
+
+        case FORMAT_STRING:
+            return (value->type == JSON_STRING);
+
+        case FORMAT_FLOAT:
+            if (value->type == JSON_NUMBER)
+            {
+                if (value->data.number->type == JSON_NUMBER_FLOAT)
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        case FORMAT_UINT8:
+            if (value->type == JSON_NUMBER)
+            {
+                if (value->data.number->type == JSON_NUMBER_INTEGER)
+                {
+                    return Format_CheckInteger(FORMAT_UINT8, value->data.number->value.intValue);
+                }
+            }
+            return false;
+
+        case FORMAT_UINT16:
+            if (value->type == JSON_NUMBER)
+            {
+                if (value->data.number->type == JSON_NUMBER_INTEGER)
+                {
+                    return Format_CheckInteger(FORMAT_UINT16, value->data.number->value.intValue);
+                }
+            }
+            return false;
+
+        case FORMAT_UINT32:
+            if (value->type == JSON_NUMBER)
+            {
+                if (value->data.number->type == JSON_NUMBER_INTEGER)
+                {
+                    return Format_CheckInteger(FORMAT_UINT32, value->data.number->value.intValue);
+                }
+            }
+            return false;
+
+        case FORMAT_INT8:
+            if (value->type == JSON_NUMBER)
+            {
+                if (value->data.number->type == JSON_NUMBER_INTEGER)
+                {
+                    return Format_CheckInteger(FORMAT_INT8, value->data.number->value.intValue);
+                }
+            }
+            return false;
+
+        case FORMAT_INT16:
+            if (value->type == JSON_NUMBER)
+            {
+                if (value->data.number->type == JSON_NUMBER_INTEGER)
+                {
+                    return Format_CheckInteger(FORMAT_INT16, value->data.number->value.intValue);
+                }
+            }
+            return false;
+
+        case FORMAT_INT32:
+            if (value->type == JSON_NUMBER)
+            {
+                if (value->data.number->type == JSON_NUMBER_INTEGER)
+                {
+                    return Format_CheckInteger(FORMAT_INT32, value->data.number->value.intValue);
+                }
+            }
+            return false;
+
+        case FORMAT_INT64:
+            if (value->type == JSON_NUMBER)
+            {
+                if (value->data.number->type == JSON_NUMBER_INTEGER)
+                {
+                    return Format_CheckInteger(FORMAT_INT64, value->data.number->value.intValue);
+                }
+            }
+            return false;
+
+        default:
+            return false;
+    }
+}
+
+TINY_LOR
+bool Property_CheckValue(Property *thiz, JsonValue* value)
+{
+    RETURN_VAL_IF_FAIL(thiz, false);
+    RETURN_VAL_IF_FAIL(value, false);
+
+    if (! Property_CheckValueType(thiz, value))
+    {
+        return false;
+    }
+
+    if (thiz->valueRange != NULL)
+    {
+        return ValueRange_CheckValue(thiz->valueRange, value);
+    }
+
+    if (thiz->valueList != NULL)
+    {
+        return ValueList_CheckValue(thiz->valueList, value);
+    }
+
+    return true;
 }

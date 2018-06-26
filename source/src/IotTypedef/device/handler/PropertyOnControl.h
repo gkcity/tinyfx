@@ -13,16 +13,14 @@
 #ifndef __PROPERTY_ON_CONTROL_H__
 #define __PROPERTY_ON_CONTROL_H__
 
+#include <operation/PropertyOperation.h>
 #include "tiny_base.h"
 
 TINY_BEGIN_DECLS
 
 
-struct _Property;
-typedef struct _Property Property;
-
-typedef void (*PropertyOnGet)(Property *property);
-typedef void (*PropertyOnSet)(Property *property);
+typedef void (*PropertyOnGet)(PropertyOperation *operation);
+typedef void (*PropertyOnSet)(PropertyOperation *operation);
 
 
 TINY_END_DECLS

@@ -172,13 +172,13 @@ bool Device_CheckHandler(Device *thiz)
         for (uint32_t j = 0; j < s->properties.size; ++j)
         {
             Property *p = (Property * )TinyList_GetAt(&s->properties, j);
-            if (Property_IsReadable(p) && (p->onGet == NULL))
+            if (Access_IsReadable(p->access) && (p->onGet == NULL))
             {
                 LOG_E(TAG, "Property.onGet not handle: %s", p->type.name);
                 return false;
             }
 
-            if (Property_IsWritable(p) && p->onSet == NULL)
+            if (Access_IsWritable(p->access) && p->onSet == NULL)
             {
                 LOG_E(TAG, "Property.onSet not handle: %s", p->type.name);
                 return false;

@@ -70,6 +70,10 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
         ${SOURCE_ROOT}/IotTypedef/device/Property.h
         ${SOURCE_ROOT}/IotTypedef/device/Argument.h
+        ${SOURCE_ROOT}/IotTypedef/device/access/Access.h
+        ${SOURCE_ROOT}/IotTypedef/device/format/Format.h
+        ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueList.h
+        ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueRange.h
         ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyOnControl.h
         ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyChangedListener.h
         ${SOURCE_ROOT}/IotTypedef/device/handler/DeviceIdentifyListener.h
@@ -80,12 +84,10 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/operation/ActionOperation.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
-        ${SOURCE_ROOT}/IotTypedef/error/IotError.h
-        ${SOURCE_ROOT}/IotTypedef/error/IotStatus.h
+        ${SOURCE_ROOT}/IotTypedef/status/IotStatus.h
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.h
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.h
         ${SOURCE_ROOT}/IotTypedef/unit/Unit.h
-        ${SOURCE_ROOT}/IotTypedef/access/AccessType.h
         ${SOURCE_ROOT}/IotTypedef/api/iot_api.h
         )
 
@@ -108,11 +110,14 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/device/Action.c
         ${SOURCE_ROOT}/IotTypedef/device/Property.c
         ${SOURCE_ROOT}/IotTypedef/device/Argument.c
+        ${SOURCE_ROOT}/IotTypedef/device/access/Access.c
+        ${SOURCE_ROOT}/IotTypedef/device/format/Format.c
+        ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueList.c
+        ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueRange.c
         ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyChangedObserver.c
         ${SOURCE_ROOT}/IotTypedef/operation/ActionOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.c
-        ${SOURCE_ROOT}/IotTypedef/access/AccessType.c
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.c
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.c
         )

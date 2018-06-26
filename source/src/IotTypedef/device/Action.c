@@ -175,7 +175,7 @@ void Action_TryInvoke(Action *thiz, ActionOperation *o)
                 break;
             }
 
-            if (! Property_TrySet(property, value))
+            if (! Property_CheckValue(property, value))
             {
                 LOG_E(TAG, "property value invalid");
                 o->status = IOT_STATUS_VALUE_ERROR;
@@ -201,7 +201,7 @@ void Action_TryInvoke(Action *thiz, ActionOperation *o)
                 break;
             }
 
-            if (! Property_TrySet(property, value))
+            if (! Property_CheckValue(property, value))
             {
                 LOG_E(TAG, "property value invalid");
                 o->status = IOT_STATUS_VALUE_ERROR;

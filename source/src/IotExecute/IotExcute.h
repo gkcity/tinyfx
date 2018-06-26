@@ -24,14 +24,14 @@
 TINY_BEGIN_DECLS
 
 
-IOT_API
-TINY_LOR
-bool IotExecute_SetProperty(Property *property, JsonValue *value);
-
-
-IOT_API
-TINY_LOR
-bool IotExecute_InvokeAction(Action *action, JsonArray *in);
+//IOT_API
+//TINY_LOR
+//bool IotExecute_SetProperty(Property *property, JsonValue *value);
+//
+//
+//IOT_API
+//TINY_LOR
+//bool IotExecute_InvokeAction(Action *action, JsonArray *in);
 
 
 TINY_END_DECLS

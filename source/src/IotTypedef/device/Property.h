@@ -18,27 +18,34 @@
 #include "unit/Unit.h"
 #include "urn/Urn.h"
 #include "data/Data.h"
-#include "access/AccessType.h"
+#include "device/access/Access.h"
 #include <device/handler/PropertyOnControl.h>
 #include <operation/PropertyOperation.h>
 #include <JsonValue.h>
+#include <device/format/Format.h>
+#include <device/constraint/ValueList.h>
+#include <device/constraint/ValueRange.h>
 
 TINY_BEGIN_DECLS
 
 
-struct _Property
+typedef struct _Property
 {
     uint16_t            iid;
-    uint16_t            accessType;
     Urn                 type;
-//    Unit                unit;
-    Data                data;
-//    bool                changed;
+    Format              format;
+    Access              access;
+    ValueList         * valueList;
+    ValueRange        * valueRange;
     PropertyOnGet       onGet;
     PropertyOnSet       onSet;
-//    int                 status;
-//    uint8_t             operation;
-};
+
+    //    Unit                unit;
+    //    Data                data;
+    //    bool                changed;
+    //    int                 status;
+    //    uint8_t             operation;
+} Property;
 
 IOT_API
 TINY_LOR
@@ -50,18 +57,6 @@ void Property_Delete(Property *thiz);
 
 IOT_API
 TINY_LOR
-bool Property_IsReadable(Property *thiz);
-
-IOT_API
-TINY_LOR
-bool Property_IsWritable(Property *thiz);
-
-IOT_API
-TINY_LOR
-bool Property_IsNotifiable(Property *thiz);
-
-IOT_API
-TINY_LOR
 void Property_TryRead(Property *thiz, PropertyOperation *o);
 
 IOT_API
@@ -70,7 +65,7 @@ void Property_TryWrite(Property *thiz, PropertyOperation *o);
 
 IOT_API
 TINY_LOR
-bool Property_TrySet(Property *thiz, JsonValue* value);
+bool Property_CheckValue(Property *thiz, JsonValue* value);
 
 
 

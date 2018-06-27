@@ -50,7 +50,7 @@ MESSAGE(STATUS "library output: ${LIBRARY_OUTPUT_PATH}")
 #-----------------------
 
 SET(IotTypedef_Header
-        ${SOURCE_ROOT}/IotTypedef/constraint/typedef_constraint.h
+        ${SOURCE_ROOT}/IotTypedef/constant/iot_constant.h
         ${SOURCE_ROOT}/IotTypedef/data/Data.h
         ${SOURCE_ROOT}/IotTypedef/data/DataType.h
         ${SOURCE_ROOT}/IotTypedef/data/DataValue.h

@@ -16,7 +16,7 @@
 #include "tiny_base.h"
 #include "api/iot_api.h"
 #include "urn/Urn.h"
-#include "constraint/typedef_constraint.h"
+#include "constant/iot_constant.h"
 #include <TinyList.h>
 #include <device/handler/PropertyOnControl.h>
 #include <device/handler/ActionOnInvoke.h>

@@ -5,10 +5,10 @@
 #-----------------------------------------------------------------------------
 
 #-----------------------
-# constraint
+# constant
 #-----------------------
-SET(Constraint_Header
-        constraint/typedef_constraint.h
+SET(Constant_Header
+        constant/iot_constant.h
     )
 
 #-----------------------
@@ -148,7 +148,7 @@ SET(operation_Source
 #----------------------------------------------------------------------------
 SET(SRC
         ${api_Header}
-        ${Constraint_Header}
+        ${Constant_Header}
         ${Error_Header}
         ${Data_Header}
         ${Data_Source}

@@ -132,7 +132,7 @@ void Service_Delete(Service *thiz)
 TINY_LOR
 Property *Service_GetProperty(Service *thiz, uint16_t iid)
 {
-    RETURN_IF_FAIL(thiz);
+    RETURN_VAL_IF_FAIL(thiz, NULL);
 
     for (uint32_t i = 0; i < thiz->properties.size; ++i)
     {
@@ -149,7 +149,7 @@ Property *Service_GetProperty(Service *thiz, uint16_t iid)
 TINY_LOR
 Action *Service_GetAction(Service *thiz, uint16_t iid)
 {
-    RETURN_IF_FAIL(thiz);
+    RETURN_VAL_IF_FAIL(thiz, NULL);
 
     for (uint32_t i = 0; i < thiz->actions.size; ++i)
     {

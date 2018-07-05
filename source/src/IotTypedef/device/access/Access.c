@@ -18,9 +18,9 @@ Access Access_FromJsonArray(JsonArray *array)
 {
     Access access = 0;
 
-    RETURN_VAL_IF_FAIL(array, ACCESS_UNDEFINED);
+    RETURN_VAL_IF_FAIL(array, 0);
 
-    for (int i = 0; i < array->values.size; ++i)
+    for (uint32_t i = 0; i < array->values.size; ++i)
     {
         JsonValue *v = TinyList_GetAt(&array->values, i);
         if (v->type != JSON_STRING)

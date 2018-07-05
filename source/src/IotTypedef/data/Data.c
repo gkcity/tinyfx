@@ -57,8 +57,8 @@ TinyRet Data_Set(Data *thiz, Data *data)
 {
     TinyRet ret = TINY_RET_OK;
 
-    RETURN_VAL_IF_FAIL(dst, TINY_RET_E_ARG_NULL);
-    RETURN_VAL_IF_FAIL(src, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(data, TINY_RET_E_ARG_NULL);
 
     switch (data->type)
     {

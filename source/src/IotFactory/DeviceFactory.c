@@ -655,7 +655,7 @@ static Device* Device_NewInstance(const char *did, const char *type, const char 
         }
 
         strncpy(device->did, did, DEVICE_ID_LENGTH);
-        strncpy(device->type, did, DEVICE_TYPE_LENGTH);
+        strncpy(device->type, type, DEVICE_TYPE_LENGTH);
         strncpy(device->ltsk, ltsk, DEVICE_LTSK_LENGTH);
 
         for (uint32_t i = 0; i < services->values.size; ++i)

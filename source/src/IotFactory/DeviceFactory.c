@@ -625,7 +625,7 @@ static Service* Service_NewInstance(JsonObject *object)
 }
 
 TINY_LOR
-static Device* Device_NewInstance(const char *did, const char *ltsk, JsonObject *object)
+static Device* Device_NewInstance(const char *did, const char *type, const char *ltsk, JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Device* device = NULL;
@@ -655,6 +655,7 @@ static Device* Device_NewInstance(const char *did, const char *ltsk, JsonObject 
         }
 
         strncpy(device->did, did, DEVICE_ID_LENGTH);
+        strncpy(device->type, did, DEVICE_TYPE_LENGTH);
         strncpy(device->ltsk, ltsk, DEVICE_LTSK_LENGTH);
 
         for (uint32_t i = 0; i < services->values.size; ++i)
@@ -739,7 +740,7 @@ Device* DeviceFactory_Create(const char *did, const char *type, const char *ltsk
             break;
         }
 
-        device = Device_NewInstance(did, ltsk, object);
+        device = Device_NewInstance(did, type, ltsk, object);
     } while (false);
 
     if (object != NULL)

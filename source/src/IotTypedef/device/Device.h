@@ -31,6 +31,7 @@ struct _Device
 {
     char                        did[DEVICE_ID_LENGTH + 1];
     char                        ltsk[DEVICE_LTSK_LENGTH + 1];
+    char                        type[DEVICE_TYPE_LENGTH];
     TinyList                    services;
     TinyList                    children;
     TinyList                    changedObservers;

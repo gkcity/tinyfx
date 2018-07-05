@@ -41,7 +41,7 @@ static TinyRet ValueList_Construct(ValueList *thiz, JsonArray *array)
 
         TinyList_SetDeleteListener(&thiz->list, _OnValueDelete, thiz);
 
-        for (int i = 0; i < array->values.size; ++i)
+        for (uint32_t i = 0; i < array->values.size; ++i)
         {
             JsonValue * newValue = NULL;
             JsonValue * v = (JsonValue *) TinyList_GetAt(&array->values, i);
@@ -149,7 +149,7 @@ bool ValueList_CheckValue(ValueList *thiz, JsonValue *value)
         return false;
     }
 
-    for (int i = 0; i < thiz->list.size; ++i)
+    for (uint32_t i = 0; i < thiz->list.size; ++i)
     {
         JsonValue * v = (JsonValue *) TinyList_GetAt(&thiz->list, i);
 

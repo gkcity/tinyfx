@@ -99,9 +99,7 @@ ValueRange *ValueRange_NewFrom(JsonArray *range)
 {
     ValueRange *thiz = NULL;
 
-    RETURN_VAL_IF_FAIL(min, NULL);
-    RETURN_VAL_IF_FAIL(max, NULL);
-    RETURN_VAL_IF_FAIL(step, NULL);
+    RETURN_VAL_IF_FAIL(range, NULL);
 
     do
     {

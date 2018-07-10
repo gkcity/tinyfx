@@ -108,6 +108,8 @@ void Property_TryRead(Property *thiz, PropertyOperation *o)
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
+    LOG_D(TAG, "Property_TryRead: %d", thiz->iid);
+
     do
     {
         if (! Access_IsReadable(thiz->access))
@@ -266,7 +268,13 @@ TINY_LOR
 bool Property_CheckValue(Property *thiz, JsonValue* value)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
-    RETURN_VAL_IF_FAIL(value, false);
+
+    LOG_D(TAG, "Property_CheckValue: %d", thiz->iid);
+
+    if (value == NULL)
+    {
+        return false;
+    }
 
     if (! Property_CheckValueType(thiz, value))
     {

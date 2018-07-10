@@ -39,6 +39,9 @@ TinyRet PropertyOperations_Construct(PropertyOperations *thiz);
 TINY_LOR
 void PropertyOperations_Dispose(PropertyOperations *thiz);
 
+TINY_LOR
+TinyRet PropertyOperations_Copy(PropertyOperations *dst, PropertyOperations *src);
+
 
 TINY_END_DECLS
 

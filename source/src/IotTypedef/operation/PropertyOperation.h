@@ -33,6 +33,9 @@ TINY_LOR
 PropertyOperation * PropertyOperation_New(void);
 
 TINY_LOR
+PropertyOperation * PropertyOperation_NewFrom(PropertyOperation *other);
+
+TINY_LOR
 void PropertyOperation_Delete(PropertyOperation *thiz);
 
 TINY_LOR

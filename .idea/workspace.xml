@@ -14,7 +14,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b5705f20-e041-49c3-87db-73457aa4e747" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/device/Property.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/device/Property.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-linux_x86_debug/" />
@@ -27,26 +30,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:linux_x86_Debug" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Property.c" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Property.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
-              <caret line="132" column="9" selection-start-line="132" selection-start-column="9" selection-end-line="132" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Property.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Property.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -92,11 +76,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/source/src/IotTypedef/controlled/DeviceControllalbe.c" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/controlled/DeviceConfig.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/controlled/DeviceConfig.c" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/controlled/DeviceControllable.c" />
-        <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.c" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/Argument.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/ActionOperation.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/ActionOperation.c" />
@@ -104,8 +86,6 @@
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/Service.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/handler/ActionOnInvoke.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/Action.h" />
-        <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.c" />
-        <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/Service.c" />
         <option value="$PROJECT_DIR$/source/src/IotDeviceManager/DeviceRuntime.h" />
         <option value="$PROJECT_DIR$/source/src/IotDeviceManager/DeviceManager.h" />
@@ -143,6 +123,10 @@
         <option value="$PROJECT_DIR$/source/src/IotTypedef/constant/iot_constant.h" />
         <option value="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/Property.c" />
+        <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.h" />
+        <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.h" />
+        <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.c" />
+        <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.c" />
       </list>
     </option>
   </component>
@@ -164,9 +148,9 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1200" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="x" value="1498" />
+    <option name="width" value="1133" />
+    <option name="height" value="810" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -205,7 +189,7 @@
               <item name="source" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="IotTypedef" type="462c0819:PsiDirectoryNode" />
-              <item name="device" type="462c0819:PsiDirectoryNode" />
+              <item name="operation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -262,28 +246,36 @@
       <workItem from="1530760911703" duration="598000" />
       <workItem from="1530778905185" duration="1684000" />
       <workItem from="1531124827545" duration="319000" />
-      <workItem from="1531183323095" duration="1032000" />
+      <workItem from="1531183323095" duration="1273000" />
+      <workItem from="1531186764406" duration="1620000" />
     </task>
+    <task id="LOCAL-00001" summary="fix bug">
+      <created>1531184425469</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1531184425469</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46408000" />
+    <option name="totallyTimeSpent" value="48269000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1200" y="0" width="1920" height="1080" extended-state="7" />
-    <editor active="true" />
+    <frame x="1200" y="0" width="1920" height="1080" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21771218" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21771218" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.66885245" />
       <window_info anchor="bottom" id="CMake" order="7" weight="0.32896176" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5007907" side_tool="true" weight="0.32896176" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49920928" visible="true" weight="0.32896176" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49920928" weight="0.32896176" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -299,8 +291,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/constraint/ValueConstraint.h" />
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/handler/PropertyOnControl.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -544,28 +539,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.h">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-703" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/ActionOperation.h">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -617,6 +590,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Property.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1073">
+          <caret line="166" lean-forward="true" selection-start-line="166" selection-end-line="166" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Property.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -624,10 +604,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Property.c">
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="132" column="9" selection-start-line="132" selection-start-column="9" selection-end-line="132" selection-end-column="9" />
+        <state relative-caret-position="665">
+          <caret line="39" column="58" lean-forward="true" selection-start-line="39" selection-start-column="58" selection-end-line="39" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="110" column="13" selection-start-line="110" selection-start-column="13" selection-end-line="110" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../tiny/source/src/Json/JsonValue.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="188" column="12" selection-start-line="188" selection-start-column="12" selection-end-line="188" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="28" column="25" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="88" column="9" lean-forward="true" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
         </state>
       </provider>
     </entry>

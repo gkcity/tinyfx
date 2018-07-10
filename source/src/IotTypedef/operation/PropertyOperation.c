@@ -66,6 +66,49 @@ PropertyOperation * PropertyOperation_New(void)
 }
 
 TINY_LOR
+PropertyOperation * PropertyOperation_NewFrom(PropertyOperation *other)
+{
+    PropertyOperation * thiz = NULL;
+
+    RETURN_VAL_IF_FAIL(thiz, NULL);
+
+    do
+    {
+        thiz = (PropertyOperation *)tiny_malloc(sizeof(PropertyOperation));
+        if (thiz == NULL)
+        {
+            LOG_D(TAG, "tiny_malloc FAILED");
+            break;
+        }
+
+        if (RET_FAILED(PropertyOperation_Construct(thiz)))
+        {
+            PropertyOperation_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+
+        strncpy(thiz->pid.did, other->pid.did, DEVICE_ID_LENGTH);
+        thiz->pid.siid = other->pid.siid;
+        thiz->pid.iid = other->pid.iid;
+        thiz->status = other->status;
+
+        if (other->value != NULL)
+        {
+            thiz->value = JsonValue_Copy(other->value);
+            if (thiz->value == NULL)
+            {
+                PropertyOperation_Delete(thiz);
+                thiz = NULL;
+                break;
+            }
+        }
+    } while (false);
+
+    return thiz;
+}
+
+TINY_LOR
 void PropertyOperation_Delete(PropertyOperation *thiz)
 {
     RETURN_IF_FAIL(thiz);

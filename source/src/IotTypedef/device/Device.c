@@ -472,43 +472,24 @@ void Device_TryInvokeAction(Device *thiz, ActionOperation *o)
 }
 
 TINY_LOR
-TinyRet Device_TryChangePropertyValue(Device *thiz, uint16_t siid, uint16_t piid, JsonValue *value)
+TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o)
 {
     TinyRet ret = ret;
-    PropertyOperation *o = NULL;
 
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
     RETURN_VAL_IF_FAIL(value, TINY_RET_E_ARG_NULL);
 
     do
     {
-        Service * service = NULL;
-
-        o = PropertyOperation_New();
-        if (o == NULL)
-        {
-            ret = TINY_RET_E_NEW;
-            break;
-        }
-
-        service = Device_GetService(thiz, siid);
+        Service * service = Device_GetService(thiz, o->pid.siid);
         if (service == NULL)
         {
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
 
-        strncpy(o->pid.did, thiz->did, DEVICE_ID_LENGTH);
-        o->pid.siid = siid;
-        o->pid.iid = piid;
-        o->value = JsonValue_Copy(value);
-        if (o->value == NULL)
-        {
-            ret = TINY_RET_E_NEW;
-            break;
-        }
-
         Service_TryChange(service, o);
+
         if (o->status != IOT_STATUS_OK)
         {
             ret = TINY_RET_E_ARG_INVALID;
@@ -523,11 +504,6 @@ TinyRet Device_TryChangePropertyValue(Device *thiz, uint16_t siid, uint16_t piid
 
         thiz->onChanged(o);
     } while (false);
-
-    if (o != NULL)
-    {
-        PropertyOperation_Delete(o);
-    }
 
     return ret;
 }
@@ -550,6 +526,7 @@ TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o)
         }
 
         Service_TryProduce(service, o);
+
         if (o->status != IOT_STATUS_OK)
         {
             ret = TINY_RET_E_ARG_INVALID;

@@ -92,7 +92,7 @@ void Device_TryInvokeAction(Device *thiz, ActionOperation *operation);
 
 IOT_API
 TINY_LOR
-TinyRet Device_TryChangePropertyValue(Device *thiz, uint16_t siid, uint16_t piid, JsonValue *value);
+TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o);
 
 IOT_API
 TINY_LOR

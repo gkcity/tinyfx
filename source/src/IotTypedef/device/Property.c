@@ -103,69 +103,6 @@ void Property_Delete(Property *thiz)
 }
 
 TINY_LOR
-void Property_TryRead(Property *thiz, PropertyOperation *o)
-{
-    RETURN_IF_FAIL(thiz);
-    RETURN_IF_FAIL(o);
-
-    LOG_D(TAG, "Property_TryRead: %d", thiz->iid);
-
-    do
-    {
-        if (! Access_IsReadable(thiz->access))
-        {
-            o->status = IOT_STATUS_CANNOT_READ;
-            break;
-        }
-
-        if (thiz->onGet == NULL)
-        {
-            o->status = IOT_STATUS_INTERNAL_ERROR;
-            break;
-        }
-
-        thiz->onGet(o);
-
-        if (! Property_CheckValue(thiz, o->value))
-        {
-            o->status = IOT_STATUS_INTERNAL_ERROR;
-            break;
-        }
-    } while (false);
-}
-
-TINY_LOR
-void Property_TryWrite(Property *thiz, PropertyOperation *o)
-{
-    RETURN_IF_FAIL(thiz);
-    RETURN_IF_FAIL(o);
-
-    do
-    {
-        if (! Access_IsWritable(thiz->access))
-        {
-            o->status = IOT_STATUS_CANNOT_WRITE;
-            break;
-        }
-
-        if (! Property_CheckValue(thiz, o->value))
-        {
-            o->status = IOT_STATUS_VALUE_ERROR;
-            break;
-        }
-
-        if (thiz->onSet == NULL)
-        {
-            o->status = IOT_STATUS_INTERNAL_ERROR;
-            break;
-        }
-
-        thiz->onSet(o);
-
-    } while (false);
-}
-
-TINY_LOR
 static bool Property_CheckValueType(Property *thiz, JsonValue* value)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
@@ -292,4 +229,66 @@ bool Property_CheckValue(Property *thiz, JsonValue* value)
     }
 
     return true;
+}
+
+TINY_LOR
+void Property_TryRead(Property *thiz, PropertyOperation *o)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    LOG_D(TAG, "Property_TryRead: %d", thiz->iid);
+
+    if (! Access_IsReadable(thiz->access))
+    {
+        o->status = IOT_STATUS_CANNOT_READ;
+    }
+}
+
+TINY_LOR
+void Property_TryWrite(Property *thiz, PropertyOperation *o)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    LOG_D(TAG, "Property_TryWrite: %d", thiz->iid);
+
+    do
+    {
+        if (! Access_IsWritable(thiz->access))
+        {
+            o->status = IOT_STATUS_CANNOT_WRITE;
+            break;
+        }
+
+        if (! Property_CheckValue(thiz, o->value))
+        {
+            o->status = IOT_STATUS_VALUE_ERROR;
+            break;
+        }
+    } while (false);
+}
+
+TINY_LOR
+void Property_TryChange(Property *thiz, PropertyOperation *o)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    LOG_D(TAG, "Property_TryChange: %d", thiz->iid);
+
+    do
+    {
+        if (! Access_IsNotifiable(thiz->access))
+        {
+            o->status = IOT_STATUS_CANNOT_NOTIFY;
+            break;
+        }
+
+        if (! Property_CheckValue(thiz, o->value))
+        {
+            o->status = IOT_STATUS_VALUE_ERROR;
+            break;
+        }
+    } while (false);
 }

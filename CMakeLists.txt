@@ -68,20 +68,22 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/device/Device.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
+        ${SOURCE_ROOT}/IotTypedef/device/Event.h
         ${SOURCE_ROOT}/IotTypedef/device/Property.h
         ${SOURCE_ROOT}/IotTypedef/device/Argument.h
         ${SOURCE_ROOT}/IotTypedef/device/access/Access.h
         ${SOURCE_ROOT}/IotTypedef/device/format/Format.h
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueList.h
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueRange.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyOnControl.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyChangedListener.h
         ${SOURCE_ROOT}/IotTypedef/device/handler/DeviceIdentifyListener.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyChangedObserver.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyOnControl.h
         ${SOURCE_ROOT}/IotTypedef/device/handler/ActionOnInvoke.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/EventOnOccurred.h
         ${SOURCE_ROOT}/IotTypedef/operation/AID.h
+        ${SOURCE_ROOT}/IotTypedef/operation/EID.h
         ${SOURCE_ROOT}/IotTypedef/operation/PID.h
         ${SOURCE_ROOT}/IotTypedef/operation/ActionOperation.h
+        ${SOURCE_ROOT}/IotTypedef/operation/EventOperation.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
         ${SOURCE_ROOT}/IotTypedef/status/IotStatus.h
@@ -108,14 +110,15 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/device/Device.c
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Action.c
+        ${SOURCE_ROOT}/IotTypedef/device/Event.c
         ${SOURCE_ROOT}/IotTypedef/device/Property.c
         ${SOURCE_ROOT}/IotTypedef/device/Argument.c
         ${SOURCE_ROOT}/IotTypedef/device/access/Access.c
         ${SOURCE_ROOT}/IotTypedef/device/format/Format.c
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueList.c
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueRange.c
-        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyChangedObserver.c
         ${SOURCE_ROOT}/IotTypedef/operation/ActionOperation.c
+        ${SOURCE_ROOT}/IotTypedef/operation/EventOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.c
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.c

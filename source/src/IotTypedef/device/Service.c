@@ -16,6 +16,7 @@
 #include "Service.h"
 #include "Property.h"
 #include "Action.h"
+#include "Event.h"
 
 #define TAG     "Service"
 
@@ -164,6 +165,59 @@ Action *Service_GetAction(Service *thiz, uint16_t iid)
 }
 
 TINY_LOR
+Event *Service_GetEvent(Service *thiz, uint16_t iid)
+{
+    RETURN_VAL_IF_FAIL(thiz, NULL);
+
+    for (uint32_t i = 0; i < thiz->events.size; ++i)
+    {
+        Event *e = (Event *) TinyList_GetAt(&thiz->events, i);
+        if (e->iid == iid)
+        {
+            return e;
+        }
+    }
+
+    return NULL;
+}
+
+TINY_LOR
+bool Service_CheckValue(Service *thiz, PropertyOperation * o)
+{
+    Property *property = NULL;
+
+    RETURN_VAL_IF_FAIL(thiz, false);
+    RETURN_VAL_IF_FAIL(o, false);
+
+    property = Service_GetProperty(thiz, o->pid.iid);
+    if (property == NULL)
+    {
+        return false;
+    }
+
+    return Property_CheckValue(property, o->value);
+}
+
+TINY_LOR
+bool Service_CheckResult(Service *thiz, ActionOperation * o)
+{
+    Action *action = NULL;
+
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    action = Service_GetAction(thiz, o->aid.iid);
+    if (action != NULL)
+    {
+        Action_CheckResult(action, o);
+    }
+    else
+    {
+        o->status = IOT_STATUS_NOT_EXIST;
+    }
+}
+
+TINY_LOR
 void Service_TryRead(Service *thiz, PropertyOperation *o)
 {
     Property *property = NULL;
@@ -213,6 +267,44 @@ void Service_TryInvoke(Service *thiz, ActionOperation *o)
     if (action != NULL)
     {
         Action_TryInvoke(action, o);
+    }
+    else
+    {
+        o->status = IOT_STATUS_NOT_EXIST;
+    }
+}
+
+TINY_LOR
+void Service_TryChange(Service *thiz, PropertyOperation *o)
+{
+    Property *property = NULL;
+
+    RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(o, TINY_RET_E_ARG_NULL);
+
+    property = Service_GetProperty(thiz, o->pid.iid);
+    if (property != NULL)
+    {
+        Property_TryChange(property, o);
+    }
+    else
+    {
+        o->status = IOT_STATUS_NOT_EXIST;
+    }
+}
+
+TINY_LOR
+void Service_TryProduce(Service *thiz, EventOperation *o)
+{
+    Event *event = NULL;
+
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    event = Service_GetEvent(thiz, o->eid.iid);
+    if (event != NULL)
+    {
+        Event_TryProduce(event, o);
     }
     else
     {

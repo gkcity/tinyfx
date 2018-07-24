@@ -21,6 +21,7 @@ TINY_BEGIN_DECLS
 
 typedef void (*PropertyOnGet)(PropertyOperation *operation);
 typedef void (*PropertyOnSet)(PropertyOperation *operation);
+typedef void (*PropertyOnChanged)(PropertyOperation *operation);
 
 
 TINY_END_DECLS

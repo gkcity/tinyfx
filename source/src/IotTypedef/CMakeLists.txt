@@ -54,6 +54,7 @@ SET(Device_Header
         device/Device.h
         device/Service.h
         device/Action.h
+        device/Event.h
         device/Property.h
         device/Argument.h
         device/access/Access.h
@@ -66,6 +67,7 @@ SET(Device_Source
         device/Device.c
         device/Service.c
         device/Action.c
+        device/Event.c
         device/Property.c
         device/Argument.c
         device/access/Access.c
@@ -88,15 +90,13 @@ SET(Error_Header
 SET(Controlled_Header
         controlled/DeviceControllable.h
         device/handler/PropertyOnControl.h
-        device/handler/PropertyChangedListener.h
-        device/handler/DeviceIdentifyListener.h
-        device/handler/PropertyChangedObserver.h
         device/handler/ActionOnInvoke.h
+        device/handler/EventOnOccurred.h
+        device/handler/DeviceIdentifyListener.h
     )
 
 SET(Controlled_Source
         controlled/DeviceControllable.c
-        device/handler/PropertyChangedObserver.c
     )
 
 #-----------------------
@@ -131,14 +131,17 @@ SET(api_Header
 #-----------------------
 SET(operation_Header
         operation/AID.h
+        operation/EID.h
         operation/PID.h
         operation/ActionOperation.h
+        operation/EventOperation.h
         operation/PropertyOperation.h
         operation/PropertyOperations.h
     )
 
 SET(operation_Source
         operation/ActionOperation.c
+        operation/EventOperation.c
         operation/PropertyOperation.c
         operation/PropertyOperations.h
     )

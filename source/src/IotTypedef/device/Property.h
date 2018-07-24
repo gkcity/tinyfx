@@ -37,14 +37,7 @@ typedef struct _Property
     Access              access;
     ValueList         * valueList;
     ValueRange        * valueRange;
-    PropertyOnGet       onGet;
-    PropertyOnSet       onSet;
-
-    //    Unit                unit;
-    //    Data                data;
-    //    bool                changed;
-    //    int                 status;
-    //    uint8_t             operation;
+    Unit                unit;
 } Property;
 
 IOT_API
@@ -57,6 +50,10 @@ void Property_Delete(Property *thiz);
 
 IOT_API
 TINY_LOR
+bool Property_CheckValue(Property *thiz, JsonValue* value);
+
+IOT_API
+TINY_LOR
 void Property_TryRead(Property *thiz, PropertyOperation *o);
 
 IOT_API
@@ -65,8 +62,7 @@ void Property_TryWrite(Property *thiz, PropertyOperation *o);
 
 IOT_API
 TINY_LOR
-bool Property_CheckValue(Property *thiz, JsonValue* value);
-
+void Property_TryChange(Property *thiz, PropertyOperation *o);
 
 
 TINY_END_DECLS

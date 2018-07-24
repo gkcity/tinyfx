@@ -23,9 +23,16 @@
 #include <device/handler/DeviceIdentifyListener.h>
 #include <operation/PropertyOperations.h>
 #include <operation/ActionOperation.h>
+#include <device/handler/EventOnOccurred.h>
 
 TINY_BEGIN_DECLS
 
+
+typedef enum _InstanceIDStyle
+{
+    IID_STYLE_HOMEKIT = 0,
+    IID_STYLE_XIOT = 1,
+} InstanceIDStyle;
 
 struct _Device
 {
@@ -34,9 +41,15 @@ struct _Device
     char                        type[DEVICE_TYPE_LENGTH];
     TinyList                    services;
     TinyList                    children;
-    TinyList                    changedObservers;
-    DeviceIdentifyListener      identifyListener;
+    PropertyOnGet               onGet;
+    PropertyOnSet               onSet;
+    ActionOnInvoke              onInvoke;
+    PropertyOnChanged           onChanged;
+    EventOnOccurred             onEventOccurred;
     void                      * context;
+
+//    TinyList                    changedObservers;
+//    DeviceIdentifyListener      identifyListener;
 };
 
 typedef struct _Device Device;
@@ -55,7 +68,7 @@ void Device_SetLtsk(Device *thiz, const char *ltsk);
 
 IOT_API
 TINY_LOR
-void Device_InitializeIID(Device *thiz, uint16_t iid);
+void Device_InitializeIID(Device *thiz, InstanceIDStyle style);
 
 IOT_API
 TINY_LOR
@@ -76,6 +89,14 @@ void Device_TryWriteProperties(Device *thiz, PropertyOperations *operations);
 IOT_API
 TINY_LOR
 void Device_TryInvokeAction(Device *thiz, ActionOperation *operation);
+
+IOT_API
+TINY_LOR
+TinyRet Device_TryChangePropertyValue(Device *thiz, uint16_t siid, uint16_t piid, JsonValue *value);
+
+IOT_API
+TINY_LOR
+TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o);
 
 
 TINY_END_DECLS

@@ -28,7 +28,6 @@ struct _Action
     Urn                 type;
     TinyList            in;
     TinyList            out;
-    ActionOnInvoke      onInvoke;
     void *              service;
 };
 
@@ -46,7 +45,11 @@ IOT_API
 TINY_LOR
 void Action_TryInvoke(Action *thiz, ActionOperation *o);
 
-        
+IOT_API
+TINY_LOR
+void Action_CheckResult(Action *thiz, ActionOperation *o);
+
+
 TINY_END_DECLS
 
 #endif /* __ACTION_H__ */

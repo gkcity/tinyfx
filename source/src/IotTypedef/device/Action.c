@@ -158,12 +158,6 @@ void Action_TryInvoke(Action *thiz, ActionOperation *o)
             break;
         }
 
-        if (thiz->onInvoke == NULL)
-        {
-            o->status = IOT_STATUS_INTERNAL_ERROR;
-            break;
-        }
-
         for (uint32_t i = 0; i < thiz->in.size; ++i)
         {
             JsonValue * value = (JsonValue *)TinyList_GetAt(&o->in->values, i);
@@ -182,13 +176,22 @@ void Action_TryInvoke(Action *thiz, ActionOperation *o)
                 break;
             }
         }
+    } while (false);
+}
 
-        if (o->status != IOT_STATUS_OK)
+TINY_LOR
+void Action_CheckResult(Action *thiz, ActionOperation *o)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    do
+    {
+        if (thiz->out.size != o->out->values.size)
         {
+            o->status = IOT_STATUS_ACTION_OUT_ERROR;
             break;
         }
-
-        thiz->onInvoke(o);
 
         for (uint32_t i = 0; i < thiz->out.size; ++i)
         {

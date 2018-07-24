@@ -16,11 +16,13 @@
 #include <TinyList.h>
 #include <operation/PropertyOperation.h>
 #include <operation/ActionOperation.h>
+#include <operation/EventOperation.h>
 #include "tiny_base.h"
 #include "api/iot_api.h"
 #include "urn/Urn.h"
 #include "Property.h"
 #include "Action.h"
+#include "Event.h"
 
 TINY_BEGIN_DECLS
 
@@ -31,6 +33,7 @@ struct _Service
     Urn                 type;
     TinyList            properties;
     TinyList            actions;
+    TinyList            events;
 };
 
 typedef struct _Service Service;
@@ -53,6 +56,18 @@ Action *Service_GetAction(Service *thiz, uint16_t iid);
 
 IOT_API
 TINY_LOR
+Event *Service_GetEvent(Service *thiz, uint16_t iid);
+
+IOT_API
+TINY_LOR
+bool Service_CheckValue(Service *thiz, PropertyOperation * o);
+
+IOT_API
+TINY_LOR
+bool Service_CheckResult(Service *thiz, ActionOperation * o);
+
+IOT_API
+TINY_LOR
 void Service_TryRead(Service *thiz, PropertyOperation * o);
 
 IOT_API
@@ -62,6 +77,14 @@ void Service_TryWrite(Service *thiz, PropertyOperation * o);
 IOT_API
 TINY_LOR
 void Service_TryInvoke(Service *thiz, ActionOperation * o);
+
+IOT_API
+TINY_LOR
+void Service_TryChange(Service *thiz, PropertyOperation *o);
+
+IOT_API
+TINY_LOR
+void Service_TryProduce(Service *thiz, EventOperation *o);
 
 
 TINY_END_DECLS

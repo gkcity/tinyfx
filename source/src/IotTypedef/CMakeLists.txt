@@ -23,6 +23,7 @@ SET(Data_Header
         data/value/FloatValue.h
         data/value/IntValue.h
         data/value/StringValue.h
+        data/value/HexgValue.h
         data/value/Tlv8Value.h
         data/value/Tlv8.h
         data/value/Uint8Value.h
@@ -39,6 +40,7 @@ SET(Data_Source
         data/value/FloatValue.c
         data/value/IntValue.c
         data/value/StringValue.c
+        data/value/HexgValue.c
         data/value/Tlv8Value.c
         data/value/Tlv8.c
         data/value/Uint8Value.c

@@ -59,6 +59,7 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/data/value/FloatValue.h
         ${SOURCE_ROOT}/IotTypedef/data/value/IntValue.h
         ${SOURCE_ROOT}/IotTypedef/data/value/StringValue.h
+        ${SOURCE_ROOT}/IotTypedef/data/value/HexValue.h
         ${SOURCE_ROOT}/IotTypedef/data/value/Tlv8Value.h
         ${SOURCE_ROOT}/IotTypedef/data/value/Tlv8.h
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint8Value.h
@@ -101,6 +102,7 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/data/value/FloatValue.c
         ${SOURCE_ROOT}/IotTypedef/data/value/IntValue.c
         ${SOURCE_ROOT}/IotTypedef/data/value/StringValue.c
+        ${SOURCE_ROOT}/IotTypedef/data/value/HexValue.c
         ${SOURCE_ROOT}/IotTypedef/data/value/Tlv8Value.c
         ${SOURCE_ROOT}/IotTypedef/data/value/Tlv8.c
         ${SOURCE_ROOT}/IotTypedef/data/value/Uint8Value.c
@@ -151,26 +153,12 @@ SET(IotFactory_Source
         ${SOURCE_ROOT}/IotFactory/DeviceFactory.c
         )
 
-#-----------------------
-# IotExecute
-#-----------------------
-
-SET(IotExecute_Header
-        ${SOURCE_ROOT}/IotExecute/IotExcute.h
-        )
-
-SET(IotExecute_Source
-        ${SOURCE_ROOT}/IotExecute/IotExcute.c
-        )
-
 SOURCE_GROUP(IotTypedef\\headers             FILES     ${IotTypedef_Header})
 SOURCE_GROUP(IotTypedef\\sources             FILES     ${IotTypedef_Source})
 SOURCE_GROUP(IotLauncher\\headers            FILES     ${IotLauncher_Header})
 SOURCE_GROUP(IotLauncher\\sources            FILES     ${IotLauncher_Source})
 SOURCE_GROUP(IotFactory\\headers             FILES     ${IotFactory_Header})
 SOURCE_GROUP(IotFactory\\sources             FILES     ${IotFactory_Source})
-SOURCE_GROUP(IotExecute\\headers             FILES     ${IotExecute_Header})
-SOURCE_GROUP(IotExecute\\sources             FILES     ${IotExecute_Source})
 
 SET(SRC
         ${IotTypedef_Header}
@@ -179,8 +167,6 @@ SET(SRC
         ${IotLauncher_Source}
         ${IotFactory_Header}
         ${IotFactory_Source}
-        ${IotExecute_Header}
-        ${IotExecute_Source}
     )
 
 #----------------------------------------------------------------------------

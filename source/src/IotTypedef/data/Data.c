@@ -477,6 +477,21 @@ TinyRet Data_SetStringValue(Data *thiz, const char * value)
 }
 
 TINY_LOR
+TinyRet Data_SetHexValue(Data *thiz, const char * value)
+{
+    RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(value, TINY_RET_E_ARG_NULL);
+
+    if (thiz->type != DATATYPE_HEX)
+    {
+        LOG_E(TAG, "DataType not hex");
+        return TINY_RET_E_INTERNAL;
+    }
+
+    return HexValue_Set(&thiz->value.hexValue, value);
+}
+
+TINY_LOR
 TinyRet Data_SetTlv8Value(Data *thiz, const uint8_t * value, uint32_t len)
 {
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
@@ -616,6 +631,20 @@ const char * Data_GetStringValue(Data *thiz)
     }
 
     return thiz->value.stringValue.value;
+}
+
+TINY_LOR
+const char * Data_GetHexValue(Data *thiz)
+{
+    RETURN_VAL_IF_FAIL(thiz, NULL);
+
+    if (thiz->type != DATATYPE_HEX)
+    {
+        LOG_E(TAG, "DataType not hex");
+        return NULL;
+    }
+
+    return thiz->value.hexValue.value;
 }
 
 #if 0

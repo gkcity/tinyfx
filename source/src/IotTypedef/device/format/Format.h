@@ -33,6 +33,7 @@ typedef enum _Format
     FORMAT_INT16      = 8,
     FORMAT_INT32      = 9,
     FORMAT_INT64      = 10,
+    FORMAT_HEX        = 11,
 } Format;
 
 IOT_API

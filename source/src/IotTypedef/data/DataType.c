@@ -25,6 +25,7 @@
 #define FORMAT_NAME_FLOAT       "float"
 #define FORMAT_NAME_STRING      "string"
 #define FORMAT_NAME_TLV8        "tlv8"
+#define FORMAT_NAME_HEX         "hex"
 
 TINY_LOR
 const char *DataType_GetName(DataType type)
@@ -55,7 +56,9 @@ const char *DataType_GetName(DataType type)
         case DATATYPE_STRING:
             return FORMAT_NAME_STRING;
 
-            /* Base64-encoded set of one or more TLV8's */
+        case DATATYPE_HEX:
+            return FORMAT_NAME_HEX;
+
         case DATATYPE_TLV8:
             return FORMAT_NAME_TLV8;
 
@@ -109,6 +112,11 @@ DataType DataType_Retrieve(const char *value)
     if (STR_EQUAL(FORMAT_NAME_STRING, value))
     {
         return DATATYPE_STRING;
+    }
+
+    if (STR_EQUAL(FORMAT_NAME_HEX, value))
+    {
+        return DATATYPE_HEX;
     }
 
     if (STR_EQUAL(FORMAT_NAME_TLV8, value))

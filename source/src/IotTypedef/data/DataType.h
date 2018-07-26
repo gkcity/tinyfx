@@ -37,6 +37,8 @@ typedef enum _DataType
 
     /* Base64-encoded data blob, Maximum length is 2,097,152 bytes unless overridden by the 'maxDataLen' property */
     DATATYPE_DATA       = 10,
+
+    DATATYPE_HEX        = 11,
 } DataType;
 
 IOT_API

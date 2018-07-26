@@ -105,6 +105,10 @@ TinyRet Data_SetStringValue(Data *thiz, const char * value);
 
 IOT_API
 TINY_LOR
+TinyRet Data_SetHexValue(Data *thiz, const char * value);
+
+IOT_API
+TINY_LOR
 TinyRet Data_SetTlv8Value(Data *thiz, const uint8_t * value, uint32_t len);
 
 IOT_API
@@ -142,6 +146,10 @@ float Data_GetFloatValue(Data *thiz);
 IOT_API
 TINY_LOR
 const char * Data_GetStringValue(Data *thiz);
+
+IOT_API
+TINY_LOR
+const char * Data_GetHexValue(Data *thiz);
 
 
 TINY_END_DECLS

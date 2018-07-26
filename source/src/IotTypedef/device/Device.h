@@ -18,12 +18,12 @@
 #include "urn/Urn.h"
 #include "constant/iot_constant.h"
 #include <TinyList.h>
-#include <device/handler/PropertyOnControl.h>
-#include <device/handler/ActionOnInvoke.h>
 #include <device/handler/DeviceIdentifyListener.h>
+#include <device/handler/ActionOnInvoke.h>
+#include <device/handler/EventOnOccurred.h>
+#include <device/handler/PropertyOnControl.h>
 #include <operation/PropertyOperations.h>
 #include <operation/ActionOperation.h>
-#include <device/handler/EventOnOccurred.h>
 
 TINY_BEGIN_DECLS
 
@@ -48,7 +48,6 @@ struct _Device
     EventOnOccurred             onEventOccurred;
     void                      * context;
 
-//    TinyList                    changedObservers;
 //    DeviceIdentifyListener      identifyListener;
 };
 

@@ -196,6 +196,9 @@ static bool Property_CheckValueType(Property *thiz, JsonValue* value)
             }
             return false;
 
+        case FORMAT_HEX:
+            return (value->type == JSON_STRING);
+
         default:
             return false;
     }

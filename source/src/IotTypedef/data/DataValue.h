@@ -13,6 +13,7 @@
 #ifndef __DATA_VALUE_H__
 #define __DATA_VALUE_H__
 
+#include <data/value/HexValue.h>
 #include "tiny_base.h"
 #include "data/value/BoolValue.h"
 #include "data/value/FloatValue.h"
@@ -38,6 +39,7 @@ typedef union _DataValue
     IntValue            intValue;
     FloatValue          floatValue;
     StringValue         stringValue;
+    HexValue            hexValue;
     Tlv8Value           tlv8Value;
     DataBlobValue       dataBlobValue;
 } DataValue;

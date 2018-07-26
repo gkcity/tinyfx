@@ -758,7 +758,7 @@ Device* DeviceFactory_Create(const char *did, const char *type, const char *ltsk
         HttpClient_Delete(client);
     }
 
-    LOG_I(TAG, "DeviceInstance_New finished!");
+    LOG_I(TAG, "DeviceFactory_Create finished!");
 
     return device;
 }

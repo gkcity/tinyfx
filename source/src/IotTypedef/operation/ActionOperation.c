@@ -79,3 +79,44 @@ void ActionOperation_Dispose(ActionOperation *thiz)
         JsonArray_Delete(thiz->out);
     }
 }
+
+TINY_LOR
+TinyRet ActionOperation_Copy(ActionOperation *dst, ActionOperation *src)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    RETURN_VAL_IF_FAIL(dst, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(src, TINY_RET_E_ARG_NULL);
+
+    if (src != dst)
+    {
+        strncpy(dst->aid.did, src->aid.did, DEVICE_ID_LENGTH);
+        dst->aid.siid = src->aid.siid;
+        dst->aid.iid = src->aid.iid;
+        dst->status = src->status;
+
+        if (dst->in != NULL)
+        {
+            JsonArray_Delete(dst->in);
+            dst->in = NULL;
+        }
+
+        if (src->in != NULL)
+        {
+            dst->in = JsonArray_Copy(src->in);
+        }
+
+        if (dst->out != NULL)
+        {
+            JsonArray_Delete(dst->out);
+            dst->out = NULL;
+        }
+
+        if (src->out != NULL)
+        {
+            dst->out = JsonArray_Copy(src->out);
+        }
+    }
+
+    return ret;
+}

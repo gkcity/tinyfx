@@ -20,6 +20,7 @@
 #include <device/Property.h>
 #include <device/Action.h>
 #include <tiny_snprintf.h>
+#include <device/Argument.h>
 #include "DeviceFactory.h"
 
 #define TAG     "DeviceFactory"
@@ -349,7 +350,7 @@ static Property * getProperty(TinyList *properties, uint16_t iid)
 }
 
 TINY_LOR
-static TinyRet ParseArguments(TinyList *list, JsonArray *arguments, TinyList *properties)
+static TinyRet ParseArguments(TinyList *list, JsonArray *arguments)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -371,21 +372,22 @@ static TinyRet ParseArguments(TinyList *list, JsonArray *arguments, TinyList *pr
         for (uint32_t i = 0; i < arguments->values.size; ++i)
         {
             JsonValue *v = (JsonValue *) TinyList_GetAt(&arguments->values, i);
-            Property * p = NULL;
+            Argument * argument = NULL;
 
             if (v->type != JSON_NUMBER) {
                 break;
             }
 
-            p = getProperty(properties, (uint16_t)v->data.number->value.intValue);
-            if (p == NULL)
+            argument = Argument_New();
+            if (argument == NULL)
             {
-                LOG_E(TAG, "action.in [%ld] invalid", v->data.number->value.intValue);
+                LOG_E(TAG, "argument [%ld] invalid", v->data.number->value.intValue);
                 ret = TINY_RET_E_ARG_INVALID;
                 break;
             }
 
-            TinyList_AddTail(list, p);
+            argument->iid= (uint16_t)v->data.number->value.intValue;
+            TinyList_AddTail(list, argument);
         }
     } while (false);
 
@@ -403,6 +405,8 @@ static Action* Action_NewInstance(JsonObject *object, Service *service)
         JsonNumber *iid = NULL;
         JsonString *type = NULL;
         JsonString *description = NULL;
+        JsonArray *in = NULL;
+        JsonArray *out = NULL;
 
         iid = JsonObject_GetNumber(object, "iid");
         if (iid == NULL)
@@ -443,6 +447,8 @@ static Action* Action_NewInstance(JsonObject *object, Service *service)
         }
 
         action->iid = (uint16_t) (iid->value.intValue);
+        action->service = service;
+
         ret = Urn_SetString(&action->type, type->value);
         if (RET_FAILED(ret))
         {
@@ -451,25 +457,31 @@ static Action* Action_NewInstance(JsonObject *object, Service *service)
             break;
         }
 
-        // TODO: ...
+        /**
+         * in is optional
+         */
+        in = JsonObject_GetArray(object, "in");
+        if (in != NULL)
+        {
+            ret = ParseArguments(&action->in, in);
+            if (RET_FAILED(ret))
+            {
+                break;
+            }
+        }
 
-//        /**
-//         * in is optional
-//         */
-//        ret = ParseArguments(&action->in, JsonObject_GetArray(object, "in"), properties);
-//        if (RET_FAILED(ret))
-//        {
-//            break;
-//        }
-//
-//        /**
-//         * out is optional
-//         */
-//        ret = ParseArguments(&action->out, JsonObject_GetArray(object, "out"), properties);
-//        if (RET_FAILED(ret))
-//        {
-//            break;
-//        }
+        /**
+         * out is optional
+         */
+        out = JsonObject_GetArray(object, "out");
+        if (out != NULL)
+        {
+            ret = ParseArguments(&action->out, out);
+            if (RET_FAILED(ret))
+            {
+                break;
+            }
+        }
     } while (false);
 
     if (RET_FAILED(ret) && action != NULL)

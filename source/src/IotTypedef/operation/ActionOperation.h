@@ -43,6 +43,9 @@ TinyRet ActionOperation_Construct(ActionOperation *thiz);
 TINY_LOR
 void ActionOperation_Dispose(ActionOperation *thiz);
 
+TINY_LOR
+TinyRet ActionOperation_Copy(ActionOperation *dst, ActionOperation *src);
+
 
 TINY_END_DECLS
 

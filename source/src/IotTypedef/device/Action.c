@@ -152,7 +152,7 @@ void Action_TryInvoke(Action *thiz, ActionOperation *o)
 
     do
     {
-        if (thiz->in.size != o->in->values.size)
+        if (thiz->in.size != o->in.values.size)
         {
             o->status = IOT_STATUS_ACTION_IN_ERROR;
             break;
@@ -160,7 +160,7 @@ void Action_TryInvoke(Action *thiz, ActionOperation *o)
 
         for (uint32_t i = 0; i < thiz->in.size; ++i)
         {
-            JsonValue * value = (JsonValue *)TinyList_GetAt(&o->in->values, i);
+            JsonValue * value = (JsonValue *)TinyList_GetAt(&o->in.values, i);
             Property *property = Action_GetProperty(thiz, &thiz->in, i);
             if (property == NULL)
             {
@@ -187,15 +187,20 @@ void Action_CheckResult(Action *thiz, ActionOperation *o)
 
     do
     {
-        if (thiz->out.size != o->out->values.size)
+        if (thiz->out.size != o->out.values.size)
         {
             o->status = IOT_STATUS_ACTION_OUT_ERROR;
             break;
         }
 
+        if (thiz->out.size == 0)
+        {
+            break;
+        }
+
         for (uint32_t i = 0; i < thiz->out.size; ++i)
         {
-            JsonValue * value = (JsonValue *)TinyList_GetAt(&o->out->values, i);
+            JsonValue * value = (JsonValue *)TinyList_GetAt(&o->out.values, i);
             Property *property = Action_GetProperty(thiz, &thiz->out, i);
             if (property == NULL)
             {

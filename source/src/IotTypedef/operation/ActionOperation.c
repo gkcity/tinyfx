@@ -69,15 +69,8 @@ void ActionOperation_Dispose(ActionOperation *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    if (thiz->in != NULL)
-    {
-        JsonArray_Delete(thiz->in);
-    }
-
-    if (thiz->out != NULL)
-    {
-        JsonArray_Delete(thiz->out);
-    }
+    JsonArray_Dispose(&thiz->in);
+    JsonArray_Dispose(&thiz->out);
 }
 
 TINY_LOR
@@ -94,28 +87,8 @@ TinyRet ActionOperation_Copy(ActionOperation *dst, ActionOperation *src)
         dst->aid.siid = src->aid.siid;
         dst->aid.iid = src->aid.iid;
         dst->status = src->status;
-
-        if (dst->in != NULL)
-        {
-            JsonArray_Delete(dst->in);
-            dst->in = NULL;
-        }
-
-        if (src->in != NULL)
-        {
-            dst->in = JsonArray_Copy(src->in);
-        }
-
-        if (dst->out != NULL)
-        {
-            JsonArray_Delete(dst->out);
-            dst->out = NULL;
-        }
-
-        if (src->out != NULL)
-        {
-            dst->out = JsonArray_Copy(src->out);
-        }
+        JsonArray_Copy(&dst->in, &src->in);
+        JsonArray_Copy(&dst->out, &src->out);
     }
 
     return ret;

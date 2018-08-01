@@ -27,8 +27,8 @@ typedef struct _ActionOperation
 {
     AID                     aid;
     int                     status;
-    JsonArray             * in;
-    JsonArray             * out;
+    JsonArray               in;
+    JsonArray               out;
 } ActionOperation;
 
 TINY_LOR

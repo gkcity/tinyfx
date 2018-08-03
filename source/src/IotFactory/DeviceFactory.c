@@ -355,7 +355,7 @@ static TinyRet ParseArguments(TinyList *list, JsonArray *arguments)
     TinyRet ret = TINY_RET_OK;
 
     RETURN_VAL_IF_FAIL(list, TINY_RET_E_ARG_NULL);
-    RETURN_VAL_IF_FAIL(properties, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(arguments, TINY_RET_E_ARG_NULL);
 
     do
     {

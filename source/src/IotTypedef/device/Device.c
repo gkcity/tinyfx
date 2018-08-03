@@ -477,7 +477,7 @@ TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o)
     TinyRet ret = ret;
 
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
-    RETURN_VAL_IF_FAIL(value, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(o, TINY_RET_E_ARG_NULL);
 
     do
     {

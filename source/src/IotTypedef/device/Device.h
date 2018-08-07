@@ -24,6 +24,7 @@
 #include <device/handler/PropertyOnControl.h>
 #include <operation/PropertyOperations.h>
 #include <operation/ActionOperation.h>
+#include <device/handler/AccessKeyHandler.h>
 
 TINY_BEGIN_DECLS
 
@@ -38,7 +39,8 @@ struct _Device
 {
     char                        did[DEVICE_ID_LENGTH + 1];
     char                        ltsk[DEVICE_LTSK_LENGTH + 1];
-    char                        type[DEVICE_TYPE_LENGTH];
+    uint16_t                    productId;
+    uint16_t                    productVersion;
     TinyList                    services;
     TinyList                    children;
     PropertyOnGet               onGet;
@@ -96,6 +98,14 @@ TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o);
 IOT_API
 TINY_LOR
 TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o);
+
+IOT_API
+TINY_LOR
+TinyRet Device_GetAccessKey(Device *thiz, OnGetAccessKeySucceed onSucceed, OnGetAccessKeyFailed onFailed);
+
+IOT_API
+TINY_LOR
+TinyRet Device_ResetAccessKey(Device *thiz, OnResetAccessKeySucceed onSucceed, OnResetAccessKeyFailed onFailed);
 
 
 TINY_END_DECLS

@@ -23,7 +23,7 @@ TINY_BEGIN_DECLS
 
 IOT_API
 TINY_LOR
-Device* DeviceFactory_Create(const char *did, const char *type, const char *ltsk, uint32_t second);
+Device* DeviceFactory_Create(const char *did, uint16_t productId, uint16_t productVersion, const char *ltsk, uint32_t second);
 
 
 TINY_END_DECLS

@@ -95,6 +95,7 @@ SET(Controlled_Header
         device/handler/ActionOnInvoke.h
         device/handler/EventOnOccurred.h
         device/handler/DeviceIdentifyListener.h
+        device/handler/AccessKeyHandler.h
     )
 
 SET(Controlled_Source

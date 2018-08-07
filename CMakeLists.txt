@@ -80,6 +80,7 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyOnControl.h
         ${SOURCE_ROOT}/IotTypedef/device/handler/ActionOnInvoke.h
         ${SOURCE_ROOT}/IotTypedef/device/handler/EventOnOccurred.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/AccessKeyHandler.h
         ${SOURCE_ROOT}/IotTypedef/operation/AID.h
         ${SOURCE_ROOT}/IotTypedef/operation/EID.h
         ${SOURCE_ROOT}/IotTypedef/operation/PID.h

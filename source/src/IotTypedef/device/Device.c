@@ -544,3 +544,15 @@ TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o)
 
     return ret;
 }
+
+TINY_LOR
+TinyRet Device_GetAccessKey(Device *thiz, OnGetAccessKeySucceed onSucceed, OnGetAccessKeyFailed onFailed)
+{
+    return TINY_RET_E_NOT_IMPLEMENTED;
+}
+
+TINY_LOR
+TinyRet Device_ResetAccessKey(Device *thiz, OnResetAccessKeySucceed onSucceed, OnResetAccessKeyFailed onFailed)
+{
+    return TINY_RET_E_NOT_IMPLEMENTED;
+}

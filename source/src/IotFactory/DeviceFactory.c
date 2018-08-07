@@ -637,7 +637,7 @@ static Service* Service_NewInstance(JsonObject *object)
 }
 
 TINY_LOR
-static Device* Device_NewInstance(const char *did, const char *type, const char *ltsk, JsonObject *object)
+static Device* Device_NewInstance(JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Device* device = NULL;
@@ -665,10 +665,6 @@ static Device* Device_NewInstance(const char *did, const char *type, const char 
             LOG_E(TAG, "Device_New failed!");
             break;
         }
-
-        strncpy(device->did, did, DEVICE_ID_LENGTH);
-        strncpy(device->type, type, DEVICE_TYPE_LENGTH);
-        strncpy(device->ltsk, ltsk, DEVICE_LTSK_LENGTH);
 
         for (uint32_t i = 0; i < services->values.size; ++i)
         {
@@ -703,22 +699,17 @@ static Device* Device_NewInstance(const char *did, const char *type, const char 
 #define PORT 80
 
 TINY_LOR
-Device* DeviceFactory_Create(const char *did, const char *type, const char *ltsk, uint32_t second)
+Device* DeviceFactory_NewDevice(const char *uri, uint32_t second)
 {
     Device *device = NULL;
     HttpClient *client = NULL;
     HttpExchange *exchange = NULL;
     JsonObject *object = NULL;
 
-    LOG_I(TAG, "DeviceFactory_Create -> http://%s:%d/dd/instance/%s", HOST, PORT, type);
+    LOG_I(TAG, "DeviceFactory_NewDevice -> http://%s:%d/%s", HOST, PORT, uri);
 
     do
     {
-        char uri[1024];
-
-        memset(uri, 0, 1024);
-        tiny_snprintf(uri, 1014, "/dd/instance/%s", type);
-
         client = HttpClient_New();
         if (client == NULL)
         {
@@ -752,7 +743,7 @@ Device* DeviceFactory_Create(const char *did, const char *type, const char *ltsk
             break;
         }
 
-        device = Device_NewInstance(did, type, ltsk, object);
+        device = Device_NewInstance(object);
     } while (false);
 
     if (object != NULL)
@@ -771,6 +762,28 @@ Device* DeviceFactory_Create(const char *did, const char *type, const char *ltsk
     }
 
     LOG_I(TAG, "DeviceFactory_Create finished!");
+
+    return device;
+}
+
+TINY_LOR
+Device* DeviceFactory_Create(const char *did, uint16_t productId, uint16_t productVersion, const char *ltsk, uint32_t second)
+{
+    Device* device = NULL;
+
+    char uri[1024];
+
+    memset(uri, 0, 1024);
+    tiny_snprintf(uri, 1014, "/dd/instance/product/%d/version/%d", productId, productVersion);
+
+    device = DeviceFactory_NewDevice(uri, second);
+    if (device != NULL)
+    {
+        strncpy(device->ltsk, ltsk, DEVICE_LTSK_LENGTH);
+        tiny_snprintf(device->did, DEVICE_ID_LENGTH, "%s@%d", did, productId);
+        device->productId = productId;
+        device->productVersion = productVersion;
+    }
 
     return device;
 }

@@ -14,6 +14,9 @@
 #include <tiny_log.h>
 #include <value/JsonNumber.h>
 #include <JsonArray.h>
+#include <value/JsonString.h>
+#include <tiny_str_equal.h>
+#include <JsonObject.h>
 #include "ValueList.h"
 
 #define TAG     "ValueRange"
@@ -36,6 +39,7 @@ static TinyRet ValueList_Construct(ValueList *thiz, JsonArray *array)
         ret = TinyList_Construct(&thiz->list);
         if (RET_FAILED(ret))
         {
+            LOG_E(TAG, "TinyList_Construct FAILED");
             break;
         }
 
@@ -43,28 +47,40 @@ static TinyRet ValueList_Construct(ValueList *thiz, JsonArray *array)
 
         for (uint32_t i = 0; i < array->values.size; ++i)
         {
+            JsonValue * value = NULL;
+            JsonValue * object = NULL;
             JsonValue * newValue = NULL;
-            JsonValue * v = (JsonValue *) TinyList_GetAt(&array->values, i);
-            if (v->type != JSON_NUMBER)
+            object = (JsonValue *) TinyList_GetAt(&array->values, i);
+            if (object->type != JSON_OBJECT)
             {
+                LOG_E(TAG, "JsonValue not a JsonObject");
                 ret = TINY_RET_E_ARG_INVALID;
                 break;
             }
 
-            if (v->data.number->type != JSON_NUMBER_INTEGER)
+            value = JsonObject_GetValue(object->data.object, "value");
+            if (value == NULL)
             {
+                LOG_E(TAG, "item not contains 'value' field");
                 ret = TINY_RET_E_ARG_INVALID;
                 break;
             }
 
-            newValue = JsonValue_Copy(v);
+            newValue = JsonValue_Copy(value);
             if (newValue == NULL)
             {
+                LOG_E(TAG, "JsonValue_Copy FAILED");
                 ret = TINY_RET_E_OUT_OF_MEMORY;
                 break;
             }
 
-            TinyList_AddTail(&thiz->list, newValue);
+            ret = TinyList_AddTail(&thiz->list, newValue);
+            if (RET_FAILED(ret))
+            {
+                LOG_E(TAG, "TinyList_AddTail FAILED");
+                JsonValue_Delete(newValue);
+                break;
+            }
         }
 
     } while (false);
@@ -90,12 +106,13 @@ ValueList* ValueList_NewFrom(JsonArray *array)
         thiz = (ValueList *)tiny_malloc(sizeof(ValueList));
         if (thiz == NULL)
         {
-            LOG_D(TAG, "tiny_malloc FAILED");
+            LOG_E(TAG, "tiny_malloc FAILED");
             break;
         }
 
         if (RET_FAILED(ValueList_Construct(thiz, array)))
         {
+            LOG_E(TAG, "ValueList_Construct FAILED");
             ValueList_Delete(thiz);
             thiz = NULL;
             break;
@@ -120,31 +137,16 @@ TinyRet ValueList_Put(ValueList *thiz, JsonValue *value)
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
     RETURN_VAL_IF_FAIL(value, TINY_RET_E_ARG_NULL);
 
-    if (value->type != JSON_NUMBER)
-    {
-        return TINY_RET_E_ARG_INVALID;
-    }
-
-    if (value->data.number->type != JSON_NUMBER_INTEGER)
-    {
-        return TINY_RET_E_ARG_INVALID;
-    }
-
     return TinyList_AddTail(&thiz->list, value);
 }
 
 TINY_LOR
-bool ValueList_CheckValue(ValueList *thiz, JsonValue *value)
+static bool ValueList_CheckIntegerValue(ValueList *thiz, JsonNumber *number)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
     RETURN_VAL_IF_FAIL(value, false);
 
-    if (value->type != JSON_NUMBER)
-    {
-        return false;
-    }
-
-    if (value->data.number->type != JSON_NUMBER_INTEGER)
+    if (number->type != JSON_NUMBER_INTEGER)
     {
         return false;
     }
@@ -153,11 +155,49 @@ bool ValueList_CheckValue(ValueList *thiz, JsonValue *value)
     {
         JsonValue * v = (JsonValue *) TinyList_GetAt(&thiz->list, i);
 
-        if (v->data.number->value.intValue == value->data.number->value.intValue)
+        if (v->data.number->value.intValue == number->value.intValue)
         {
             return true;
         }
     }
 
     return false;
+}
+
+TINY_LOR
+static bool ValueList_CheckStringValue(ValueList *thiz, JsonString *string)
+{
+    RETURN_VAL_IF_FAIL(thiz, false);
+    RETURN_VAL_IF_FAIL(value, false);
+
+    for (uint32_t i = 0; i < thiz->list.size; ++i)
+    {
+        JsonValue * v = (JsonValue *) TinyList_GetAt(&thiz->list, i);
+
+        if (str_equal(v->data.string->value, string->value, true))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+TINY_LOR
+bool ValueList_CheckValue(ValueList *thiz, JsonValue *value)
+{
+    RETURN_VAL_IF_FAIL(thiz, false);
+    RETURN_VAL_IF_FAIL(value, false);
+
+    switch (value->type)
+    {
+        case JSON_NUMBER:
+            return ValueList_CheckIntegerValue(thiz, value->data.number);
+
+        case JSON_STRING:
+            return ValueList_CheckStringValue(thiz, value->data.string);
+
+        default:
+            return false;
+    }
 }

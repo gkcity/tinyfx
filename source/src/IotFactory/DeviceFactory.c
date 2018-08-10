@@ -235,6 +235,8 @@ static Property* Property_NewInstance(JsonObject *object)
             break;
         }
 
+        LOG_D(TAG, "decode property: %s", type->value);
+
         description = JsonObject_GetString(object, "description");
         if (description == NULL)
         {

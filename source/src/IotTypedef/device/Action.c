@@ -138,6 +138,7 @@ static Property* Action_GetProperty(Action *thiz, TinyList *arguments, int index
     argument = (Argument *) TinyList_GetAt(arguments, index);
     if (argument == NULL)
     {
+        LOG_E(TAG, "argument not found: %d", index);
         return NULL;
     }
 
@@ -154,6 +155,7 @@ void Action_TryInvoke(Action *thiz, ActionOperation *o)
     {
         if (thiz->in.size != o->in.values.size)
         {
+            LOG_E(TAG, "action in size invalid: %d, expected: %d", o->in.values.size, thiz->in.size);
             o->status = IOT_STATUS_ACTION_IN_ERROR;
             break;
         }

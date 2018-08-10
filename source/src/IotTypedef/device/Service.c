@@ -203,8 +203,8 @@ bool Service_CheckResult(Service *thiz, ActionOperation * o)
 {
     Action *action = NULL;
 
-    RETURN_IF_FAIL(thiz);
-    RETURN_IF_FAIL(o);
+    RETURN_VAL_IF_FAIL(thiz, false);
+    RETURN_VAL_IF_FAIL(o, false);
 
     action = Service_GetAction(thiz, o->aid.iid);
     if (action != NULL)
@@ -279,8 +279,8 @@ void Service_TryChange(Service *thiz, PropertyOperation *o)
 {
     Property *property = NULL;
 
-    RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
-    RETURN_VAL_IF_FAIL(o, TINY_RET_E_ARG_NULL);
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
 
     property = Service_GetProperty(thiz, o->pid.iid);
     if (property != NULL)

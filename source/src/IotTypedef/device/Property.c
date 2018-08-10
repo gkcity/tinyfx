@@ -209,15 +209,17 @@ bool Property_CheckValue(Property *thiz, JsonValue* value)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
 
-    LOG_D(TAG, "Property_CheckValue: %d", thiz->iid);
+    LOG_D(TAG, "Property_CheckValue, iid: %d", thiz->iid);
 
     if (value == NULL)
     {
+        LOG_E(TAG, "value is null");
         return false;
     }
 
     if (! Property_CheckValueType(thiz, value))
     {
+        LOG_E(TAG, "value type invalid: %d", value->type);
         return false;
     }
 

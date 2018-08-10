@@ -45,22 +45,32 @@ static TinyRet ValueRange_Construct(ValueRange *thiz, JsonArray *range)
         min = (JsonValue *)TinyList_GetAt(&range->values, 0);
         max = (JsonValue *)TinyList_GetAt(&range->values, 1);
         step = (JsonValue *)TinyList_GetAt(&range->values, 2);
-
-        if (min->type != max->type)
+        if (min->type != max->type || min->type != step->type)
         {
             ret = TINY_RET_E_ARG_INVALID;
             break;
         }
 
-        if (min->type != step->type)
+        thiz->min = JsonValue_Copy(min);
+        if (thiz->min == NULL)
         {
-            ret = TINY_RET_E_ARG_INVALID;
+            ret = TINY_RET_E_NEW;
             break;
         }
 
-        thiz->min = min;
-        thiz->max = max;
-        thiz->step = step;
+        thiz->max = JsonValue_Copy(max);
+        if (thiz->max == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
+
+        thiz->step = JsonValue_Copy(step);
+        if (thiz->step == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
     } while (false);
 
     return ret;
@@ -131,6 +141,8 @@ static bool ValueRange_CheckIntegerValue(ValueRange *thiz, long value)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
 
+    LOG_D(TAG, "ValueRange_CheckIntegerValue: %ld", value);
+
     for (long v = thiz->min->data.number->value.intValue; v <= thiz->max->data.number->value.intValue; v += thiz->min->data.number->value.intValue)
     {
         if (value == v)
@@ -148,6 +160,8 @@ static bool ValueRange_CheckFloatValue(ValueRange *thiz, float value)
     float v = 0;
 
     RETURN_VAL_IF_FAIL(thiz, false);
+
+    LOG_D(TAG, "ValueRange_CheckFloatValue: %f", value);
 
     v = thiz->min->data.number->value.floatValue;
     while (v < thiz->max->data.number->value.floatValue)
@@ -176,6 +190,8 @@ static bool ValueRange_CheckHexValue(ValueRange *thiz, JsonString *hex)
     RETURN_VAL_IF_FAIL(thiz, false);
     RETURN_VAL_IF_FAIL(hex, false);
 
+    LOG_D(TAG, "ValueRange_CheckHexValue: %s", hex->value);
+
     if (thiz->min == NULL || thiz->max == NULL || thiz->step == NULL)
     {
         LOG_E(TAG, "check hex value error: min/max/step is null");
@@ -198,6 +214,8 @@ static bool ValueRange_CheckHexValue(ValueRange *thiz, JsonString *hex)
     max = (uint32_t) strtol(thiz->max->data.string->value, &stop, 16);
     step = (uint32_t) strtol(thiz->step->data.string->value, &stop, 16);
     value = (uint32_t) strtol(hex->value, &stop, 16);
+
+    LOG_D(TAG, "check hex value: (%d, %d, %d), value = %d", min, max, step, value);
 
     for (uint32_t v = min; v <= max; v += step)
     {
@@ -248,15 +266,15 @@ bool ValueRange_CheckValue(ValueRange *thiz, JsonValue *value)
     RETURN_VAL_IF_FAIL(thiz, false);
     RETURN_VAL_IF_FAIL(value, false);
 
+    LOG_D(TAG, "ValueRange_CheckValue");
+
     switch (value->type)
     {
         case JSON_STRING:
-            ValueRange_CheckHexValue(thiz, value->data.string);
-            break;
+            return ValueRange_CheckHexValue(thiz, value->data.string);
 
         case JSON_NUMBER:
-            ValueRange_CheckNumberValue(thiz, value->data.number);
-            break;
+            return ValueRange_CheckNumberValue(thiz, value->data.number);
 
         default:
             return false;

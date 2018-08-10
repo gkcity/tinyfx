@@ -144,7 +144,7 @@ TINY_LOR
 static bool ValueList_CheckIntegerValue(ValueList *thiz, JsonNumber *number)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
-    RETURN_VAL_IF_FAIL(value, false);
+    RETURN_VAL_IF_FAIL(number, false);
 
     if (number->type != JSON_NUMBER_INTEGER)
     {
@@ -168,7 +168,7 @@ TINY_LOR
 static bool ValueList_CheckStringValue(ValueList *thiz, JsonString *string)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
-    RETURN_VAL_IF_FAIL(value, false);
+    RETURN_VAL_IF_FAIL(string, false);
 
     for (uint32_t i = 0; i < thiz->list.size; ++i)
     {

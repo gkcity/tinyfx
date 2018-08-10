@@ -70,7 +70,7 @@ PropertyOperation * PropertyOperation_NewFrom(PropertyOperation *other)
 {
     PropertyOperation * thiz = NULL;
 
-    RETURN_VAL_IF_FAIL(thiz, NULL);
+    RETURN_VAL_IF_FAIL(other, NULL);
 
     do
     {

@@ -173,7 +173,7 @@ void Action_TryInvoke(Action *thiz, ActionOperation *o)
 
             if (! Property_CheckValue(property, value))
             {
-                LOG_E(TAG, "property value invalid");
+                LOG_E(TAG, "property value invalid, value type: %d", value->type);
                 o->status = IOT_STATUS_VALUE_ERROR;
                 break;
             }

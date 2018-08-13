@@ -14,8 +14,9 @@
 #define __IOT_LAUNCHER_H__
 
 #include "tiny_base.h"
-#include "IotRuntime.h"
+#include <TinyList.h>
 #include <bootstrap/Bootstrap.h>
+#include "IotRuntime.h"
 
 TINY_BEGIN_DECLS
 
@@ -23,7 +24,7 @@ TINY_BEGIN_DECLS
 struct _IotLauncher
 {
     bool                    started;
-    IotRuntime           runtime;
+    TinyList                runtimes;
     Bootstrap               bootstrap;
 };
 

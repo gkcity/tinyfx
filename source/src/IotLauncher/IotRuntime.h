@@ -40,6 +40,15 @@ struct _IotRuntime
     void                  * context;
 };
 
+IOT_API
+TINY_LOR
+IotRuntime * IotRuntime_New(void);
+
+IOT_API
+TINY_LOR
+void IotRuntime_Delete(IotRuntime *thiz);
+
+IOT_API
 TINY_LOR
 void IotRuntime_Copy(IotRuntime *dst, IotRuntime *src);
 

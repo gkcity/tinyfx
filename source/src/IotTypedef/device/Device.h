@@ -41,6 +41,7 @@ struct _Device
     char                        ltsk[DEVICE_LTSK_LENGTH + 1];
     uint16_t                    productId;
     uint16_t                    productVersion;
+    uint16_t                    port;
     TinyList                    services;
     TinyList                    children;
     PropertyOnGet               onGet;

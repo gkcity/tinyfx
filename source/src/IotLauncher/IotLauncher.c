@@ -16,6 +16,12 @@
 
 #define TAG     "IotLauncher"
 
+static void _OnRuntimeDelete (void * data, void *ctx)
+{
+    IotRuntime * runtime = (IotRuntime *) data;
+    IotRuntime_Delete(runtime);
+}
+
 TINY_LOR
 IotLauncher *IotLauncher_New(void)
 {
@@ -67,6 +73,14 @@ TinyRet IotLauncher_Construct(IotLauncher *thiz)
         {
             break;
         }
+
+        ret = TinyList_Construct(&thiz->runtimes);
+        if (RET_FAILED(ret))
+        {
+            break;
+        }
+
+        TinyList_SetDeleteListener(&thiz->runtimes, _OnRuntimeDelete, NULL);
     } while (false);
 
     return ret;
@@ -78,6 +92,7 @@ void IotLauncher_Dispose(IotLauncher *thiz)
     RETURN_IF_FAIL(thiz);
 
     Bootstrap_Dispose(&thiz->bootstrap);
+    TinyList_Dispose(&thiz->runtimes);
     memset(thiz, 0, sizeof(IotLauncher));
 }
 
@@ -92,9 +107,7 @@ TinyRet IotLauncher_AddRuntime(IotLauncher *thiz, IotRuntime *runtime)
         return TINY_RET_E_STARTED;
     }
 
-    IotRuntime_Copy(&thiz->runtime, runtime);
-
-    return TINY_RET_OK;
+    return TinyList_AddTail(&thiz->runtimes, runtime);
 }
 
 TINY_LOR
@@ -109,8 +122,13 @@ TinyRet IotLauncher_Stop(IotLauncher *thiz)
 
     Bootstrap_Shutdown(&thiz->bootstrap);
 
-    thiz->runtime.Stop(&thiz->runtime);
-    thiz->runtime.Destroy(&thiz->runtime);
+    for (uint32_t i = 0; i < thiz->runtimes.size; ++i)
+    {
+        IotRuntime * runtime = (IotRuntime *) TinyList_GetAt(&thiz->runtimes, i);
+        runtime->Stop(runtime);
+        runtime->Destroy(runtime);
+    }
+
     thiz->started = false;
 
     return TINY_RET_OK;
@@ -153,12 +171,23 @@ TinyRet IotLauncher_Run(IotLauncher *thiz, Device *device)
         }
 
         thiz->started = true;
-        thiz->runtime.Initialize(&thiz->runtime);
 
-        ret = thiz->runtime.Run(&thiz->runtime, &thiz->bootstrap, device);
+        for (uint32_t i = 0; i < thiz->runtimes.size; ++i)
+        {
+            IotRuntime * runtime = (IotRuntime *) TinyList_GetAt(&thiz->runtimes, i);
+            runtime->Initialize(runtime);
+
+            ret = runtime->Run(runtime, &thiz->bootstrap, device);
+            if (RET_FAILED(ret))
+            {
+                LOG_D(TAG, "Runtime.Run failed");
+                break;
+            }
+        }
+
         if (RET_FAILED(ret))
         {
-            LOG_D(TAG, "Runtime.Run failed");
+            LOG_D(TAG, "Start Runtime failed");
             break;
         }
 

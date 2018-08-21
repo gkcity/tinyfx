@@ -139,13 +139,27 @@ void ValueRange_Delete(ValueRange *thiz)
 TINY_LOR
 static bool ValueRange_CheckIntegerValue(ValueRange *thiz, long value)
 {
+    long min = 0;
+    long max = 0;
+    long step = 0;
+
     RETURN_VAL_IF_FAIL(thiz, false);
 
     LOG_D(TAG, "ValueRange_CheckIntegerValue: %ld", value);
 
-    for (long v = thiz->min->data.number->value.intValue; v <= thiz->max->data.number->value.intValue; v += thiz->min->data.number->value.intValue)
+    min = thiz->min->data.number->value.intValue;
+    max = thiz->max->data.number->value.intValue;
+    step = thiz->step->data.number->value.intValue;
+
+    // fix step value
+    if (step == 0)
     {
-        if (value == v)
+        step = 1;
+    }
+
+    for (long v = min; v <= max; v += step)
+    {
+        if (v == value)
         {
             return true;
         }
@@ -157,22 +171,33 @@ static bool ValueRange_CheckIntegerValue(ValueRange *thiz, long value)
 TINY_LOR
 static bool ValueRange_CheckFloatValue(ValueRange *thiz, float value)
 {
-    float v = 0;
+    float v = 0.0;
+    float max = 0.0;
+    float step = 0.0;
 
     RETURN_VAL_IF_FAIL(thiz, false);
 
     LOG_D(TAG, "ValueRange_CheckFloatValue: %f", value);
 
     v = thiz->min->data.number->value.floatValue;
-    while (v < thiz->max->data.number->value.floatValue)
+    max = thiz->max->data.number->value.floatValue;
+    step = thiz->step->data.number->value.floatValue;
+
+    // fix step value
+    if (step < 0.0001f)
     {
-        float difference = (value - v);
-        if (difference < 0.00001f || difference > -0.00001f)
+        step = 0.0001f;
+    }
+
+    while (v < max)
+    {
+        float difference = (v - value);
+        if (difference < 0.0001f || difference > -0.0001f)
         {
             return true;
         }
 
-        v += thiz->min->data.number->value.floatValue;
+        v += step;
     }
 
     return false;

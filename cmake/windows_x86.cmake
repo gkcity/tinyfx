@@ -31,3 +31,11 @@ MESSAGE(STATUS "set dependence library: ${DEPENDENCE_LIB}")
 #
 #----------------------------------------------------------------------------
 ADD_DEFINITIONS(-DTINY_DEBUG)
+
+#----------------------------------------------------------------------------
+#
+# Export library
+#
+#----------------------------------------------------------------------------
+SET(EXPORT_STATIC_LIBRARY 0)
+SET(EXPORT_SHARED_LIBRARY 1)

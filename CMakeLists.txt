@@ -12,8 +12,9 @@ SET(SOURCE_ROOT ${PROJECT_SOURCE_DIR}/source/src)
 SET(TINY_ROOT ${PROJECT_SOURCE_DIR}/../tiny)
 
 INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotTypedef)
-INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotDeviceManager)
-INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotInstance)
+INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotFactory)
+INCLUDE_DIRECTORIES(${SOURCE_ROOT}/IotLauncher)
+
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyBase)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyPortable)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyContainer)
@@ -173,11 +174,18 @@ SET(SRC
 #----------------------------------------------------------------------------
 # static library
 #----------------------------------------------------------------------------
+IF (EXPORT_STATIC_LIBRARY EQUAL 1)
 ADD_LIBRARY(tinyfx_static STATIC ${SRC})
 SET_TARGET_PROPERTIES(tinyfx_static PROPERTIES OUTPUT_NAME "tinyfx_static")
 SET_TARGET_PROPERTIES(tinyfx_static PROPERTIES LINKER_LANGUAGE C)
+ENDIF ()
 
+#----------------------------------------------------------------------------
+# shared library
+#----------------------------------------------------------------------------
+IF (EXPORT_SHARED_LIBRARY EQUAL 1)
 ADD_LIBRARY(tinyfx SHARED ${SRC})
 SET_TARGET_PROPERTIES(tinyfx PROPERTIES OUTPUT_NAME "tinyfx")
 SET_TARGET_PROPERTIES(tinyfx PROPERTIES LINKER_LANGUAGE C)
 TARGET_LINK_LIBRARIES(tinyfx ${DEPENDENCE_LIB})
+ENDIF ()

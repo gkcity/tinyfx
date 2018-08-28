@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2017-2020
  *
- * @author wenzhengwei@xiaomi.com
+ * @author jxfengzi@gmail.com
  * @date   2017-9-1
  *
  * @file   IotStatus.h

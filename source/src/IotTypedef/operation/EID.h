@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2017-2020
  *
- * @author wenzhenwei@xiaomi.com
+ * @author jxfengzi@gmail.com
  * @date   2017-7-1
  *
  * @file   EID.h

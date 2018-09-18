@@ -51,7 +51,6 @@ struct _Device
     PropertyOnChanged           onChanged;
     EventOnOccurred             onEventOccurred;
     void                      * context;
-
 //    DeviceIdentifyListener      identifyListener;
 };
 

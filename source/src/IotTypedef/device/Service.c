@@ -215,6 +215,8 @@ bool Service_CheckResult(Service *thiz, ActionOperation * o)
     {
         o->status = IOT_STATUS_NOT_EXIST;
     }
+
+    return true;
 }
 
 TINY_LOR

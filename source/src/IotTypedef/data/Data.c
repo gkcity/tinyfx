@@ -102,7 +102,7 @@ TinyRet Data_Set(Data *thiz, Data *data)
             Data_SetDataValue(thiz, data->value.dataBlobValue.value);
             break;
 
-        case DATATYPE_UNDEFINED:
+        default:
             ret = TINY_RET_E_ARG_INVALID;
             break;
     }

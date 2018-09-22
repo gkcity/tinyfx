@@ -15,6 +15,7 @@
 #ifndef __PROPERTY_OPERATION_H__
 #define __PROPERTY_OPERATION_H__
 
+#include "api/iot_api.h"
 #include <tiny_base.h>
 #include <JsonValue.h>
 #include "PID.h"
@@ -29,18 +30,23 @@ typedef struct _PropertyOperation
     JsonValue     * value;
 } PropertyOperation;
 
+IOT_API
 TINY_LOR
 PropertyOperation * PropertyOperation_New(void);
 
+IOT_API
 TINY_LOR
 PropertyOperation * PropertyOperation_NewFrom(PropertyOperation *other);
 
+IOT_API
 TINY_LOR
 void PropertyOperation_Delete(PropertyOperation *thiz);
 
+IOT_API
 TINY_LOR
 TinyRet PropertyOperation_Construct(PropertyOperation *thiz);
 
+IOT_API
 TINY_LOR
 void PropertyOperation_Dispose(PropertyOperation *thiz);
 

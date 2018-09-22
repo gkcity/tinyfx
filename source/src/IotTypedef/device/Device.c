@@ -474,7 +474,7 @@ void Device_TryInvokeAction(Device *thiz, ActionOperation *o)
 TINY_LOR
 TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o)
 {
-    TinyRet ret = ret;
+    TinyRet ret = TINY_RET_OK;
 
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
     RETURN_VAL_IF_FAIL(o, TINY_RET_E_ARG_NULL);
@@ -511,7 +511,7 @@ TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o)
 TINY_LOR
 TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o)
 {
-    TinyRet ret = ret;
+    TinyRet ret = TINY_RET_OK;
 
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
     RETURN_VAL_IF_FAIL(o, TINY_RET_E_ARG_NULL);

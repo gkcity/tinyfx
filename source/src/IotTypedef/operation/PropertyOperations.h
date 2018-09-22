@@ -15,6 +15,7 @@
 #ifndef __PROPERTY_OPERATIONS_H__
 #define __PROPERTY_OPERATIONS_H__
 
+#include "api/iot_api.h"
 #include <tiny_base.h>
 #include <data/Data.h>
 #include "PID.h"
@@ -27,18 +28,23 @@ typedef struct _PropertyOperations
     TinyList        properties;
 } PropertyOperations;
 
+IOT_API
 TINY_LOR
 PropertyOperations * PropertyOperations_New(void);
 
+IOT_API
 TINY_LOR
 void PropertyOperations_Delete(PropertyOperations *thiz);
 
+IOT_API
 TINY_LOR
 TinyRet PropertyOperations_Construct(PropertyOperations *thiz);
 
+IOT_API
 TINY_LOR
 void PropertyOperations_Dispose(PropertyOperations *thiz);
 
+IOT_API
 TINY_LOR
 TinyRet PropertyOperations_Copy(PropertyOperations *dst, PropertyOperations *src);
 

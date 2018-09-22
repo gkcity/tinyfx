@@ -31,18 +31,23 @@ typedef struct _ActionOperation
     JsonArray               out;
 } ActionOperation;
 
+IOT_API
 TINY_LOR
 ActionOperation * ActionOperation_New(void);
 
+IOT_API
 TINY_LOR
 void ActionOperation_Delete(ActionOperation *thiz);
 
+IOT_API
 TINY_LOR
 TinyRet ActionOperation_Construct(ActionOperation *thiz);
 
+IOT_API
 TINY_LOR
 void ActionOperation_Dispose(ActionOperation *thiz);
 
+IOT_API
 TINY_LOR
 TinyRet ActionOperation_Copy(ActionOperation *dst, ActionOperation *src);
 

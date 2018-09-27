@@ -639,7 +639,7 @@ static Service* Service_NewInstance(JsonObject *object)
 }
 
 TINY_LOR
-static Device* Device_NewInstance(JsonObject *object)
+Device* Device_NewInstance(JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Device* device = NULL;

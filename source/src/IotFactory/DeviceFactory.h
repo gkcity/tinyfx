@@ -20,6 +20,9 @@
 
 TINY_BEGIN_DECLS
 
+IOT_API
+TINY_LOR
+Device* Device_NewInstance(JsonObject *object);
 
 IOT_API
 TINY_LOR

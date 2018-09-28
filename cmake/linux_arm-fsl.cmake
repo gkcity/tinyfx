@@ -47,7 +47,7 @@ SET(DEPENDENCE_LIB tiny)
 # DEBUG INFORMATION
 #
 #----------------------------------------------------------------------------
-ADD_DEFINITIONS(-DTINY_DEBUG)
+#ADD_DEFINITIONS(-DTINY_DEBUG)
 
 #----------------------------------------------------------------------------
 #

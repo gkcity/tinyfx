@@ -27,7 +27,6 @@ TINY_BEGIN_DECLS
  * urn:homekit-spec:service:switch:00000014
  * urn:homekit-spec:property:on:00000030
  *
- * urn:miot-spec:property:on:00000030:philips
  */
 
 typedef struct _Urn

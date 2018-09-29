@@ -5,20 +5,7 @@
 #include "DeviceFactory.h"
 #include <tiny_socket.h>
 
-/**
- * NO ACTION
- */
-#define ZHIMI_FAN "/instance/device?type=urn:miot-spec:device:fan:00000A04:zhimi"
-
-/**
- * Contains Action without arguments
- */
-#define ROCK_SWEEPER "/instance/device?type=urn:miot-spec:device:sweeper:00000A0A:rock"
-
-/**
- * Contains Action with arguments
- */
-#define CHUNMI_COOKER "/instance/device?type=urn:miot-spec:device:cooker:00000A08:chunmi"
+#define DD "/urn:homekit-spec:device:fan:00000000:geekcity-ds:1"
 
 int main(void)
 {
@@ -26,7 +13,7 @@ int main(void)
     
     do
     {
-        Device * device = DeviceInstance_New("47.93.60.147", 8080, CHUNMI_COOKER, 5);
+        Device * device = DeviceInstance_New("47.93.60.147", 8080, DD, 5);
         if (device == NULL)
         {
             printf("DeviceInstance_New failed!\n");

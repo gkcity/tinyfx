@@ -97,7 +97,7 @@ TinyRet PropertyOperations_Copy(PropertyOperations *dst, PropertyOperations *src
         for (uint32_t i = 0; i < src->properties.size; ++i)
         {
             PropertyOperation * o = (PropertyOperation *) TinyList_GetAt(&src->properties, i);
-            PropertyOperation * newOperation = PropertyOperation_NewFrom(o);
+            PropertyOperation * newOperation = PropertyOperation_CopyFrom(o);
             if (newOperation == NULL)
             {
                 ret = TINY_RET_E_NEW;

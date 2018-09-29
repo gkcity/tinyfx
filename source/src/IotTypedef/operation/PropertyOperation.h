@@ -36,7 +36,15 @@ PropertyOperation * PropertyOperation_New(void);
 
 IOT_API
 TINY_LOR
-PropertyOperation * PropertyOperation_NewFrom(PropertyOperation *other);
+PropertyOperation * PropertyOperation_NewFrom(const char *did, uint16_t siid, uint16_t piid);
+
+IOT_API
+TINY_LOR
+PropertyOperation * PropertyOperation_NewValue(const char *did, uint16_t siid, uint16_t piid, JsonValue *value);
+
+IOT_API
+TINY_LOR
+PropertyOperation * PropertyOperation_CopyFrom(PropertyOperation *other);
 
 IOT_API
 TINY_LOR

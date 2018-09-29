@@ -39,12 +39,12 @@ struct _Device
 {
     char                        did[DEVICE_ID_LENGTH + 1];
     char                        ltsk[DEVICE_LTSK_LENGTH + 1];
-    uint16_t                    productId;
-    uint16_t                    productVersion;
     char                        ip[TINY_IP_LEN];
     uint16_t                    port;
-    TinyList                    services;
     TinyList                    children;
+    uint16_t                    productId;
+    uint16_t                    productVersion;
+    TinyList                    services;
     PropertyOnGet               onGet;
     PropertyOnSet               onSet;
     ActionOnInvoke              onInvoke;

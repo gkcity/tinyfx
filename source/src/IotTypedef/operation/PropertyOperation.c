@@ -24,6 +24,7 @@ TinyRet PropertyOperation_Construct(PropertyOperation *thiz)
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
     memset(thiz, 0, sizeof(PropertyOperation));
+    thiz->status = 0;
 
     return TINY_RET_OK;
 }
@@ -66,7 +67,38 @@ PropertyOperation * PropertyOperation_New(void)
 }
 
 TINY_LOR
-PropertyOperation * PropertyOperation_NewFrom(PropertyOperation *other)
+PropertyOperation * PropertyOperation_NewFrom(const char *did, uint16_t siid, uint16_t piid)
+{
+    PropertyOperation *thiz = PropertyOperation_New();
+    if (thiz != NULL)
+    {
+        strncpy(thiz->pid.did, did, DEVICE_ID_LENGTH);
+        thiz->status = 0;
+        thiz->pid.siid = siid;
+        thiz->pid.iid = piid;
+    }
+
+    return thiz;
+}
+
+TINY_LOR
+PropertyOperation * PropertyOperation_NewValue(const char *did, uint16_t siid, uint16_t piid, JsonValue *value)
+{
+    PropertyOperation *thiz = PropertyOperation_New();
+    if (thiz != NULL)
+    {
+        strncpy(thiz->pid.did, did, DEVICE_ID_LENGTH);
+        thiz->status = 0;
+        thiz->pid.siid = siid;
+        thiz->pid.iid = piid;
+        thiz->value = value;
+    }
+
+    return thiz;
+}
+
+TINY_LOR
+PropertyOperation * PropertyOperation_CopyFrom(PropertyOperation *other)
 {
     PropertyOperation * thiz = NULL;
 

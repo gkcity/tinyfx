@@ -12,44 +12,6 @@ SET(Constant_Header
     )
 
 #-----------------------
-# data
-#-----------------------
-SET(Data_Header
-        data/Data.h
-        data/DataType.h
-        data/DataValue.h
-        data/value/BoolValue.h
-        data/value/DataBlobValue.h
-        data/value/FloatValue.h
-        data/value/IntValue.h
-        data/value/StringValue.h
-        data/value/HexgValue.h
-        data/value/Tlv8Value.h
-        data/value/Tlv8.h
-        data/value/Uint8Value.h
-        data/value/Uint16Value.h
-        data/value/Uint32Value.h
-        data/value/Uint64Value.h
-    )
-
-SET(Data_Source
-        data/Data.c
-        data/DataType.c
-        data/value/BoolValue.c
-        data/value/DataBlobValue.c
-        data/value/FloatValue.c
-        data/value/IntValue.c
-        data/value/StringValue.c
-        data/value/HexgValue.c
-        data/value/Tlv8Value.c
-        data/value/Tlv8.c
-        data/value/Uint8Value.c
-        data/value/Uint16Value.c
-        data/value/Uint32Value.c
-        data/value/Uint64Value.c
-    )
-
-#-----------------------
 # device
 #-----------------------
 SET(Device_Header
@@ -84,22 +46,6 @@ SET(Device_Source
 SET(Error_Header
         status/IotError.h
         status/IotStatus.h
-    )
-
-#-----------------------
-# controlled
-#-----------------------
-SET(Controlled_Header
-        controlled/DeviceControllable.h
-        device/handler/PropertyOnControl.h
-        device/handler/ActionOnInvoke.h
-        device/handler/EventOnOccurred.h
-        device/handler/DeviceIdentifyListener.h
-        device/handler/AccessKeyHandler.h
-    )
-
-SET(Controlled_Source
-        controlled/DeviceControllable.c
     )
 
 #-----------------------
@@ -156,12 +102,8 @@ SET(SRC
         ${api_Header}
         ${Constant_Header}
         ${Error_Header}
-        ${Data_Header}
-        ${Data_Source}
         ${Device_Header}
         ${Device_Source}
-        ${Controlled_Header}
-        ${Controlled_Source}
         ${Urn_Header}
         ${Urn_Source}
         ${Unit_Header}
@@ -183,8 +125,3 @@ SET_TARGET_PROPERTIES(iot_typedef_static PROPERTIES LINKER_LANGUAGE C)
 #SET_TARGET_PROPERTIES(iot_typedef_shared PROPERTIES OUTPUT_NAME "iot_typedef")
 #SET_TARGET_PROPERTIES(iot_typedef_shared PROPERTIES LINKER_LANGUAGE C)
 #TARGET_LINK_LIBRARIES(iot_typedef_shared tiny_shared ${OS_LIB})
-
-#----------------------------------------------------------------------------
-# test
-#----------------------------------------------------------------------------
-ADD_SUBDIRECTORY(test)

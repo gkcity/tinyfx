@@ -17,7 +17,6 @@
 #include <operation/PropertyOperation.h>
 #include <operation/ActionOperation.h>
 #include <operation/EventOperation.h>
-#include "tiny_base.h"
 #include "api/iot_api.h"
 #include "urn/Urn.h"
 #include "Property.h"

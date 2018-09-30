@@ -20,7 +20,7 @@ int main(void)
             break;
         }
 
-        printf("Device: %d\n", device->iid);
+        printf("Device ProductId: %d\n", device->productId);
         printf("Service: [%d]\n", device->services.size);
         for (uint32_t i = 0; i < device->services.size; ++i)
         {

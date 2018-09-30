@@ -142,6 +142,33 @@ void Event_Delete(Event *thiz)
 }
 
 TINY_LOR
+TinyRet Event_ArgumentAdd(Event *thiz, uint16_t iid)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
+
+    do
+    {
+        Argument * argument = Argument_NewValue(iid);
+        if (argument == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
+
+        ret = TinyList_AddTail(&thiz->arguments, argument);
+        if (RET_FAILED(ret))
+        {
+            Argument_Delete(argument);
+            break;
+        }
+    } while(false);
+
+    return ret;
+}
+
+TINY_LOR
 static Property* Event_GetProperty(Event *thiz, TinyList *arguments, int index)
 {
     Argument * argument = NULL;

@@ -16,8 +16,7 @@
 #define __PROPERTY_OPERATIONS_H__
 
 #include "api/iot_api.h"
-#include <tiny_base.h>
-#include <data/Data.h>
+#include <TinyList.h>
 #include "PID.h"
 
 TINY_BEGIN_DECLS

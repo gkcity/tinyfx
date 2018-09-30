@@ -46,6 +46,10 @@ void Event_Delete(Event *thiz);
 
 IOT_API
 TINY_LOR
+TinyRet Event_ArgumentAdd(Event *thiz, uint16_t iid);
+
+IOT_API
+TINY_LOR
 void Event_TryProduce(Event *thiz, EventOperation *o);
 
 

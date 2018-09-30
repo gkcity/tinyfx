@@ -17,14 +17,13 @@
 #include "api/iot_api.h"
 #include "unit/Unit.h"
 #include "urn/Urn.h"
-#include "data/Data.h"
-#include "device/access/Access.h"
+#include <device/access/Access.h>
 #include <device/handler/PropertyOnControl.h>
-#include <operation/PropertyOperation.h>
-#include <JsonValue.h>
 #include <device/format/Format.h>
 #include <device/constraint/ValueList.h>
 #include <device/constraint/ValueRange.h>
+#include <operation/PropertyOperation.h>
+#include <JsonValue.h>
 
 TINY_BEGIN_DECLS
 

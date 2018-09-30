@@ -46,27 +46,8 @@ MESSAGE(STATUS "library output: ${LIBRARY_OUTPUT_PATH}")
 #
 #-------------------------------------------------------------------------------------
 
-#-----------------------
-# IotTypedef
-#-----------------------
-
 SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/constant/iot_constant.h
-        ${SOURCE_ROOT}/IotTypedef/data/Data.h
-        ${SOURCE_ROOT}/IotTypedef/data/DataType.h
-        ${SOURCE_ROOT}/IotTypedef/data/DataValue.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/BoolValue.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/DataBlobValue.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/FloatValue.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/IntValue.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/StringValue.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/HexValue.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/Tlv8Value.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/Tlv8.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/Uint8Value.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/Uint16Value.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/Uint32Value.h
-        ${SOURCE_ROOT}/IotTypedef/data/value/Uint64Value.h
         ${SOURCE_ROOT}/IotTypedef/device/Device.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
@@ -97,20 +78,6 @@ SET(IotTypedef_Header
         )
 
 SET(IotTypedef_Source
-        ${SOURCE_ROOT}/IotTypedef/data/Data.c
-        ${SOURCE_ROOT}/IotTypedef/data/DataType.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/BoolValue.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/DataBlobValue.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/FloatValue.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/IntValue.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/StringValue.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/HexValue.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/Tlv8Value.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/Tlv8.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/Uint8Value.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/Uint16Value.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/Uint32Value.c
-        ${SOURCE_ROOT}/IotTypedef/data/value/Uint64Value.c
         ${SOURCE_ROOT}/IotTypedef/device/Device.c
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Action.c

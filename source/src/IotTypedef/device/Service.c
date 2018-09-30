@@ -21,7 +21,7 @@
 #define TAG     "Service"
 
 TINY_LOR
-static TinyRet Service_Construct(Service *thiz);
+static TinyRet Service_Construct(Service *thiz, uint16_t iid);
 
 TINY_LOR
 static void Service_Dispose(Service *thiz);
@@ -39,7 +39,7 @@ static void action_release_handler(void *data, void *ctx)
 }
 
 TINY_LOR
-Service *Service_New(void)
+Service* Service_New(uint16_t iid)
 {
     Service *thiz = NULL;
 
@@ -52,7 +52,7 @@ Service *Service_New(void)
             break;
         }
 
-        if (RET_FAILED(Service_Construct(thiz)))
+        if (RET_FAILED(Service_Construct(thiz, iid)))
         {
             Service_Delete(thiz);
             thiz = NULL;
@@ -64,7 +64,32 @@ Service *Service_New(void)
 }
 
 TINY_LOR
-static TinyRet Service_Construct(Service *thiz)
+Service* Service_NewInstance(uint16_t iid, const char *ns, const char *name, uint32_t uuid, const char *vendor)
+{
+    Service * thiz = NULL;
+
+    do
+    {
+        thiz = Service_New(iid);
+        if (thiz == NULL)
+        {
+            LOG_D(TAG, "Service_New FAILED");
+            break;
+        }
+
+        if (RET_FAILED(Urn_Set(&thiz->type, ns, SERVICE, name, uuid, vendor)))
+        {
+            Service_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+    } while (false);
+
+    return thiz;
+}
+
+TINY_LOR
+static TinyRet Service_Construct(Service *thiz, uint16_t iid)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -73,6 +98,7 @@ static TinyRet Service_Construct(Service *thiz)
     do
     {
         memset(thiz, 0, sizeof(Service));
+        thiz->iid = iid;
 
         ret = Urn_Construct(&thiz->type);
         if (RET_FAILED(ret))

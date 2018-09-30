@@ -22,7 +22,7 @@
 #define TAG     "Event"
 
 TINY_LOR
-static TinyRet Event_Construct(Event *thiz);
+static TinyRet Event_Construct(Event *thiz, uint16_t iid);
 
 TINY_LOR
 static void Event_Dispose(Event *thiz);
@@ -40,7 +40,7 @@ static void out_release_handler(void *data, void *ctx)
 }
 
 TINY_LOR
-Event* Event_New(void)
+Event* Event_New(uint16_t iid)
 {
     Event *thiz = NULL;
 
@@ -53,7 +53,7 @@ Event* Event_New(void)
             break;
         }
 
-        if (RET_FAILED(Event_Construct(thiz)))
+        if (RET_FAILED(Event_Construct(thiz, iid)))
         {
             Event_Delete(thiz);
             thiz = NULL;
@@ -65,7 +65,32 @@ Event* Event_New(void)
 }
 
 TINY_LOR
-static TinyRet Event_Construct(Event *thiz)
+Event* Event_NewInstance(uint16_t iid, const char *ns, const char *name, uint32_t uuid, const char *vendor)
+{
+    Event * thiz = NULL;
+
+    do
+    {
+        thiz = Event_New(iid);
+        if (thiz == NULL)
+        {
+            LOG_D(TAG, "Event_New FAILED");
+            break;
+        }
+
+        if (RET_FAILED(Urn_Set(&thiz->type, ns, EVENT, name, uuid, vendor)))
+        {
+            Event_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+    } while (false);
+
+    return thiz;
+}
+
+TINY_LOR
+static TinyRet Event_Construct(Event *thiz, uint16_t iid)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -74,6 +99,7 @@ static TinyRet Event_Construct(Event *thiz)
     do
     {
         memset(thiz, 0, sizeof(Event));
+        thiz->iid = iid;
 
         ret = Urn_Construct(&thiz->type);
         if (RET_FAILED(ret))

@@ -28,6 +28,10 @@ typedef struct _ValueList
 
 IOT_API
 TINY_LOR
+ValueList* ValueList_New(void);
+
+IOT_API
+TINY_LOR
 ValueList* ValueList_NewFrom(JsonArray *array);
 
 IOT_API

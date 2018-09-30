@@ -22,7 +22,7 @@
 #define TAG     "Action"
 
 TINY_LOR
-static TinyRet Action_Construct(Action *thiz);
+static TinyRet Action_Construct(Action *thiz, uint16_t iid);
 
 TINY_LOR
 static void Action_Dispose(Action *thiz);
@@ -40,7 +40,7 @@ static void out_release_handler(void *data, void *ctx)
 }
 
 TINY_LOR
-Action* Action_New(void)
+Action* Action_New(uint16_t iid)
 {
     Action *thiz = NULL;
 
@@ -49,11 +49,11 @@ Action* Action_New(void)
         thiz = (Action *)tiny_malloc(sizeof(Action));
         if (thiz == NULL)
         {
-            LOG_D(TAG, "tiny_malloc FAILED");
+            LOG_E(TAG, "tiny_malloc FAILED");
             break;
         }
 
-        if (RET_FAILED(Action_Construct(thiz)))
+        if (RET_FAILED(Action_Construct(thiz, iid)))
         {
             Action_Delete(thiz);
             thiz = NULL;
@@ -65,7 +65,32 @@ Action* Action_New(void)
 }
 
 TINY_LOR
-static TinyRet Action_Construct(Action *thiz)
+Action* Action_NewInstance(uint16_t iid, const char *ns, const char *name, uint32_t uuid, const char *vendor)
+{
+    Action * thiz = NULL;
+
+    do
+    {
+        thiz = Action_New(iid);
+        if (thiz == NULL)
+        {
+            LOG_D(TAG, "Action_New FAILED");
+            break;
+        }
+
+        if (RET_FAILED(Urn_Set(&thiz->type, ns, PROPERTY, name, uuid, vendor)))
+        {
+            Action_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+    } while (false);
+
+    return thiz;
+}
+
+TINY_LOR
+static TinyRet Action_Construct(Action *thiz, uint16_t iid)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -74,6 +99,7 @@ static TinyRet Action_Construct(Action *thiz)
     do
     {
         memset(thiz, 0, sizeof(Action));
+        thiz->iid = iid;
 
         ret = Urn_Construct(&thiz->type);
         if (RET_FAILED(ret))
@@ -125,6 +151,60 @@ void Action_Delete(Action *thiz)
 
     Action_Dispose(thiz);
     tiny_free(thiz);
+}
+
+TINY_LOR
+TinyRet Action_InAdd(Action *thiz, uint16_t iid)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
+
+    do
+    {
+        Argument * argument = Argument_NewValue(iid);
+        if (argument == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
+
+        ret = TinyList_AddTail(&thiz->in, argument);
+        if (RET_FAILED(ret))
+        {
+            Argument_Delete(argument);
+            break;
+        }
+    } while(false);
+
+    return ret;
+}
+
+TINY_LOR
+TinyRet Action_OutAdd(Action *thiz, uint16_t iid)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
+
+    do
+    {
+        Argument * argument = Argument_NewValue(iid);
+        if (argument == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
+
+        ret = TinyList_AddTail(&thiz->out, argument);
+        if (RET_FAILED(ret))
+        {
+            Argument_Delete(argument);
+            break;
+        }
+    } while(false);
+
+    return ret;
 }
 
 TINY_LOR

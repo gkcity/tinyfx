@@ -45,44 +45,46 @@ static TinyRet ValueList_Construct(ValueList *thiz, JsonArray *array)
 
         TinyList_SetDeleteListener(&thiz->list, _OnValueDelete, thiz);
 
-        for (uint32_t i = 0; i < array->values.size; ++i)
+        if (array != NULL)
         {
-            JsonValue * value = NULL;
-            JsonValue * object = NULL;
-            JsonValue * newValue = NULL;
-            object = (JsonValue *) TinyList_GetAt(&array->values, i);
-            if (object->type != JSON_OBJECT)
+            for (uint32_t i = 0; i < array->values.size; ++i)
             {
-                LOG_E(TAG, "JsonValue not a JsonObject");
-                ret = TINY_RET_E_ARG_INVALID;
-                break;
-            }
+                JsonValue * value = NULL;
+                JsonValue * object = NULL;
+                JsonValue * newValue = NULL;
+                object = (JsonValue *) TinyList_GetAt(&array->values, i);
+                if (object->type != JSON_OBJECT)
+                {
+                    LOG_E(TAG, "JsonValue not a JsonObject");
+                    ret = TINY_RET_E_ARG_INVALID;
+                    break;
+                }
 
-            value = JsonObject_GetValue(object->data.object, "value");
-            if (value == NULL)
-            {
-                LOG_E(TAG, "item not contains 'value' field");
-                ret = TINY_RET_E_ARG_INVALID;
-                break;
-            }
+                value = JsonObject_GetValue(object->data.object, "value");
+                if (value == NULL)
+                {
+                    LOG_E(TAG, "item not contains 'value' field");
+                    ret = TINY_RET_E_ARG_INVALID;
+                    break;
+                }
 
-            newValue = JsonValue_Copy(value);
-            if (newValue == NULL)
-            {
-                LOG_E(TAG, "JsonValue_Copy FAILED");
-                ret = TINY_RET_E_OUT_OF_MEMORY;
-                break;
-            }
+                newValue = JsonValue_Copy(value);
+                if (newValue == NULL)
+                {
+                    LOG_E(TAG, "JsonValue_Copy FAILED");
+                    ret = TINY_RET_E_OUT_OF_MEMORY;
+                    break;
+                }
 
-            ret = TinyList_AddTail(&thiz->list, newValue);
-            if (RET_FAILED(ret))
-            {
-                LOG_E(TAG, "TinyList_AddTail FAILED");
-                JsonValue_Delete(newValue);
-                break;
+                ret = TinyList_AddTail(&thiz->list, newValue);
+                if (RET_FAILED(ret))
+                {
+                    LOG_E(TAG, "TinyList_AddTail FAILED");
+                    JsonValue_Delete(newValue);
+                    break;
+                }
             }
         }
-
     } while (false);
 
     return ret;
@@ -94,6 +96,32 @@ static void ValueList_Dispose(ValueList *thiz)
     RETURN_IF_FAIL(thiz);
 
     TinyList_Dispose(&thiz->list);
+}
+
+TINY_LOR
+ValueList* ValueList_New(void)
+{
+    ValueList *thiz = NULL;
+
+    do
+    {
+        thiz = (ValueList *)tiny_malloc(sizeof(ValueList));
+        if (thiz == NULL)
+        {
+            LOG_E(TAG, "tiny_malloc FAILED");
+            break;
+        }
+
+        if (RET_FAILED(ValueList_Construct(thiz, NULL)))
+        {
+            LOG_E(TAG, "ValueList_Construct FAILED");
+            ValueList_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+    } while (false);
+
+    return thiz;
 }
 
 TINY_LOR
@@ -134,10 +162,29 @@ void ValueList_Delete(ValueList *thiz)
 TINY_LOR
 TinyRet ValueList_Put(ValueList *thiz, JsonValue *value)
 {
+    TinyRet ret = TINY_RET_OK;
+
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
     RETURN_VAL_IF_FAIL(value, TINY_RET_E_ARG_NULL);
 
-    return TinyList_AddTail(&thiz->list, value);
+    do
+    {
+        JsonValue *newValue = JsonValue_Copy(value);
+        if (newValue == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
+
+        ret= TinyList_AddTail(&thiz->list, newValue);
+        if (RET_FAILED(ret))
+        {
+            JsonValue_Delete(newValue);
+            break;
+        }
+    } while (false);
+
+    return  ret;
 }
 
 TINY_LOR

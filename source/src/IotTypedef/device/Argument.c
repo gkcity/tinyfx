@@ -17,11 +17,11 @@
 #define TAG     "Argument"
 
 TINY_LOR
-static TinyRet Argument_Construct(Argument *thiz)
+static TinyRet Argument_Construct(Argument *thiz, uint16_t iid)
 {
     RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
 
-    thiz->iid = 0;
+    thiz->iid = iid;
 
     return TINY_RET_OK;
 }
@@ -33,7 +33,7 @@ static void Argument_Dispose(Argument *thiz)
 }
 
 TINY_LOR
-Argument* Argument_New(void)
+Argument* Argument_NewValue(uint16_t iid)
 {
     Argument *thiz = NULL;
 
@@ -46,7 +46,7 @@ Argument* Argument_New(void)
             break;
         }
 
-        if (RET_FAILED(Argument_Construct(thiz)))
+        if (RET_FAILED(Argument_Construct(thiz, iid)))
         {
             Argument_Delete(thiz);
             thiz = NULL;
@@ -55,6 +55,12 @@ Argument* Argument_New(void)
     } while (false);
 
     return thiz;
+}
+
+TINY_LOR
+Argument* Argument_New(void)
+{
+    return Argument_NewValue(0);
 }
 
 TINY_LOR

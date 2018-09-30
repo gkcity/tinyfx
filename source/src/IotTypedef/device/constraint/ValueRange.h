@@ -29,6 +29,10 @@ typedef struct _ValueRange
 
 IOT_API
 TINY_LOR
+ValueRange* ValueRange_New(JsonValue *min, JsonValue *max, JsonValue *step);
+
+IOT_API
+TINY_LOR
 ValueRange* ValueRange_NewFrom(JsonArray *range);
 
 IOT_API

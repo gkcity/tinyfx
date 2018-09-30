@@ -197,7 +197,7 @@
 //}
 
 TINY_LOR
-static Property* Property_NewInstance(JsonObject *object)
+static Property* Property_NewFrom(JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Property *property = NULL;
@@ -261,14 +261,12 @@ static Property* Property_NewInstance(JsonObject *object)
             break;
         }
 
-        property = Property_New();
+        property = Property_New((uint16_t) (iid->value.intValue));
         if (property == NULL)
         {
             LOG_E(TAG, "Property_New failed");
             break;
         }
-
-        property->iid = (uint16_t) (iid->value.intValue);
 
         ret = Urn_SetString(&property->type, type->value);
         if (RET_FAILED(ret))
@@ -397,7 +395,7 @@ static TinyRet ParseArguments(TinyList *list, JsonArray *arguments)
 }
 
 TINY_LOR
-static Action* Action_NewInstance(JsonObject *object, Service *service)
+static Action* Action_NewFrom(JsonObject *object, Service *service)
 {
     TinyRet ret = TINY_RET_OK;
     Action *action = NULL;
@@ -441,7 +439,7 @@ static Action* Action_NewInstance(JsonObject *object, Service *service)
             break;
         }
 
-        action = Action_New();
+        action = Action_New((uint16_t) (iid->value.intValue));
         if (action == NULL)
         {
             LOG_E(TAG, "Property_New failed");
@@ -496,7 +494,7 @@ static Action* Action_NewInstance(JsonObject *object, Service *service)
 }
 
 TINY_LOR
-static Service* Service_NewInstance(JsonObject *object)
+static Service* Service_NewFrom(JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Service *service = NULL;
@@ -554,14 +552,12 @@ static Service* Service_NewInstance(JsonObject *object)
             break;
         }
 
-        service = Service_New();
+        service = Service_New((uint16_t) (iid->value.intValue));
         if (service == NULL)
         {
             LOG_E(TAG, "Service_New failed");
             break;
         }
-
-        service->iid = (uint16_t) (iid->value.intValue);
 
         ret = Urn_SetString(&service->type, type->value);
         if (RET_FAILED(ret))
@@ -580,10 +576,10 @@ static Service* Service_NewInstance(JsonObject *object)
         for (uint32_t i = 0; i < properties->values.size; ++i)
         {
             JsonValue *value = (JsonValue *) TinyList_GetAt(&properties->values, i);
-            Property *property = Property_NewInstance(value->data.object);
+            Property *property = Property_NewFrom(value->data.object);
             if (property == NULL)
             {
-                LOG_E(TAG, "Property_NewInstance failed");
+                LOG_E(TAG, "Property_New failed");
                 ret = TINY_RET_E_ARG_INVALID;
                 break;
             }
@@ -613,10 +609,10 @@ static Service* Service_NewInstance(JsonObject *object)
         for (uint32_t i = 0; i < actions->values.size; ++i)
         {
             JsonValue *value = (JsonValue *) TinyList_GetAt(&actions->values, i);
-            Action *action = Action_NewInstance(value->data.object, service);
+            Action *action = Action_NewFrom(value->data.object, service);
             if (action == NULL)
             {
-                LOG_E(TAG, "Action_NewInstance failed");
+                LOG_E(TAG, "Action_New failed");
                 ret = TINY_RET_E_ARG_INVALID;
                 break;
             }
@@ -671,10 +667,10 @@ Device* Device_NewInstance(JsonObject *object)
         for (uint32_t i = 0; i < services->values.size; ++i)
         {
             JsonValue *value = (JsonValue *) TinyList_GetAt(&services->values, i);
-            Service *service = Service_NewInstance(value->data.object);
+            Service *service = Service_NewFrom(value->data.object);
             if (service == NULL)
             {
-                LOG_E(TAG, "Service_NewInstance failed");
+                LOG_E(TAG, "Service_New failed");
                 ret = TINY_RET_E_ARG_INVALID;
                 break;
             }

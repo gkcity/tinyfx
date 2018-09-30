@@ -40,7 +40,11 @@ typedef struct _Service Service;
 
 IOT_API
 TINY_LOR
-Service* Service_New(void);
+Service* Service_New(uint16_t iid);
+
+IOT_API
+TINY_LOR
+Service* Service_NewInstance(uint16_t iid, const char *ns, const char *name, uint32_t uuid, const char *vendor);
 
 IOT_API
 TINY_LOR

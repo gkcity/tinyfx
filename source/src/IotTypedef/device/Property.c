@@ -19,13 +19,13 @@
 #define TAG     "Property"
 
 TINY_LOR
-static TinyRet Property_Construct(Property *thiz);
+static TinyRet Property_Construct(Property *thiz, uint16_t iid);
 
 TINY_LOR
 static void Property_Dispose(Property *thiz);
 
 TINY_LOR
-Property* Property_New(void)
+Property* Property_New(uint16_t iid)
 {
     Property *thiz = NULL;
 
@@ -38,7 +38,7 @@ Property* Property_New(void)
             break;
         }
 
-        if (RET_FAILED(Property_Construct(thiz)))
+        if (RET_FAILED(Property_Construct(thiz, iid)))
         {
             Property_Delete(thiz);
             thiz = NULL;
@@ -50,7 +50,32 @@ Property* Property_New(void)
 }
 
 TINY_LOR
-static TinyRet Property_Construct(Property *thiz)
+Property* Property_NewInstance(uint16_t iid, const char *ns, const char *name, uint32_t uuid, const char *vendor)
+{
+    Property * thiz = NULL;
+
+    do
+    {
+        thiz = Property_New(iid);
+        if (thiz == NULL)
+        {
+            LOG_D(TAG, "Property_New FAILED");
+            break;
+        }
+
+        if (RET_FAILED(Urn_Set(&thiz->type, ns, PROPERTY, name, uuid, vendor)))
+        {
+            Property_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+    } while (false);
+
+    return thiz;
+}
+
+TINY_LOR
+static TinyRet Property_Construct(Property *thiz, uint16_t iid)
 {
     TinyRet ret;
 
@@ -59,6 +84,7 @@ static TinyRet Property_Construct(Property *thiz)
     do
     {
         memset(thiz, 0, sizeof(Property));
+        thiz->iid = iid;
 
         ret = Urn_Construct(&thiz->type);
         if (RET_FAILED(ret))

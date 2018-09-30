@@ -20,7 +20,52 @@
 #define TAG     "ValueRange"
 
 TINY_LOR
-static TinyRet ValueRange_Construct(ValueRange *thiz, JsonArray *range)
+static TinyRet ValueRange_Construct(ValueRange *thiz, JsonValue *min, JsonValue *max, JsonValue *step)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(min, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(max, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(step, TINY_RET_E_ARG_NULL);
+
+    do
+    {
+        memset(thiz, 0, sizeof(ValueRange));
+
+        if (min->type != max->type || min->type != step->type)
+        {
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
+        thiz->min = JsonValue_Copy(min);
+        if (thiz->min == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
+
+        thiz->max = JsonValue_Copy(max);
+        if (thiz->max == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
+
+        thiz->step = JsonValue_Copy(step);
+        if (thiz->step == NULL)
+        {
+            ret = TINY_RET_E_NEW;
+            break;
+        }
+    } while (false);
+
+    return ret;
+}
+
+TINY_LOR
+static TinyRet ValueRange_Construct2(ValueRange *thiz, JsonArray *range)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -45,6 +90,7 @@ static TinyRet ValueRange_Construct(ValueRange *thiz, JsonArray *range)
         min = (JsonValue *)TinyList_GetAt(&range->values, 0);
         max = (JsonValue *)TinyList_GetAt(&range->values, 1);
         step = (JsonValue *)TinyList_GetAt(&range->values, 2);
+
         if (min->type != max->type || min->type != step->type)
         {
             ret = TINY_RET_E_ARG_INVALID;
@@ -101,6 +147,35 @@ static void ValueRange_Dispose(ValueRange *thiz)
 }
 
 TINY_LOR
+ValueRange* ValueRange_New(JsonValue *min, JsonValue *max, JsonValue *step)
+{
+    ValueRange *thiz = NULL;
+
+    RETURN_VAL_IF_FAIL(min, NULL);
+    RETURN_VAL_IF_FAIL(max, NULL);
+    RETURN_VAL_IF_FAIL(step, NULL);
+
+    do
+    {
+        thiz = (ValueRange *) tiny_malloc(sizeof(ValueRange));
+        if (thiz == NULL)
+        {
+            LOG_D(TAG, "tiny_malloc FAILED");
+            break;
+        }
+
+        if (RET_FAILED(ValueRange_Construct(thiz, min, max, step)))
+        {
+            ValueRange_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+    } while (false);
+
+    return thiz;
+}
+
+TINY_LOR
 ValueRange *ValueRange_NewFrom(JsonArray *range)
 {
     ValueRange *thiz = NULL;
@@ -116,7 +191,7 @@ ValueRange *ValueRange_NewFrom(JsonArray *range)
             break;
         }
 
-        if (RET_FAILED(ValueRange_Construct(thiz, range)))
+        if (RET_FAILED(ValueRange_Construct2(thiz, range)))
         {
             ValueRange_Delete(thiz);
             thiz = NULL;

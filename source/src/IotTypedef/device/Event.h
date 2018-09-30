@@ -34,7 +34,11 @@ typedef struct _Event Event;
 
 IOT_API
 TINY_LOR
-Event* Event_New(void);
+Event* Event_New(uint16_t iid);
+
+IOT_API
+TINY_LOR
+Event* Event_NewInstance(uint16_t iid, const char *ns, const char *name, uint32_t uuid, const char *vendor);
 
 IOT_API
 TINY_LOR

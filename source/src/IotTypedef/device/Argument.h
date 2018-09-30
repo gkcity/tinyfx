@@ -30,6 +30,10 @@ Argument* Argument_New(void);
 
 IOT_API
 TINY_LOR
+Argument* Argument_NewValue(uint16_t iid);
+
+IOT_API
+TINY_LOR
 void Argument_Delete(Argument *thiz);
 
 

@@ -35,11 +35,23 @@ typedef struct _Action Action;
 
 IOT_API
 TINY_LOR
-Action* Action_New(void);
+Action* Action_New(uint16_t iid);
+
+IOT_API
+TINY_LOR
+Action* Action_NewInstance(uint16_t iid, const char *ns, const char *name, uint32_t uuid, const char *vendor);
 
 IOT_API
 TINY_LOR
 void Action_Delete(Action *thiz);
+
+IOT_API
+TINY_LOR
+TinyRet Action_InAdd(Action *thiz, uint16_t iid);
+
+IOT_API
+TINY_LOR
+TinyRet Action_OutAdd(Action *thiz, uint16_t iid);
 
 IOT_API
 TINY_LOR

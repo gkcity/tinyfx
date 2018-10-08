@@ -23,7 +23,7 @@ static void _OnRuntimeDelete (void * data, void *ctx)
 }
 
 TINY_LOR
-IotLauncher *IotLauncher_New(void)
+IotLauncher *IotLauncher_New(Device *device)
 {
     IotLauncher *thiz = NULL;
 
@@ -36,8 +36,147 @@ IotLauncher *IotLauncher_New(void)
             break;
         }
 
-        if (RET_FAILED(IotLauncher_Construct(thiz)))
+        if (RET_FAILED(IotLauncher_Construct(thiz, device)))
         {
+            IotLauncher_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+    } while (false);
+
+    return thiz;
+}
+
+TINY_LOR
+IotLauncher * IotLauncher_NewRuntime(Device *device, IotRuntime *runtime, Channel *executor)
+{
+    IotLauncher *thiz = IotLauncher_New(device);
+
+    do
+    {
+        if (thiz == NULL)
+        {
+            break;
+        }
+
+        if (executor != NULL)
+        {
+            if (RET_FAILED(Bootstrap_AddChannel(&thiz->bootstrap, executor)))
+            {
+                executor->_close(executor);
+                IotRuntime_Delete(runtime);
+                IotLauncher_Delete(thiz);
+                thiz = NULL;
+                break;
+            }
+        }
+
+        if (RET_FAILED(IotLauncher_AddRuntime(thiz, runtime)))
+        {
+            IotRuntime_Delete(runtime);
+            IotLauncher_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+    } while (false);
+
+    return thiz;
+}
+
+TINY_LOR
+IotLauncher * IotLauncher_NewRuntime2(Device *device, IotRuntime *r1, IotRuntime *r2, Channel *executor)
+{
+    IotLauncher *thiz = IotLauncher_New(device);
+
+    do
+    {
+        if (thiz == NULL)
+        {
+            break;
+        }
+
+        if (executor != NULL)
+        {
+            if (RET_FAILED(Bootstrap_AddChannel(&thiz->bootstrap, executor)))
+            {
+                executor->_close(executor);
+                IotRuntime_Delete(r1);
+                IotRuntime_Delete(r2);
+                IotLauncher_Delete(thiz);
+                thiz = NULL;
+                break;
+            }
+        }
+
+        if (RET_FAILED(IotLauncher_AddRuntime(thiz, r1)))
+        {
+            IotRuntime_Delete(r1);
+            IotRuntime_Delete(r2);
+            IotLauncher_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+
+        if (RET_FAILED(IotLauncher_AddRuntime(thiz, r2)))
+        {
+            IotRuntime_Delete(r2);
+            IotLauncher_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+    } while (false);
+
+    return thiz;
+}
+
+TINY_LOR
+IotLauncher * IotLauncher_NewRuntime3(Device *device, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor)
+{
+    IotLauncher *thiz = IotLauncher_New(device);
+
+    do
+    {
+        if (thiz == NULL)
+        {
+            break;
+        }
+
+        if (executor != NULL)
+        {
+            if (RET_FAILED(Bootstrap_AddChannel(&thiz->bootstrap, executor)))
+            {
+                executor->_close(executor);
+                IotRuntime_Delete(r1);
+                IotRuntime_Delete(r2);
+                IotRuntime_Delete(r3);
+                IotLauncher_Delete(thiz);
+                thiz = NULL;
+                break;
+            }
+        }
+
+        if (RET_FAILED(IotLauncher_AddRuntime(thiz, r1)))
+        {
+            IotRuntime_Delete(r1);
+            IotRuntime_Delete(r2);
+            IotRuntime_Delete(r3);
+            IotLauncher_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+
+        if (RET_FAILED(IotLauncher_AddRuntime(thiz, r2)))
+        {
+            IotRuntime_Delete(r2);
+            IotRuntime_Delete(r3);
+            IotLauncher_Delete(thiz);
+            thiz = NULL;
+            break;
+        }
+
+        if (RET_FAILED(IotLauncher_AddRuntime(thiz, r3)))
+        {
+            IotRuntime_Delete(r3);
             IotLauncher_Delete(thiz);
             thiz = NULL;
             break;
@@ -57,7 +196,7 @@ void IotLauncher_Delete(IotLauncher *thiz)
 }
 
 TINY_LOR
-TinyRet IotLauncher_Construct(IotLauncher *thiz)
+TinyRet IotLauncher_Construct(IotLauncher *thiz, Device *device)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -67,6 +206,7 @@ TinyRet IotLauncher_Construct(IotLauncher *thiz)
     {
         memset(thiz, 0, sizeof(IotLauncher));
         thiz->started = false;
+        thiz->device = device;
 
         ret = Bootstrap_Construct(&thiz->bootstrap);
         if (RET_FAILED(ret))
@@ -135,7 +275,7 @@ TinyRet IotLauncher_Stop(IotLauncher *thiz)
 }
 
 TINY_LOR
-TinyRet IotLauncher_Run(IotLauncher *thiz, Device *device)
+TinyRet IotLauncher_Run(IotLauncher *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -149,15 +289,15 @@ TinyRet IotLauncher_Run(IotLauncher *thiz, Device *device)
             break;
         }
 
-        if (! Device_CheckHandler(device))
+        if (! Device_CheckHandler(thiz->device))
         {
             ret = TINY_RET_E_NOT_IMPLEMENTED;
             break;
         }
 
-        for (uint32_t  i = 0; i < device->children.size; ++i)
+        for (uint32_t  i = 0; i < thiz->device->children.size; ++i)
         {
-            Device *child = (Device *) TinyList_GetAt(&device->children, i);
+            Device *child = (Device *) TinyList_GetAt(&thiz->device->children, i);
             if (! Device_CheckHandler(child))
             {
                 ret = TINY_RET_E_NOT_IMPLEMENTED;
@@ -177,7 +317,7 @@ TinyRet IotLauncher_Run(IotLauncher *thiz, Device *device)
             IotRuntime * runtime = (IotRuntime *) TinyList_GetAt(&thiz->runtimes, i);
             runtime->Initialize(runtime);
 
-            ret = runtime->Run(runtime, &thiz->bootstrap, device);
+            ret = runtime->Run(runtime, &thiz->bootstrap, thiz->device);
             if (RET_FAILED(ret))
             {
                 LOG_D(TAG, "Runtime.Run failed");

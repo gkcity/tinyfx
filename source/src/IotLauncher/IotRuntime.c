@@ -68,16 +68,17 @@ void IotRuntime_Delete(IotRuntime *thiz)
     tiny_free(thiz);
 }
 
-TINY_LOR
-void IotRuntime_Copy(IotRuntime *dst, IotRuntime *src)
-{
-    if (dst != src)
-    {
-        dst->Name           = src->Name;
-        dst->Initialize     = src->Initialize;
-        dst->Run            = src->Run;
-        dst->Stop           = src->Stop;
-        dst->Destroy        = src->Destroy;
-        dst->context        = src->context;
-    }
-}
+//TINY_LOR
+//void IotRuntime_Copy(IotRuntime *dst, IotRuntime *src)
+//{
+//    if (dst != src)
+//    {
+//        dst->Name           = src->Name;
+//        dst->Initialize     = src->Initialize;
+//        dst->Run            = src->Run;
+//        dst->Stop           = src->Stop;
+//        dst->Destroy        = src->Destroy;
+//        dst->channel        = src->channel;
+//        dst->context        = src->context;
+//    }
+//}

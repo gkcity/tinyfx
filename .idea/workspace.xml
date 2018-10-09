@@ -2,20 +2,24 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="TinyFX" targetName="tinyfx_static" />
       <config projectName="TinyFX" targetName="tinyfx" />
+      <config projectName="TinyFX" targetName="tinyfx_static" />
     </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="macos_Debug" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=cmake/macos.cmake" />
+      <configuration PROFILE_NAME="macos_Debug" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=cmake/linux_x86.cmake" />
     </configurations>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5705f20-e041-49c3-87db-73457aa4e747" name="Default" comment="remove unused files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/device/Device.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/device/Device.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/device/Device.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/device/Device.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/device/handler/AccessKeyHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/device/handler/AccessKeyHandler.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-linux_x86_debug/" />
@@ -153,6 +157,40 @@
       <usages-collector id="statistics.cidr.testingFrameworks.usages" />
       <usages-collector id="statistics.vcs.git.usages" />
     </session>
+    <session id="-723634722">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="c" value="8" />
+          <entry key="cmake" value="5" />
+          <entry key="h" value="10" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="CMakeLists.txt" value="5" />
+          <entry key="ObjectiveC" value="18" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="c" value="22" />
+          <entry key="h" value="52" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="ObjectiveC" value="74" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages" />
+      <usages-collector id="statistics.cidr.testingFrameworks.usages" />
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf />
@@ -230,10 +268,7 @@
         <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/ActionOperation.h" />
         <option value="$PROJECT_DIR$/../tiny/source/src/Json/JsonArray.c" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/ActionOperation.c" />
-        <option value="$PROJECT_DIR$/source/src/IotTypedef/device/handler/AccessKeyHandler.h" />
         <option value="$PROJECT_DIR$/../tiny/source/src/Json/JsonValue.c" />
-        <option value="$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.c" />
-        <option value="$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/data/Data.c" />
         <option value="$PROJECT_DIR$/cmake/macos.cmake" />
         <option value="$PROJECT_DIR$/cmake/windows_x86.cmake" />
@@ -268,10 +303,13 @@
         <option value="$PROJECT_DIR$/source/src/IotTypedef/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/source/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/source/src/IotFactory/example/example_device_instance.c" />
+        <option value="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c" />
+        <option value="$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.c" />
+        <option value="$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/Device.h" />
+        <option value="$PROJECT_DIR$/source/src/IotTypedef/device/handler/AccessKeyHandler.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/Device.c" />
         <option value="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.h" />
-        <option value="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c" />
       </list>
     </option>
   </component>
@@ -289,22 +327,28 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1280" />
-    <option name="height" value="777" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1200" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="TinyFX" type="b2602c69:ProjectViewProjectNode" />
               <item name="tinyfx" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TinyFX" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tinyfx" type="462c0819:PsiDirectoryNode" />
+              <item name="cmake" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TinyFX" type="b2602c69:ProjectViewProjectNode" />
@@ -328,12 +372,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tiny" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
@@ -413,6 +456,7 @@
       <workItem from="1538289718378" duration="3513000" />
       <workItem from="1538312925162" duration="974000" />
       <workItem from="1538466268959" duration="3731000" />
+      <workItem from="1539050361827" duration="4025000" />
     </task>
     <task id="LOCAL-00001" summary="fix bug">
       <created>1531184425469</created>
@@ -509,7 +553,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="107208000" />
+    <option name="totallyTimeSpent" value="111233000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -521,9 +565,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="777" extended-state="0" />
+    <frame x="1200" y="0" width="1920" height="1080" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32552505" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19263607" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -533,11 +578,11 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32930514" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49733192" weight="0.9471299" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49920928" weight="0.49697885" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49733192" weight="0.9466231" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49920928" weight="0.49682266" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5026681" side_tool="true" weight="0.66616315" />
       <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="CMake" order="11" weight="0.46374622" />
+      <window_info anchor="bottom" id="CMake" order="11" weight="0.463316" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -564,25 +609,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="remove unused files" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/EventOperation.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-135" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" column="8" lean-forward="true" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/ActionOperation.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -722,20 +748,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmake/macos.cmake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/cmake/macos.cmake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/test/test_tlv8.c" />
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/test/test_tlv8_memory_leak.c" />
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/CMakeLists.txt">
@@ -773,16 +785,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/cmake/target_macos/CMakeFiles/Progress/3">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="52" column="5" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/source/cmake/target_macos/CMakeFiles/Progress/3" />
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
@@ -811,26 +814,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="59" column="16" selection-start-line="59" selection-start-column="16" selection-end-line="59" selection-end-column="16" />
-          <folding>
-            <element signature="e#179#201#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Device.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="995">
-          <caret line="490" column="25" selection-start-line="490" selection-start-column="8" selection-end-line="490" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Device.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="96" column="24" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="24" />
-          <folding>
-            <element signature="e#173#195#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -848,17 +831,84 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="70" selection-start-line="70" selection-start-column="2" selection-end-line="83" selection-end-column="3" />
+          <folding>
+            <element signature="e#135#159#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotLauncher/IotRuntime.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="711">
+          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+          <folding>
+            <element signature="e#188#210#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/handler/AccessKeyHandler.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Device.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1251">
+          <caret line="96" column="25" lean-forward="true" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
+          <folding>
+            <element signature="e#173#195#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Device.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13">
+          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+          <folding>
+            <element signature="e#130#154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake/linux_x86.cmake">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/cmake/macos.cmake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmake/macos.cmake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="63" column="36" selection-start-line="63" selection-start-column="36" selection-end-line="63" selection-end-column="36" />
+        <state relative-caret-position="306">
+          <caret line="208" column="30" selection-start-line="208" selection-start-column="30" selection-end-line="208" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="39" column="91" selection-start-line="39" selection-start-column="74" selection-end-line="39" selection-end-column="91" />
+        <state relative-caret-position="54">
+          <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+          <folding>
+            <element signature="e#191#213#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

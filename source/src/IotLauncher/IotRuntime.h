@@ -37,6 +37,7 @@ struct _IotRuntime
     Device_Run              Run;
     Device_Stop             Stop;
     Device_Destroy          Destroy;
+    Channel               * channel;
     void                  * context;
 };
 
@@ -48,9 +49,9 @@ IOT_API
 TINY_LOR
 void IotRuntime_Delete(IotRuntime *thiz);
 
-IOT_API
-TINY_LOR
-void IotRuntime_Copy(IotRuntime *dst, IotRuntime *src);
+//IOT_API
+//TINY_LOR
+//void IotRuntime_Copy(IotRuntime *dst, IotRuntime *src);
 
 
 TINY_END_DECLS

@@ -24,7 +24,7 @@
 #include <device/handler/PropertyOnControl.h>
 #include <operation/PropertyOperations.h>
 #include <operation/ActionOperation.h>
-#include <device/handler/AccessKeyHandler.h>
+//#include <device/handler/AccessKeyHandler.h>
 
 TINY_BEGIN_DECLS
 
@@ -100,13 +100,13 @@ IOT_API
 TINY_LOR
 TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o);
 
-IOT_API
-TINY_LOR
-TinyRet Device_GetAccessKey(Device *thiz, OnGetAccessKeySucceed onSucceed, OnGetAccessKeyFailed onFailed);
-
-IOT_API
-TINY_LOR
-TinyRet Device_ResetAccessKey(Device *thiz, OnResetAccessKeySucceed onSucceed, OnResetAccessKeyFailed onFailed);
+//IOT_API
+//TINY_LOR
+//TinyRet Device_GetAccessKey(Device *thiz, OnGetAccessKeySucceed onSucceed, OnGetAccessKeyFailed onFailed);
+//
+//IOT_API
+//TINY_LOR
+//TinyRet Device_ResetAccessKey(Device *thiz, OnResetAccessKeySucceed onSucceed, OnResetAccessKeyFailed onFailed);
 
 
 TINY_END_DECLS

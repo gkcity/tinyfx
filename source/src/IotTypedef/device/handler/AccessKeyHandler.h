@@ -18,11 +18,11 @@
 TINY_BEGIN_DECLS
 
 
-typedef void (*OnGetAccessKeySucceed)(const char *accessKey);
-typedef void (*OnGetAccessKeyFailed)(int status, const char *description);
-
-typedef void (*OnResetAccessKeySucceed)(void);
-typedef void (*OnResetAccessKeyFailed)(int status, const char *description);
+//typedef void (*OnGetAccessKeySucceed)(const char *accessKey);
+//typedef void (*OnGetAccessKeyFailed)(int status, const char *description);
+//
+//typedef void (*OnResetAccessKeySucceed)(void);
+//typedef void (*OnResetAccessKeyFailed)(int status, const char *description);
 
 
 TINY_END_DECLS

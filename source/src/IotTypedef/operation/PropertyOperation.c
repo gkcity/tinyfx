@@ -127,7 +127,7 @@ PropertyOperation * PropertyOperation_CopyFrom(PropertyOperation *other)
 
         if (other->value != NULL)
         {
-            thiz->value = JsonValue_Copy(other->value);
+            thiz->value = JsonValue_NewFrom(other->value);
             if (thiz->value == NULL)
             {
                 PropertyOperation_Delete(thiz);

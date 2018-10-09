@@ -39,21 +39,21 @@ static TinyRet ValueRange_Construct(ValueRange *thiz, JsonValue *min, JsonValue 
             break;
         }
 
-        thiz->min = JsonValue_Copy(min);
+        thiz->min = JsonValue_NewFrom(min);
         if (thiz->min == NULL)
         {
             ret = TINY_RET_E_NEW;
             break;
         }
 
-        thiz->max = JsonValue_Copy(max);
+        thiz->max = JsonValue_NewFrom(max);
         if (thiz->max == NULL)
         {
             ret = TINY_RET_E_NEW;
             break;
         }
 
-        thiz->step = JsonValue_Copy(step);
+        thiz->step = JsonValue_NewFrom(step);
         if (thiz->step == NULL)
         {
             ret = TINY_RET_E_NEW;
@@ -97,21 +97,21 @@ static TinyRet ValueRange_Construct2(ValueRange *thiz, JsonArray *range)
             break;
         }
 
-        thiz->min = JsonValue_Copy(min);
+        thiz->min = JsonValue_NewFrom(min);
         if (thiz->min == NULL)
         {
             ret = TINY_RET_E_NEW;
             break;
         }
 
-        thiz->max = JsonValue_Copy(max);
+        thiz->max = JsonValue_NewFrom(max);
         if (thiz->max == NULL)
         {
             ret = TINY_RET_E_NEW;
             break;
         }
 
-        thiz->step = JsonValue_Copy(step);
+        thiz->step = JsonValue_NewFrom(step);
         if (thiz->step == NULL)
         {
             ret = TINY_RET_E_NEW;

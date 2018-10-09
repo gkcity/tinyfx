@@ -68,7 +68,7 @@ static TinyRet ValueList_Construct(ValueList *thiz, JsonArray *array)
                     break;
                 }
 
-                newValue = JsonValue_Copy(value);
+                newValue = JsonValue_NewFrom(value);
                 if (newValue == NULL)
                 {
                     LOG_E(TAG, "JsonValue_Copy FAILED");
@@ -169,7 +169,7 @@ TinyRet ValueList_Put(ValueList *thiz, JsonValue *value)
 
     do
     {
-        JsonValue *newValue = JsonValue_Copy(value);
+        JsonValue *newValue = JsonValue_NewFrom(value);
         if (newValue == NULL)
         {
             ret = TINY_RET_E_NEW;

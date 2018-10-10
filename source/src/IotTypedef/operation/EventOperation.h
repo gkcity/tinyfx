@@ -17,6 +17,7 @@
 
 #include <tiny_base.h>
 #include <JsonArray.h>
+#include <api/iot_api.h>
 #include "EID.h"
 
 TINY_BEGIN_DECLS
@@ -29,17 +30,29 @@ typedef struct _EventOperation
     JsonArray             * arguments;
 } EventOperation;
 
+IOT_API
 TINY_LOR
 EventOperation * EventOperation_New(void);
 
+IOT_API
 TINY_LOR
 void EventOperation_Delete(EventOperation *thiz);
 
+IOT_API
 TINY_LOR
 TinyRet EventOperation_Construct(EventOperation *thiz);
 
+IOT_API
 TINY_LOR
 void EventOperation_Dispose(EventOperation *thiz);
+
+IOT_API
+TINY_LOR
+EventOperation * EventOperation_CopyFrom(EventOperation *other);
+
+IOT_API
+TINY_LOR
+TinyRet EventOperation_Copy(EventOperation *dst, EventOperation *src);
 
 
 TINY_END_DECLS

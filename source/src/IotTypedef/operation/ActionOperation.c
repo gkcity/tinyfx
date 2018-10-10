@@ -81,15 +81,41 @@ TinyRet ActionOperation_Copy(ActionOperation *dst, ActionOperation *src)
     RETURN_VAL_IF_FAIL(dst, TINY_RET_E_ARG_NULL);
     RETURN_VAL_IF_FAIL(src, TINY_RET_E_ARG_NULL);
 
-    if (src != dst)
+    do
     {
+        if (src == dst)
+        {
+            ret = TINY_RET_E_ARG_INVALID;
+            break;
+        }
+
         strncpy(dst->aid.did, src->aid.did, DEVICE_ID_LENGTH);
         dst->aid.siid = src->aid.siid;
         dst->aid.iid = src->aid.iid;
         dst->status = src->status;
-        JsonArray_Copy(&dst->in, &src->in);
-        JsonArray_Copy(&dst->out, &src->out);
-    }
+
+        if (dst->in.values.size != 0)
+        {
+            JsonArray_Dispose(&dst->in);
+        }
+
+        if (dst->out.values.size != 0)
+        {
+            JsonArray_Dispose(&dst->out);
+        }
+
+        ret = JsonArray_Copy(&dst->in, &src->in);
+        if (RET_FAILED(ret))
+        {
+            break;
+        }
+
+        ret = JsonArray_Copy(&dst->out, &src->out);
+        if (RET_FAILED(ret))
+        {
+            break;
+        }
+    } while (false);
 
     return ret;
 }

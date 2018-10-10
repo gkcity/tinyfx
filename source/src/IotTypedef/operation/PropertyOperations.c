@@ -112,6 +112,5 @@ TinyRet PropertyOperations_Copy(PropertyOperations *dst, PropertyOperations *src
         }
     }
 
-
     return ret;
 }

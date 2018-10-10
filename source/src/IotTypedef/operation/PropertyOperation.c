@@ -125,15 +125,17 @@ PropertyOperation * PropertyOperation_CopyFrom(PropertyOperation *other)
         thiz->pid.iid = other->pid.iid;
         thiz->status = other->status;
 
-        if (other->value != NULL)
+        if (other->value == NULL)
         {
-            thiz->value = JsonValue_NewFrom(other->value);
-            if (thiz->value == NULL)
-            {
-                PropertyOperation_Delete(thiz);
-                thiz = NULL;
-                break;
-            }
+            break;
+        }
+
+        thiz->value = JsonValue_NewFrom(other->value);
+        if (thiz->value == NULL)
+        {
+            PropertyOperation_Delete(thiz);
+            thiz = NULL;
+            break;
         }
     } while (false);
 

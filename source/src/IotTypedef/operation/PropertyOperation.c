@@ -106,17 +106,10 @@ PropertyOperation * PropertyOperation_CopyFrom(PropertyOperation *other)
 
     do
     {
-        thiz = (PropertyOperation *)tiny_malloc(sizeof(PropertyOperation));
+        thiz = PropertyOperation_New();
         if (thiz == NULL)
         {
             LOG_D(TAG, "tiny_malloc FAILED");
-            break;
-        }
-
-        if (RET_FAILED(PropertyOperation_Construct(thiz)))
-        {
-            PropertyOperation_Delete(thiz);
-            thiz = NULL;
             break;
         }
 

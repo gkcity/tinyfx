@@ -28,13 +28,7 @@ TINY_LOR
 static void Event_Dispose(Event *thiz);
 
 TINY_LOR
-static void in_release_handler(void *data, void *ctx)
-{
-    Argument_Delete(data);
-}
-
-TINY_LOR
-static void out_release_handler(void *data, void *ctx)
+static void on_argument_delete(void *data, void *ctx)
 {
     Argument_Delete(data);
 }
@@ -115,7 +109,7 @@ static TinyRet Event_Construct(Event *thiz, uint16_t iid)
             break;
         }
         thiz->arguments.context = thiz;
-        TinyList_SetDeleteListener(&thiz->arguments, in_release_handler, thiz);
+        TinyList_SetDeleteListener(&thiz->arguments, on_argument_delete, thiz);
     } while (false);
 
     return ret;

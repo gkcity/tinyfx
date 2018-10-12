@@ -335,21 +335,6 @@ static Property* Property_NewFrom(JsonObject *object)
 }
 
 TINY_LOR
-static Property * getProperty(TinyList *properties, uint16_t iid)
-{
-    for (uint32_t i = 0; i < properties->size; ++i)
-    {
-        Property * p = (Property *) TinyList_GetAt(properties, i);
-        if (p->iid == iid)
-        {
-            return p;
-        }
-    }
-
-    return NULL;
-}
-
-TINY_LOR
 static TinyRet ParseArguments(TinyList *list, JsonArray *arguments)
 {
     TinyRet ret = TINY_RET_OK;

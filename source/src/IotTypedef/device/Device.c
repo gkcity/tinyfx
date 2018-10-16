@@ -98,15 +98,16 @@ void Device_Delete(Device *thiz)
     tiny_free(thiz);
 }
 
-TINY_LOR
-void Device_SetLtsk(Device *thiz, const char *ltsk)
-{
-    RETURN_IF_FAIL(thiz);
-    RETURN_IF_FAIL(ltsk);
+//TINY_LOR
+//void Device_SetLtsk(Device *thiz, const char *ltsk)
+//{
+//    RETURN_IF_FAIL(thiz);
+//    RETURN_IF_FAIL(ltsk);
+//
+//    strncpy(thiz->ltsk, ltsk, DEVICE_LTSK_LENGTH);
+//}
 
-    strncpy(thiz->ltsk, ltsk, DEVICE_LTSK_LENGTH);
-}
-
+#if 0
 TINY_LOR
 void Device_InitializeIID(Device *thiz, InstanceIDStyle style)
 {
@@ -144,6 +145,7 @@ void Device_InitializeIID(Device *thiz, InstanceIDStyle style)
         }
     }
 }
+#endif
 
 TINY_LOR
 void Device_SetHandler(Device *thiz, PropertyOnGet onGet, PropertyOnSet onSet, ActionOnInvoke onInvoke)
@@ -487,20 +489,6 @@ TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o)
         }
 
         Service_TryChange(service, o);
-
-        if (o->status != IOT_STATUS_OK)
-        {
-            ret = TINY_RET_E_ARG_INVALID;
-            break;
-        }
-
-        if (thiz->onChanged == NULL)
-        {
-            ret = TINY_RET_E_NOT_IMPLEMENTED;
-            break;
-        }
-
-        thiz->onChanged(o);
     } while (false);
 
     return ret;
@@ -524,33 +512,7 @@ TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o)
         }
 
         Service_TryProduce(service, o);
-
-        if (o->status != IOT_STATUS_OK)
-        {
-            ret = TINY_RET_E_ARG_INVALID;
-            break;
-        }
-
-        if (thiz->onEventOccurred == NULL)
-        {
-            ret = TINY_RET_E_NOT_IMPLEMENTED;
-            break;
-        }
-
-        thiz->onEventOccurred(o);
     } while (false);
 
     return ret;
 }
-
-//TINY_LOR
-//TinyRet Device_GetAccessKey(Device *thiz, OnGetAccessKeySucceed onSucceed, OnGetAccessKeyFailed onFailed)
-//{
-//    return TINY_RET_E_NOT_IMPLEMENTED;
-//}
-//
-//TINY_LOR
-//TinyRet Device_ResetAccessKey(Device *thiz, OnResetAccessKeySucceed onSucceed, OnResetAccessKeyFailed onFailed)
-//{
-//    return TINY_RET_E_NOT_IMPLEMENTED;
-//}

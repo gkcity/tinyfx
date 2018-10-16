@@ -18,7 +18,6 @@
 #include "unit/Unit.h"
 #include "urn/Urn.h"
 #include <device/access/Access.h>
-#include <device/handler/PropertyOnControl.h>
 #include <device/format/Format.h>
 #include <device/constraint/ValueList.h>
 #include <device/constraint/ValueRange.h>

@@ -59,10 +59,8 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueList.h
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueRange.h
         ${SOURCE_ROOT}/IotTypedef/device/handler/DeviceIdentifyListener.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyOnControl.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/ActionOnInvoke.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/EventOnOccurred.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/AccessKeyHandler.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyHandler.h
+        ${SOURCE_ROOT}/IotTypedef/device/handler/ActionHandler.h
         ${SOURCE_ROOT}/IotTypedef/operation/AID.h
         ${SOURCE_ROOT}/IotTypedef/operation/EID.h
         ${SOURCE_ROOT}/IotTypedef/operation/PID.h

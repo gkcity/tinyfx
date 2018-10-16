@@ -16,9 +16,10 @@
 #define __TYPEDEF_CONSTRAINT_H__
 
 
-#define DEVICE_ID_LENGTH           128
-#define DEVICE_TYPE_LENGTH         128
-#define DEVICE_LTSK_LENGTH         64
+#define DEVICE_ID_LENGTH                128
+#define DEVICE_TYPE_LENGTH              128
+#define DEVICE_LTSK_BASE64_LENGTH       128
+#define DEVICE_LTPK_BASE64_LENGTH       128
 
 
 #endif /* __TYPEDEF_CONSTRAINT_H__ */

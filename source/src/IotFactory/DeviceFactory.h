@@ -14,11 +14,12 @@
 #define __DEVICE_FACTORY_H__
 
 #include <tiny_base.h>
-#include <device/handler/PropertyOnControl.h>
+#include <device/handler/PropertyHandler.h>
 #include <api/iot_api.h>
 #include <device/Device.h>
 
 TINY_BEGIN_DECLS
+
 
 IOT_API
 TINY_LOR
@@ -26,7 +27,12 @@ Device* Device_NewInstance(JsonObject *object);
 
 IOT_API
 TINY_LOR
-Device* DeviceFactory_Create(const char *did, uint16_t productId, uint16_t productVersion, const char *ltsk, uint32_t second);
+Device *DeviceFactory_Create(const char *did,
+                             uint16_t productId,
+                             uint16_t productVersion,
+                             const char *ltsk,
+                             const char *ltpk,
+                             uint32_t second);
 
 
 TINY_END_DECLS

@@ -14,7 +14,7 @@
 #define __ACTION_H__
 
 #include <TinyList.h>
-#include <device/handler/ActionOnInvoke.h>
+#include <operation/ActionOperation.h>
 #include "tiny_base.h"
 #include "api/iot_api.h"
 #include "urn/Urn.h"

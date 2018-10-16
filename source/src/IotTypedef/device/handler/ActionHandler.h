@@ -4,14 +4,14 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   ActionOnInvoke.h
+ * @file   ActionHandler.h
  *
  * @remark
  *
  */
 
-#ifndef __ACTION_ON_INVOKE_H__
-#define __ACTION_ON_INVOKE_H__
+#ifndef __ACTION_HANDLER_H__
+#define __ACTION_HANDLER_H__
 
 #include <tiny_base.h>
 #include <operation/ActionOperation.h>
@@ -24,4 +24,4 @@ typedef void (*ActionOnInvoke)(ActionOperation *operation);
 
 TINY_END_DECLS
 
-#endif /* __ACTION_ON_INVOKE_H__ */
+#endif /* __ACTION_HANDLER_H__ */

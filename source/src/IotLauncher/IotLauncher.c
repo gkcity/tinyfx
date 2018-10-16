@@ -214,13 +214,11 @@ TinyRet IotLauncher_Construct(IotLauncher *thiz, Device *device)
             break;
         }
 
-        ret = TinyList_Construct(&thiz->runtimes);
+        ret = TinyList_Construct(&thiz->runtimes, _OnRuntimeDelete, NULL);
         if (RET_FAILED(ret))
         {
             break;
         }
-
-        TinyList_SetDeleteListener(&thiz->runtimes, _OnRuntimeDelete, NULL);
     } while (false);
 
     return ret;

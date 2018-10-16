@@ -110,26 +110,24 @@ static TinyRet Service_Construct(Service *thiz, uint16_t iid)
         /**
          * Properties
          */
-        ret = TinyList_Construct(&thiz->properties);
+        ret = TinyList_Construct(&thiz->properties, property_release_handler, thiz);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str(ret));
             break;
         }
         thiz->properties.context = thiz;
-        TinyList_SetDeleteListener(&thiz->properties, property_release_handler, thiz);
 
         /**
          * Actions
          */
-        ret = TinyList_Construct(&thiz->actions);
+        ret = TinyList_Construct(&thiz->actions, action_release_handler, thiz);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str(ret));
             break;
         }
         thiz->actions.context = thiz;
-        TinyList_SetDeleteListener(&thiz->actions, action_release_handler, thiz);
     } while (false);
 
     return ret;

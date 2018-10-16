@@ -60,20 +60,7 @@ void PropertyOperations_Delete(PropertyOperations *thiz)
 TINY_LOR
 TinyRet PropertyOperations_Construct(PropertyOperations *thiz)
 {
-    TinyRet ret = TINY_RET_OK;
-
-    do
-    {
-        ret = TinyList_Construct(&thiz->properties);
-        if (RET_FAILED(ret))
-        {
-            break;
-        }
-
-        TinyList_SetDeleteListener(&thiz->properties, OnPropertyOperationDelete, NULL);
-    } while (false);
-
-    return ret;
+    return TinyList_Construct(&thiz->properties, OnPropertyOperationDelete, NULL);
 }
 
 TINY_LOR

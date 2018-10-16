@@ -108,25 +108,21 @@ static TinyRet Action_Construct(Action *thiz, uint16_t iid)
             break;
         }
 
-        ret = TinyList_Construct(&thiz->in);
+        ret = TinyList_Construct(&thiz->in, in_release_handler, thiz);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-
         thiz->in.context = thiz;
-        TinyList_SetDeleteListener(&thiz->in, in_release_handler, thiz);
 
-        ret = TinyList_Construct(&thiz->out);
+        ret = TinyList_Construct(&thiz->out, out_release_handler, thiz);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-
         thiz->out.context = thiz;
-        TinyList_SetDeleteListener(&thiz->out, out_release_handler, thiz);
     } while (false);
 
     return ret;

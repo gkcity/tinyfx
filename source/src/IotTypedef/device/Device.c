@@ -69,15 +69,13 @@ static TinyRet Device_Construct(Device *thiz)
     {
         memset(thiz, 0, sizeof(Device));
 
-        ret = TinyList_Construct(&thiz->services);
+        ret = TinyList_Construct(&thiz->services, service_release_handler, thiz);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-
         thiz->services.context = thiz;
-        TinyList_SetDeleteListener(&thiz->services, service_release_handler, thiz);
     } while (false);
 
     return ret;

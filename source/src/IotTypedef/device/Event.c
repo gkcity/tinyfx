@@ -102,14 +102,13 @@ static TinyRet Event_Construct(Event *thiz, uint16_t iid)
             break;
         }
 
-        ret = TinyList_Construct(&thiz->arguments);
+        ret = TinyList_Construct(&thiz->arguments, on_argument_delete, thiz);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
         thiz->arguments.context = thiz;
-        TinyList_SetDeleteListener(&thiz->arguments, on_argument_delete, thiz);
     } while (false);
 
     return ret;

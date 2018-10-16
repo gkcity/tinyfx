@@ -36,14 +36,12 @@ static TinyRet ValueList_Construct(ValueList *thiz, JsonArray *array)
 
     do
     {
-        ret = TinyList_Construct(&thiz->list);
+        ret = TinyList_Construct(&thiz->list, _OnValueDelete, thiz);
         if (RET_FAILED(ret))
         {
             LOG_E(TAG, "TinyList_Construct FAILED");
             break;
         }
-
-        TinyList_SetDeleteListener(&thiz->list, _OnValueDelete, thiz);
 
         if (array != NULL)
         {

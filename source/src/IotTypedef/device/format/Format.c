@@ -27,6 +27,7 @@
 #define FORMAT_STRING_INT32       "int32"
 #define FORMAT_STRING_INT64       "int64"
 #define FORMAT_STRING_HEX         "hex"
+#define FORMAT_STRING_TLV8        "tlv8"
 
 TINY_LOR
 const char * Format_ToString(Format type)
@@ -65,6 +66,9 @@ const char * Format_ToString(Format type)
 
         case FORMAT_HEX:
             return FORMAT_STRING_HEX;
+
+        case FORMAT_TLV8:
+            return FORMAT_STRING_TLV8;
 
         default:
             break;
@@ -131,6 +135,11 @@ Format Format_FromString(const char *value)
     if (STR_EQUAL(FORMAT_STRING_HEX, value))
     {
         return FORMAT_HEX;
+    }
+
+    if (STR_EQUAL(FORMAT_STRING_TLV8, value))
+    {
+        return FORMAT_TLV8;
     }
 
     return FORMAT_UNDEFINED;

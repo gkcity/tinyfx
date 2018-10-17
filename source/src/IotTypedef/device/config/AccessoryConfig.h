@@ -21,7 +21,8 @@ TINY_BEGIN_DECLS
 
 typedef struct _AccessoryConfig
 {
-    char                pin[DEVICE_PIN_LENGTH + 1];
+    uint16_t            aid;                            // accessory id
+    char                pin[DEVICE_PIN_LENGTH + 1];     // pin code
     char                name[DEVICE_NAME_LENGTH + 1];   // name
     char                model[DEVICE_MODEL_LENGTH + 1]; // md
 

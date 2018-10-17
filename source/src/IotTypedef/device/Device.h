@@ -18,6 +18,7 @@
 #include "urn/Urn.h"
 #include "constant/iot_constant.h"
 #include <TinyList.h>
+#include <device/config/DeviceConfig.h>
 #include <device/handler/DeviceIdentifyListener.h>
 #include <device/handler/ActionHandler.h>
 #include <device/handler/PropertyHandler.h>
@@ -30,14 +31,8 @@ TINY_BEGIN_DECLS
 
 struct _Device
 {
-    char                        did[DEVICE_ID_LENGTH + 1];
-    char                        ltsk[DEVICE_LTSK_BASE64_LENGTH + 1];
-    char                        ltpk[DEVICE_LTPK_BASE64_LENGTH + 1];
-    char                        ip[TINY_IP_LEN];
-    uint16_t                    port;
+    DeviceConfig                config;
     TinyList                    children;
-    uint16_t                    productId;
-    uint16_t                    productVersion;
     TinyList                    services;
     PropertyOnGet               onGet;
     PropertyOnSet               onSet;

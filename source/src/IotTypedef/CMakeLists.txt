@@ -15,6 +15,8 @@ SET(Constant_Header
 # device
 #-----------------------
 SET(Device_Header
+        device/config/AccessoryConfig.h
+        device/config/DeviceConfig.h
         device/Device.h
         device/Service.h
         device/Action.h

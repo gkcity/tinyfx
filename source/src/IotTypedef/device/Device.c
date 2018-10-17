@@ -132,7 +132,7 @@ static Device * Device_GetChild(Device *thiz, const char * did)
     for (uint32_t i = 0; i < thiz->children.size; ++i)
     {
         Device * child = (Device *)TinyList_GetAt(&thiz->children, i);
-        if (STR_EQUAL(child->did, did))
+        if (STR_EQUAL(child->config.did, did))
         {
             return child;
         }
@@ -314,7 +314,7 @@ void Device_TryReadProperties(Device *thiz, PropertyOperations *operations)
     for (uint32_t i = 0; i < operations->properties.size; ++i)
     {
         PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
-        if (STR_EQUAL(thiz->did, o->pid.did))
+        if (STR_EQUAL(thiz->config.did, o->pid.did))
         {
             Device_TryRead(thiz, o);
         }
@@ -334,7 +334,7 @@ void Device_TryWriteProperties(Device *thiz, PropertyOperations *operations)
     for (uint32_t i = 0; i < operations->properties.size; ++i)
     {
         PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
-        if (STR_EQUAL(thiz->did, o->pid.did))
+        if (STR_EQUAL(thiz->config.did, o->pid.did))
         {
             Device_TryWrite(thiz, o);
         }
@@ -351,7 +351,7 @@ void Device_TryInvokeAction(Device *thiz, ActionOperation *o)
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    if (STR_EQUAL(thiz->did, o->aid.did))
+    if (STR_EQUAL(thiz->config.did, o->aid.did))
     {
         Device_TryInvoke(thiz, o);
     }

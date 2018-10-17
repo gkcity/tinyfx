@@ -20,6 +20,9 @@
 #define DEVICE_TYPE_LENGTH              128
 #define DEVICE_LTSK_BASE64_LENGTH       128
 #define DEVICE_LTPK_BASE64_LENGTH       128
+#define DEVICE_NAME_LENGTH              128
+#define DEVICE_MODEL_LENGTH             128
+#define DEVICE_PIN_LENGTH               10   // 034-31-154
 
 
 #endif /* __TYPEDEF_CONSTRAINT_H__ */

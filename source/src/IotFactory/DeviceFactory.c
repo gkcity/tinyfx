@@ -767,12 +767,12 @@ Device *DeviceFactory_Create(const char *did,
     device = DeviceFactory_NewDevice(uri, second);
     if (device != NULL)
     {
-        strncpy(device->ltsk, ltsk, DEVICE_LTSK_BASE64_LENGTH);
-        strncpy(device->ltpk, ltpk, DEVICE_LTPK_BASE64_LENGTH);
+        strncpy(device->config.ltsk, ltsk, DEVICE_LTSK_BASE64_LENGTH);
+        strncpy(device->config.ltpk, ltpk, DEVICE_LTPK_BASE64_LENGTH);
 
-        tiny_snprintf(device->did, DEVICE_ID_LENGTH, "%s@%d", did, productId);
-        device->productId = productId;
-        device->productVersion = productVersion;
+        tiny_snprintf(device->config.did, DEVICE_ID_LENGTH, "%s@%d", did, productId);
+        device->config.productId = productId;
+        device->config.productVersion = productVersion;
     }
 
     return device;

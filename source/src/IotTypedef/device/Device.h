@@ -28,12 +28,6 @@
 TINY_BEGIN_DECLS
 
 
-typedef enum _InstanceIDStyle
-{
-    IID_STYLE_HOMEKIT = 0,
-    IID_STYLE_XIOT = 1,
-} InstanceIDStyle;
-
 struct _Device
 {
     char                        did[DEVICE_ID_LENGTH + 1];
@@ -61,18 +55,6 @@ Device* Device_New(void);
 IOT_API
 TINY_LOR
 void Device_Delete(Device *thiz);
-
-//IOT_API
-//TINY_LOR
-//void Device_SetLtsk(Device *thiz, const char *ltsk);
-
-//IOT_API
-//TINY_LOR
-//void Device_InitializeIID(Device *thiz, InstanceIDStyle style);
-
-IOT_API
-TINY_LOR
-void Device_SetHandler(Device *thiz, PropertyOnGet onGet, PropertyOnSet onSet, ActionOnInvoke onInvoke);
 
 IOT_API
 TINY_LOR

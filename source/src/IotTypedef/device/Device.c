@@ -98,85 +98,6 @@ void Device_Delete(Device *thiz)
     tiny_free(thiz);
 }
 
-//TINY_LOR
-//void Device_SetLtsk(Device *thiz, const char *ltsk)
-//{
-//    RETURN_IF_FAIL(thiz);
-//    RETURN_IF_FAIL(ltsk);
-//
-//    strncpy(thiz->ltsk, ltsk, DEVICE_LTSK_LENGTH);
-//}
-
-#if 0
-TINY_LOR
-void Device_InitializeIID(Device *thiz, InstanceIDStyle style)
-{
-    if (style == IID_STYLE_HOMEKIT)
-    {
-        uint16_t iid = 1;
-
-        for (uint32_t j = 0; j < thiz->services.size; ++j)
-        {
-            Service *s = (Service *) TinyList_GetAt(&thiz->services, j);
-            s->iid = iid++;
-
-            for (uint32_t k = 0; k < s->properties.size; ++k)
-            {
-                Property *p = (Property * )TinyList_GetAt(&s->properties, k);
-                p->iid = iid++;
-            }
-        }
-    }
-    else
-    {
-        uint16_t siid = 1;
-
-        for (uint32_t j = 0; j < thiz->services.size; ++j)
-        {
-            uint16_t piid = 1;
-            Service *s = (Service *) TinyList_GetAt(&thiz->services, j);
-            s->iid = siid++;
-
-            for (uint32_t k = 0; k < s->properties.size; ++k)
-            {
-                Property *p = (Property * )TinyList_GetAt(&s->properties, k);
-                p->iid = piid++;
-            }
-        }
-    }
-}
-#endif
-
-TINY_LOR
-void Device_SetHandler(Device *thiz, PropertyOnGet onGet, PropertyOnSet onSet, ActionOnInvoke onInvoke)
-{
-    RETURN_IF_FAIL(thiz);
-
-    LOG_D(TAG, "Device_SetHandler");
-
-    thiz->onSet = onSet;
-    thiz->onGet = onGet;
-    thiz->onInvoke = onInvoke;
-
-//    for (uint32_t i = 0; i < thiz->services.size; ++i)
-//    {
-//        Service *s = (Service *) TinyList_GetAt(&thiz->services, i);
-//
-//        for (uint32_t j = 0; j < s->properties.size; ++j)
-//        {
-//            Property *p = (Property * )TinyList_GetAt(&s->properties, j);
-//            p->onSet = onSet;
-//            p->onGet = onGet;
-//        }
-//
-//        for (uint32_t j = 0; j < s->actions.size; ++j)
-//        {
-//            Action *a = (Action * )TinyList_GetAt(&s->actions, j);
-//            a->onInvoke = onInvoke;
-//        }
-//    }
-}
-
 TINY_LOR
 bool Device_CheckHandler(Device *thiz)
 {
@@ -201,37 +122,6 @@ bool Device_CheckHandler(Device *thiz)
         LOG_E(TAG, "Action on invoke not handle");
         return false;
     }
-
-//    for (uint32_t i = 0; i < thiz->services.size; ++i)
-//    {
-//        Service *s = (Service *) TinyList_GetAt(&thiz->services, i);
-//
-//        for (uint32_t j = 0; j < s->properties.size; ++j)
-//        {
-//            Property *p = (Property * )TinyList_GetAt(&s->properties, j);
-//            if (Access_IsReadable(p->access) && (p->onGet == NULL))
-//            {
-//                LOG_E(TAG, "Property.onGet not handle: %s", p->type.name);
-//                return false;
-//            }
-//
-//            if (Access_IsWritable(p->access) && p->onSet == NULL)
-//            {
-//                LOG_E(TAG, "Property.onSet not handle: %s", p->type.name);
-//                return false;
-//            }
-//        }
-//
-//        for (uint32_t j = 0; j < s->actions.size; ++j)
-//        {
-//            Action *a = (Action * )TinyList_GetAt(&s->actions, j);
-//            if (a->onInvoke == NULL)
-//            {
-//                LOG_E(TAG, "Action.onInvoke not handle: %s", a->type.name);
-//                return false;
-//            }
-//        }
-//    }
 
     return true;
 }

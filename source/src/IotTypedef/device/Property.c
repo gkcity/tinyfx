@@ -326,3 +326,31 @@ void Property_TryChange(Property *thiz, PropertyOperation *o)
         }
     } while (false);
 }
+
+TINY_LOR
+void Property_TrySubscribe(Property *thiz, PropertyOperation *o)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    LOG_D(TAG, "Property_TrySubscribe: %d", thiz->iid);
+
+    if (! Access_IsNotifiable(thiz->access))
+    {
+        o->status = IOT_STATUS_CANNOT_READ;
+    }
+}
+
+TINY_LOR
+void Property_TryUnsubscribe(Property *thiz, PropertyOperation *o)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    LOG_D(TAG, "Property_TryUnsubscribe: %d", thiz->iid);
+
+    if (! Access_IsNotifiable(thiz->access))
+    {
+        o->status = IOT_STATUS_CANNOT_READ;
+    }
+}

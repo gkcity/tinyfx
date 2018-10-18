@@ -127,12 +127,23 @@ bool Device_CheckHandler(Device *thiz)
 }
 
 TINY_LOR
-static Device * Device_GetChild(Device *thiz, const char * did)
+static bool did_equals(Device *device, const char *did, uint16_t aid)
+{
+    if (device->config.accessory.aid > 0)
+    {
+        return (device->config.accessory.aid == aid);
+    }
+
+    return STR_EQUAL(device->config.did, did);
+}
+
+TINY_LOR
+static Device * Device_GetChild(Device *thiz, const char * did, uint16_t aid)
 {
     for (uint32_t i = 0; i < thiz->children.size; ++i)
     {
         Device * child = (Device *)TinyList_GetAt(&thiz->children, i);
-        if (STR_EQUAL(child->config.did, did))
+        if (did_equals(child, did, aid))
         {
             return child;
         }
@@ -157,33 +168,77 @@ static Service * Device_GetService(Device *thiz, uint16_t siid)
 }
 
 TINY_LOR
+static Property * Device_GetProperty(Device *thiz, uint16_t piid)
+{
+    for (uint32_t i = 0; i < thiz->services.size; ++i)
+    {
+        Service *s = (Service *) TinyList_GetAt(&thiz->services, i);
+        Property *property = Service_GetProperty(s, piid);
+        if (property != NULL)
+        {
+            return property;
+        }
+    }
+
+    return NULL;
+}
+
+TINY_LOR
 static void Device_TryRead(Device *thiz, PropertyOperation *o)
 {
-    Service * service = NULL;
-
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    service = Device_GetService(thiz, o->pid.siid);
-    if (service != NULL)
+    /**
+     * only for homekit, siid always is 0
+     */
+    if (o->pid.siid == 0)
     {
-        Service_TryRead(service, o);
-        if (o->status == IOT_STATUS_OK)
+        Property *property = Device_GetProperty(thiz, o->pid.iid);
+        if (property != NULL)
         {
-            if (thiz->onGet != NULL)
+            Property_TryRead(property, o);
+            if (o->status == IOT_STATUS_OK)
             {
-                thiz->onGet(o);
-                Service_CheckValue(service, o);
+                if (thiz->onGet != NULL)
+                {
+                    thiz->onGet(o);
+                    Property_CheckValue(property, o->value);
+                }
+                else
+                {
+                    o->status = IOT_STATUS_INTERNAL_ERROR;
+                }
             }
-            else
-            {
-                o->status = IOT_STATUS_INTERNAL_ERROR;
-            }
+        }
+        else
+        {
+            o->status = IOT_STATUS_NOT_EXIST;
         }
     }
     else
     {
-        o->status = IOT_STATUS_NOT_EXIST;
+        Service * service = Device_GetService(thiz, o->pid.siid);
+        if (service != NULL)
+        {
+            Service_TryRead(service, o);
+            if (o->status == IOT_STATUS_OK)
+            {
+                if (thiz->onGet != NULL)
+                {
+                    thiz->onGet(o);
+                    Service_CheckValue(service, o);
+                }
+                else
+                {
+                    o->status = IOT_STATUS_INTERNAL_ERROR;
+                }
+            }
+        }
+        else
+        {
+            o->status = IOT_STATUS_NOT_EXIST;
+        }
     }
 }
 
@@ -195,7 +250,7 @@ static void Device_TryReadChild(Device *thiz, PropertyOperation *o)
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    child = Device_GetChild(thiz, o->pid.did);
+    child = Device_GetChild(thiz, o->pid.did, o->pid.aid);
     if (child != NULL)
     {
         Device_TryRead(child, o);
@@ -209,15 +264,108 @@ static void Device_TryReadChild(Device *thiz, PropertyOperation *o)
 TINY_LOR
 static void Device_TryWrite(Device *thiz, PropertyOperation *o)
 {
-    Service * service = NULL;
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    /**
+     * only for homekit, siid always is 0
+     */
+    if (o->pid.siid == 0)
+    {
+        Property *property = Device_GetProperty(thiz, o->pid.iid);
+        if (property != NULL)
+        {
+            Property_TryWrite(property, o);
+            if (o->status == IOT_STATUS_OK)
+            {
+                if (thiz->onSet != NULL)
+                {
+                    thiz->onSet(o);
+                }
+                else
+                {
+                    o->status = IOT_STATUS_INTERNAL_ERROR;
+                }
+            }
+        }
+        else
+        {
+            o->status = IOT_STATUS_NOT_EXIST;
+        }
+    }
+    else
+    {
+        Service * service = Device_GetService(thiz, o->pid.siid);
+        if (service != NULL)
+        {
+            Service_TryWrite(service, o);
+            if (o->status == IOT_STATUS_OK)
+            {
+                if (thiz->onSet != NULL)
+                {
+                    thiz->onSet(o);
+                }
+                else
+                {
+                    o->status = IOT_STATUS_INTERNAL_ERROR;
+                }
+            }
+        }
+        else
+        {
+            o->status = IOT_STATUS_NOT_EXIST;
+        }
+    }
+}
+
+/**
+ * only for homekit, siid always is 0
+ */
+TINY_LOR
+static void Device_TrySubscribe(Device *thiz, PropertyOperation *o)
+{
+    Property *property = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    service = Device_GetService(thiz, o->pid.siid);
-    if (service != NULL)
+    property = Device_GetProperty(thiz, o->pid.iid);
+    if (property != NULL)
     {
-        Service_TryWrite(service, o);
+        Property_TrySubscribe(property, o);
+        if (o->status == IOT_STATUS_OK)
+        {
+            if (thiz->onSet != NULL)
+            {
+                thiz->onSet(o);
+            }
+            else
+            {
+                o->status = IOT_STATUS_INTERNAL_ERROR;
+            }
+        }
+    }
+    else
+    {
+        o->status = IOT_STATUS_NOT_EXIST;
+    }
+}
+
+/**
+ * only for homekit, siid always is 0
+ */
+TINY_LOR
+static void Device_TryUnsubscribe(Device *thiz, PropertyOperation *o)
+{
+    Property *property = NULL;
+
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    property = Device_GetProperty(thiz, o->pid.iid);
+    if (property != NULL)
+    {
+        Property_TryUnsubscribe(property, o);
         if (o->status == IOT_STATUS_OK)
         {
             if (thiz->onSet != NULL)
@@ -244,10 +392,48 @@ static void Device_TryWriteChild(Device *thiz, PropertyOperation *o)
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    child = Device_GetChild(thiz, o->pid.did);
+    child = Device_GetChild(thiz, o->pid.did, o->pid.aid);
     if (child != NULL)
     {
         Device_TryWrite(child, o);
+    }
+    else
+    {
+        o->status = IOT_STATUS_NOT_EXIST;
+    }
+}
+
+TINY_LOR
+static void Device_TrySubscribeChild(Device *thiz, PropertyOperation *o)
+{
+    Device *child = NULL;
+
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    child = Device_GetChild(thiz, o->pid.did, o->pid.aid);
+    if (child != NULL)
+    {
+        Device_TrySubscribe(child, o);
+    }
+    else
+    {
+        o->status = IOT_STATUS_NOT_EXIST;
+    }
+}
+
+TINY_LOR
+static void Device_TryUnsubscribeChild(Device *thiz, PropertyOperation *o)
+{
+    Device *child = NULL;
+
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(o);
+
+    child = Device_GetChild(thiz, o->pid.did, o->pid.aid);
+    if (child != NULL)
+    {
+        Device_TryUnsubscribe(child, o);
     }
     else
     {
@@ -294,7 +480,7 @@ static void Device_TryInvokeChild(Device *thiz, ActionOperation *o)
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    child = Device_GetChild(thiz, o->aid.did);
+    child = Device_GetChild(thiz, o->aid.did, 0);
     if (child != NULL)
     {
         Device_TryInvoke(child, o);
@@ -314,7 +500,7 @@ void Device_TryReadProperties(Device *thiz, PropertyOperations *operations)
     for (uint32_t i = 0; i < operations->properties.size; ++i)
     {
         PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
-        if (STR_EQUAL(thiz->config.did, o->pid.did))
+        if (did_equals(thiz, o->pid.did, o->pid.aid))
         {
             Device_TryRead(thiz, o);
         }
@@ -334,13 +520,53 @@ void Device_TryWriteProperties(Device *thiz, PropertyOperations *operations)
     for (uint32_t i = 0; i < operations->properties.size; ++i)
     {
         PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
-        if (STR_EQUAL(thiz->config.did, o->pid.did))
+        if (did_equals(thiz, o->pid.did, o->pid.aid))
         {
             Device_TryWrite(thiz, o);
         }
         else
         {
             Device_TryWriteChild(thiz, o);
+        }
+    }
+}
+
+TINY_LOR
+void Device_TrySubscribeProperties(Device *thiz, PropertyOperations *operations)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(operations);
+
+    for (uint32_t i = 0; i < operations->properties.size; ++i)
+    {
+        PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
+        if (did_equals(thiz, o->pid.did, o->pid.aid))
+        {
+            Device_TrySubscribe(thiz, o);
+        }
+        else
+        {
+            Device_TrySubscribeChild(thiz, o);
+        }
+    }
+}
+
+TINY_LOR
+void Device_TryUnsubscribeProperties(Device *thiz, PropertyOperations *operations)
+{
+    RETURN_IF_FAIL(thiz);
+    RETURN_IF_FAIL(operations);
+
+    for (uint32_t i = 0; i < operations->properties.size; ++i)
+    {
+        PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
+        if (did_equals(thiz, o->pid.did, o->pid.aid))
+        {
+            Device_TryUnsubscribe(thiz, o);
+        }
+        else
+        {
+            Device_TryUnsubscribeChild(thiz, o);
         }
     }
 }

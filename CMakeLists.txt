@@ -24,6 +24,7 @@ INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Netty)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Json)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/HttpClient)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/StringArray)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/ByteBuffer)
 
 #---------------------------------------------------------------------------------------
 #
@@ -70,7 +71,7 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/operation/EventOperation.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
-        ${SOURCE_ROOT}/IotTypedef/status/IotStatus.h
+        ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.h
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.h
         ${SOURCE_ROOT}/IotTypedef/unit/Unit.h
@@ -88,6 +89,7 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/device/format/Format.c
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueList.c
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueRange.c
+        ${SOURCE_ROOT}/IotTypedef/operation/PID.c
         ${SOURCE_ROOT}/IotTypedef/operation/ActionOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/EventOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.c

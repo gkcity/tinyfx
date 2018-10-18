@@ -66,6 +66,14 @@ IOT_API
 TINY_LOR
 void Property_TryChange(Property *thiz, PropertyOperation *o);
 
+IOT_API
+TINY_LOR
+void Property_TrySubscribe(Property *thiz, PropertyOperation *o);
+
+IOT_API
+TINY_LOR
+void Property_TryUnsubscribe(Property *thiz, PropertyOperation *o);
+
 
 TINY_END_DECLS
 

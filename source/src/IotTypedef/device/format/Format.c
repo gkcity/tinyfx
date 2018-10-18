@@ -28,6 +28,7 @@
 #define FORMAT_STRING_INT64       "int64"
 #define FORMAT_STRING_HEX         "hex"
 #define FORMAT_STRING_TLV8        "tlv8"
+#define FORMAT_STRING_INT         "int"
 
 TINY_LOR
 const char * Format_ToString(Format type)
@@ -69,6 +70,9 @@ const char * Format_ToString(Format type)
 
         case FORMAT_TLV8:
             return FORMAT_STRING_TLV8;
+
+        case FORMAT_INT:
+            return FORMAT_STRING_INT;
 
         default:
             break;
@@ -142,6 +146,11 @@ Format Format_FromString(const char *value)
         return FORMAT_TLV8;
     }
 
+    if (STR_EQUAL(FORMAT_STRING_INT, value))
+    {
+        return FORMAT_INT;
+    }
+
     return FORMAT_UNDEFINED;
 }
 
@@ -184,6 +193,9 @@ bool Format_CheckInteger(Format format, long value)
             break;
 
         case FORMAT_INT64:
+            return true;
+
+        case FORMAT_INT:
             return true;
 
         default:

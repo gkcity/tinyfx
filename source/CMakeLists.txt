@@ -24,7 +24,7 @@ INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Netty)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/Json)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/HttpClient)
 INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/StringArray)
-INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/TinyThread)
+INCLUDE_DIRECTORIES(${TINY_ROOT}/source/src/ByteBuffer)
 
 #---------------------------------------------------------------------------------------
 #

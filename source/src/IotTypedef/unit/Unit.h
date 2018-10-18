@@ -20,13 +20,13 @@ TINY_BEGIN_DECLS
 
 typedef enum _Unit
 {
-    NONE            = 0,
-    PERCENTAGE      = 1,
-    CELSIUS         = 2,
-    LUX             = 3,
-    UNITLESS        = 4,
-    SECONDS         = 5,
-    ARC_DEGREES     = 6,
+    NONE                    = 0,
+    HOMEKIT_PERCENTAGE      = 1,
+    HOMEKIT_CELSIUS         = 2,
+    HOMEKIT_LUX             = 3,
+    HOMEKIT_UNITLESS        = 4,
+    HOMEKIT_SECONDS         = 5,
+    HOMEKIT_ARC_DEGREES     = 6,
 } Unit;
 
 

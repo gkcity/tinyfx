@@ -91,6 +91,7 @@ SET(operation_Header
     )
 
 SET(operation_Source
+        operation/PID.c
         operation/ActionOperation.c
         operation/EventOperation.c
         operation/PropertyOperation.c

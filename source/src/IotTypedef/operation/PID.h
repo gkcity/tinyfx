@@ -16,6 +16,7 @@
 #define __PID_H__
 
 #include <tiny_base.h>
+#include "api/iot_api.h"
 #include <constant/iot_constant.h>
 
 TINY_BEGIN_DECLS
@@ -23,10 +24,19 @@ TINY_BEGIN_DECLS
 
 typedef struct _PID
 {
-    char                did[DEVICE_ID_LENGTH];
-    uint16_t            siid;
-    uint16_t            iid;
+    char                did[DEVICE_ID_LENGTH];      /** device id */
+    uint16_t            siid;                       /** service instance id */
+    uint16_t            iid;                        /** property instance id */
+    uint16_t            aid;                        /** homekit accessory id */
 } PID;
+
+IOT_API
+TINY_LOR
+PID * PID_New(void);
+
+IOT_API
+TINY_LOR
+void PID_Delete(PID *thiz);
 
 
 TINY_END_DECLS

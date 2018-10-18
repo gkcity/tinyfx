@@ -22,7 +22,6 @@
 
 TINY_BEGIN_DECLS
 
-
 typedef struct _PropertyOperation
 {
     PID             pid;
@@ -41,6 +40,10 @@ PropertyOperation * PropertyOperation_NewFrom(const char *did, uint16_t siid, ui
 IOT_API
 TINY_LOR
 PropertyOperation * PropertyOperation_NewValue(const char *did, uint16_t siid, uint16_t piid, JsonValue *value);
+
+IOT_API
+TINY_LOR
+PropertyOperation * PropertyOperation_NewFromHomeKit(const char *value);
 
 IOT_API
 TINY_LOR

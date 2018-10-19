@@ -12,9 +12,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5705f20-e041-49c3-87db-73457aa4e747" name="Default" comment="add DeviceConfigurationInitializer">
+    <list default="true" id="b5705f20-e041-49c3-87db-73457aa4e747" name="Default" comment="AccessoryConfig: add protocolMajorVersion &amp; protocolMinorVersion">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/device/config/AccessoryConfig.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/device/config/AccessoryConfig.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-linux_x86_debug/" />
@@ -200,8 +201,8 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="c" value="54" />
-          <entry key="h" value="89" />
+          <entry key="c" value="55" />
+          <entry key="h" value="90" />
           <entry key="sh" value="1" />
           <entry key="txt" value="12" />
         </counts>
@@ -210,22 +211,22 @@
         <counts>
           <entry key="Bash" value="1" />
           <entry key="CMakeLists.txt" value="12" />
-          <entry key="ObjectiveC" value="143" />
+          <entry key="ObjectiveC" value="145" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="2767" />
-          <entry key="h" value="841" />
-          <entry key="txt" value="255" />
+          <entry key="c" value="2777" />
+          <entry key="h" value="843" />
+          <entry key="txt" value="320" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="102" />
           <entry key="Doxygen file" value="1" />
-          <entry key="ObjectiveC" value="3607" />
-          <entry key="PLAIN_TEXT" value="153" />
+          <entry key="ObjectiveC" value="3619" />
+          <entry key="PLAIN_TEXT" value="218" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.cidr.testingFrameworks.usages" />
@@ -268,11 +269,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/config/AccessoryConfig.h">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1503">
-              <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
+            <state relative-caret-position="468">
+              <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-end-line="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="470">
+              <caret line="745" lean-forward="true" selection-start-line="745" selection-end-line="745" />
             </state>
           </provider>
         </entry>
@@ -367,7 +377,6 @@
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/constraint/ValueList.c" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperations.c" />
         <option value="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c" />
-        <option value="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/handler/PropertyOnControl.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/handler/ActionHandler.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/handler/PropertyHandler.h" />
@@ -375,7 +384,6 @@
         <option value="$PROJECT_DIR$/source/src/IotTypedef/constant/iot_constant.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/AccessoryConfig.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/DeviceConfig.h" />
-        <option value="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.c" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/unit/Unit.h" />
         <option value="$PROJECT_DIR$/source/CMakeLists.txt" />
@@ -394,6 +402,8 @@
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/config/DeviceConfig.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/Device.c" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/config/AccessoryConfig.h" />
+        <option value="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.h" />
+        <option value="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c" />
       </list>
     </option>
   </component>
@@ -412,10 +422,9 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
-    <option name="y" value="27" />
-    <option name="width" value="1133" />
-    <option name="height" value="1893" />
+    <option name="x" value="1200" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -446,24 +455,7 @@
               <item name="tinyfx" type="462c0819:PsiDirectoryNode" />
               <item name="source" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="IotTypedef" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TinyFX" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tinyfx" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="IotTypedef" type="462c0819:PsiDirectoryNode" />
-              <item name="device" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TinyFX" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tinyfx" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="IotTypedef" type="462c0819:PsiDirectoryNode" />
-              <item name="device" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="IotFactory" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -563,7 +555,7 @@
       <workItem from="1539760566889" duration="3651000" />
       <workItem from="1539825916443" duration="11843000" />
       <workItem from="1539849762458" duration="770000" />
-      <workItem from="1539910202631" duration="1420000" />
+      <workItem from="1539910202631" duration="2146000" />
     </task>
     <task id="LOCAL-00001" summary="fix bug">
       <created>1531184425469</created>
@@ -719,11 +711,18 @@
       <option name="project" value="LOCAL" />
       <updated>1539910847674</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="AccessoryConfig: add protocolMajorVersion &amp; protocolMinorVersion">
+      <created>1539911696276</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1539911696276</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133370000" />
+    <option name="totallyTimeSpent" value="134096000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -735,10 +734,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="27" width="1133" height="1893" extended-state="6" />
+    <frame x="1200" y="0" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31186754" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18089648" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -750,7 +749,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32930514" />
       <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49733192" weight="0.9444444" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49920928" weight="0.49682266" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5026681" side_tool="true" weight="0.66557735" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5026681" side_tool="true" weight="0.66551125" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.31045753" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
@@ -785,7 +784,8 @@
     <MESSAGE value="AccessoryConfig add: aid" />
     <MESSAGE value="add Device_TrySubscribeProperties &amp; Device_TryUnsubscribeProperties" />
     <MESSAGE value="add DeviceConfigurationInitializer" />
-    <option name="LAST_COMMIT_MESSAGE" value="add DeviceConfigurationInitializer" />
+    <MESSAGE value="AccessoryConfig: add protocolMajorVersion &amp; protocolMinorVersion" />
+    <option name="LAST_COMMIT_MESSAGE" value="AccessoryConfig: add protocolMajorVersion &amp; protocolMinorVersion" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/cmake/build_openwrt_mt7688.sh">
@@ -795,13 +795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="50" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
@@ -831,13 +824,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="775" column="5" lean-forward="true" selection-start-line="775" selection-start-column="5" selection-end-line="775" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1086,8 +1072,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/config/AccessoryConfig.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1503">
-          <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
+        <state relative-caret-position="279">
+          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="745" lean-forward="true" selection-start-line="745" selection-end-line="745" />
         </state>
       </provider>
     </entry>

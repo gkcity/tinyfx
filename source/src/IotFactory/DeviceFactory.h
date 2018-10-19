@@ -27,12 +27,7 @@ Device* Device_NewInstance(JsonObject *object);
 
 IOT_API
 TINY_LOR
-Device *DeviceFactory_Create(const char *did,
-                             uint16_t productId,
-                             uint16_t productVersion,
-                             const char *ltsk,
-                             const char *ltpk,
-                             uint32_t second);
+Device *DeviceFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second);
 
 
 TINY_END_DECLS

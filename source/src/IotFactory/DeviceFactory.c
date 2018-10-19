@@ -750,30 +750,12 @@ Device* DeviceFactory_NewDevice(const char *uri, uint32_t second)
 }
 
 TINY_LOR
-Device *DeviceFactory_Create(const char *did,
-                             uint16_t productId,
-                             uint16_t productVersion,
-                             const char *ltsk,
-                             const char *ltpk,
-                             uint32_t second)
+Device *DeviceFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second)
 {
-    Device* device = NULL;
-
     char uri[1024];
 
     memset(uri, 0, 1024);
     tiny_snprintf(uri, 1014, "/dd/instance/product/%d/version/%d", productId, productVersion);
 
-    device = DeviceFactory_NewDevice(uri, second);
-    if (device != NULL)
-    {
-        strncpy(device->config.ltsk, ltsk, DEVICE_LTSK_BASE64_LENGTH);
-        strncpy(device->config.ltpk, ltpk, DEVICE_LTPK_BASE64_LENGTH);
-
-        tiny_snprintf(device->config.did, DEVICE_ID_LENGTH, "%s@%d", did, productId);
-        device->config.productId = productId;
-        device->config.productVersion = productVersion;
-    }
-
-    return device;
+    return DeviceFactory_NewDevice(uri, second);
 }

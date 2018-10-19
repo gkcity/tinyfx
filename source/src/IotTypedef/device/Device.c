@@ -129,9 +129,9 @@ bool Device_CheckHandler(Device *thiz)
 TINY_LOR
 static bool did_equals(Device *device, const char *did, uint16_t aid)
 {
-    if (device->config.accessory.aid > 0)
+    if (device->config.accessoryConfig.aid > 0)
     {
-        return (device->config.accessory.aid == aid);
+        return (device->config.accessoryConfig.aid == aid);
     }
 
     return STR_EQUAL(device->config.did, did);

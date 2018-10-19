@@ -28,8 +28,10 @@ typedef struct _DeviceConfig
     uint16_t                    productVersion;
     char                        ip[TINY_IP_LEN];
     uint16_t                    port;
-    AccessoryConfig             accessory;
+    AccessoryConfig             accessoryConfig;
 } DeviceConfig;
+
+typedef void (* DeviceConfigurationInitializer)(DeviceConfig *thiz, void *ctx);
 
 
 TINY_END_DECLS

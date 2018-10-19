@@ -23,7 +23,7 @@ static void _OnRuntimeDelete (void * data, void *ctx)
 }
 
 TINY_LOR
-IotLauncher *IotLauncher_New(Device *device)
+IotLauncher *IotLauncher_New(Device *device, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = NULL;
 
@@ -36,7 +36,7 @@ IotLauncher *IotLauncher_New(Device *device)
             break;
         }
 
-        if (RET_FAILED(IotLauncher_Construct(thiz, device)))
+        if (RET_FAILED(IotLauncher_Construct(thiz, device, hook, ctx)))
         {
             IotLauncher_Delete(thiz);
             thiz = NULL;
@@ -48,9 +48,9 @@ IotLauncher *IotLauncher_New(Device *device)
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime(Device *device, IotRuntime *runtime, Channel *executor)
+IotLauncher * IotLauncher_NewRuntime(Device *device, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
-    IotLauncher *thiz = IotLauncher_New(device);
+    IotLauncher *thiz = IotLauncher_New(device, hook, ctx);
 
     do
     {
@@ -84,9 +84,9 @@ IotLauncher * IotLauncher_NewRuntime(Device *device, IotRuntime *runtime, Channe
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime2(Device *device, IotRuntime *r1, IotRuntime *r2, Channel *executor)
+IotLauncher * IotLauncher_NewRuntime2(Device *device, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
-    IotLauncher *thiz = IotLauncher_New(device);
+    IotLauncher *thiz = IotLauncher_New(device, hook, ctx);
 
     do
     {
@@ -130,9 +130,9 @@ IotLauncher * IotLauncher_NewRuntime2(Device *device, IotRuntime *r1, IotRuntime
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime3(Device *device, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor)
+IotLauncher * IotLauncher_NewRuntime3(Device *device, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
-    IotLauncher *thiz = IotLauncher_New(device);
+    IotLauncher *thiz = IotLauncher_New(device, hook, ctx);
 
     do
     {
@@ -196,7 +196,7 @@ void IotLauncher_Delete(IotLauncher *thiz)
 }
 
 TINY_LOR
-TinyRet IotLauncher_Construct(IotLauncher *thiz, Device *device)
+TinyRet IotLauncher_Construct(IotLauncher *thiz, Device *device, BootstrapLoopHook hook, void *ctx)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -208,7 +208,7 @@ TinyRet IotLauncher_Construct(IotLauncher *thiz, Device *device)
         thiz->started = false;
         thiz->device = device;
 
-        ret = Bootstrap_Construct(&thiz->bootstrap);
+        ret = Bootstrap_Construct(&thiz->bootstrap, hook, ctx);
         if (RET_FAILED(ret))
         {
             break;

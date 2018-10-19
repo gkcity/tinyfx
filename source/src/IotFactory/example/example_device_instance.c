@@ -13,14 +13,14 @@ int main(void)
     
     do
     {
-        Device * device = DeviceInstance_New("47.93.60.147", 8080, DD, 5);
+        Device * device = Device_NewInstance("47.93.60.147", 8080, DD, 5);
         if (device == NULL)
         {
             printf("DeviceInstance_New failed!\n");
             break;
         }
 
-        printf("Device ProductId: %d\n", device->productId);
+        printf("Device ProductId: %d\n", device->config.productId);
         printf("Service: [%d]\n", device->services.size);
         for (uint32_t i = 0; i < device->services.size; ++i)
         {

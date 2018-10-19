@@ -86,7 +86,8 @@ typedef struct _AccessoryConfig
     /**
      * Protocol version string <major>.<minor>. Required if value is not "1.0"
      */
-    uint32_t            protocolVersion;
+    uint32_t            protocolMajorVersion;
+    uint32_t            protocolMinorVersion;
 } AccessoryConfig;
 
 

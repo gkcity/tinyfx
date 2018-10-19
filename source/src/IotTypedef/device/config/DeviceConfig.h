@@ -31,8 +31,6 @@ typedef struct _DeviceConfig
     AccessoryConfig             accessoryConfig;
 } DeviceConfig;
 
-typedef void (* DeviceConfigurationInitializer)(DeviceConfig *thiz, void *ctx);
-
 
 TINY_END_DECLS
 

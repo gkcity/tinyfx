@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="TinyFX" targetName="tinyfx" />
       <config projectName="TinyFX" targetName="tinyfx_static" />
+      <config projectName="TinyFX" targetName="tinyfx" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -14,9 +14,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b5705f20-e041-49c3-87db-73457aa4e747" name="Default" comment="remove unused api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/IotFactory/example/example_device_instance.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotFactory/example/example_device_instance.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/constant/iot_constant.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/constant/iot_constant.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/src/IotTypedef/device/config/DeviceConfig.h" beforeDir="false" afterPath="$PROJECT_DIR$/source/src/IotTypedef/device/config/DeviceConfig.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-linux_x86_debug/" />
@@ -195,30 +194,30 @@
     <session id="924626264">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="5" />
-          <entry key="project.open.time.0" value="6" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.0" value="8" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="c" value="57" />
-          <entry key="h" value="93" />
+          <entry key="c" value="59" />
+          <entry key="h" value="103" />
           <entry key="sh" value="1" />
-          <entry key="txt" value="12" />
+          <entry key="txt" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Bash" value="1" />
-          <entry key="CMakeLists.txt" value="12" />
-          <entry key="ObjectiveC" value="150" />
+          <entry key="CMakeLists.txt" value="14" />
+          <entry key="ObjectiveC" value="162" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="c" value="2836" />
-          <entry key="h" value="844" />
+          <entry key="h" value="926" />
           <entry key="txt" value="369" />
         </counts>
       </usages-collector>
@@ -226,7 +225,7 @@
         <counts>
           <entry key="CMakeLists.txt" value="102" />
           <entry key="Doxygen file" value="1" />
-          <entry key="ObjectiveC" value="3679" />
+          <entry key="ObjectiveC" value="3761" />
           <entry key="PLAIN_TEXT" value="267" />
         </counts>
       </usages-collector>
@@ -269,47 +268,7 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="55" column="22" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="203" selection-start-line="203" selection-end-line="203" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/source/src/IotFactory/example/example_device_instance.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../tiny/source/src/Netty/bootstrap/Bootstrap.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="477">
-              <caret line="46" column="81" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="81" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -400,7 +359,6 @@
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/handler/ActionHandler.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/handler/PropertyHandler.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/Action.h" />
-        <option value="$PROJECT_DIR$/source/src/IotTypedef/constant/iot_constant.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/AccessoryConfig.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/DeviceConfig.h" />
         <option value="$PROJECT_DIR$/source/src/IotTypedef/operation/PropertyOperation.c" />
@@ -422,10 +380,11 @@
         <option value="$PROJECT_DIR$/source/src/IotTypedef/device/config/AccessoryConfig.h" />
         <option value="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.h" />
         <option value="$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c" />
-        <option value="$PROJECT_DIR$/source/src/IotTypedef/device/config/DeviceConfig.h" />
         <option value="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.h" />
         <option value="$PROJECT_DIR$/source/src/IotLauncher/IotLauncher.c" />
         <option value="$PROJECT_DIR$/source/src/IotFactory/example/example_device_instance.c" />
+        <option value="$PROJECT_DIR$/source/src/IotTypedef/constant/iot_constant.h" />
+        <option value="$PROJECT_DIR$/source/src/IotTypedef/device/config/DeviceConfig.h" />
       </list>
     </option>
   </component>
@@ -443,10 +402,11 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="1200" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="67" />
+    <option name="y" value="27" />
+    <option name="width" value="1133" />
+    <option name="height" value="1893" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -470,21 +430,6 @@
               <item name="tinyfx" type="462c0819:PsiDirectoryNode" />
               <item name="source" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TinyFX" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tinyfx" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="IotFactory" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TinyFX" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tinyfx" type="462c0819:PsiDirectoryNode" />
-              <item name="source" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="IotFactory" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -586,7 +531,9 @@
       <workItem from="1539825916443" duration="11843000" />
       <workItem from="1539849762458" duration="770000" />
       <workItem from="1539910202631" duration="2806000" />
-      <workItem from="1539919862810" duration="226000" />
+      <workItem from="1539919862810" duration="851000" />
+      <workItem from="1540170730604" duration="227000" />
+      <workItem from="1540951551212" duration="990000" />
     </task>
     <task id="LOCAL-00001" summary="fix bug">
       <created>1531184425469</created>
@@ -767,7 +714,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134982000" />
+    <option name="totallyTimeSpent" value="136824000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -779,10 +726,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1200" y="0" width="1920" height="1080" extended-state="6" />
-    <editor active="true" />
+    <frame x="67" y="27" width="1133" height="1893" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18303095" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3229071" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -835,7 +781,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="remove unused api" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/handler/PropertyChangedObserver.c" />
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/handler/PropertyChangedListener.h" />
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/handler/EventOnOccurred.h" />
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/handler/ActionHandler.h">
@@ -854,13 +799,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/access/Access.h">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/constant/iot_constant.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Action.h">
       <provider selected="true" editor-type-id="text-editor">
@@ -951,20 +889,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/serialize/DeviceSerializer.h" />
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/serialize/DeviceSerializer.c" />
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="93" column="21" selection-start-line="93" selection-start-column="21" selection-end-line="93" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="52" column="33" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/handler/DeviceIdentifyListener.h">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -978,13 +902,6 @@
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Event.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-214" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PID.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Service.h">
@@ -1025,13 +942,6 @@
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/EID.h">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PID.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="32" column="7" lean-forward="true" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/ActionOperation.h">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1066,33 +976,6 @@
     <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/status/IotStatus.h">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Device.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="e#173#195#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Device.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
-          <folding>
-            <element signature="e#130#154#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/config/AccessoryConfig.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/src/IotFactory/DeviceFactory.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="470">
@@ -1104,13 +987,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/config/DeviceConfig.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
@@ -1139,8 +1015,84 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PID.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="93" column="21" selection-start-line="93" selection-start-column="21" selection-end-line="93" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-621">
+          <caret line="68" column="49" lean-forward="true" selection-start-line="68" selection-end-line="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Device.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/config/AccessoryConfig.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/operation/PID.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="21" column="16" lean-forward="true" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/constant/iot_constant.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../tiny/source/src/TinyBase/tiny_typedef.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#257#275#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/Device.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="579" column="34" selection-start-line="579" selection-start-column="31" selection-end-line="579" selection-end-column="34" />
+          <folding>
+            <element signature="e#130#154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/src/IotTypedef/device/config/DeviceConfig.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
+          <folding>
+            <element signature="e#193#215#0" expanded="true" />
           </folding>
         </state>
       </provider>

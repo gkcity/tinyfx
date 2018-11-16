@@ -107,20 +107,19 @@ bool Device_CheckHandler(Device *thiz)
 
     if (thiz->onSet == NULL)
     {
-        LOG_E(TAG, "Property on set not handle");
+        LOG_E(TAG, "Property Setter is null");
         return false;
     }
 
     if (thiz->onGet == NULL)
     {
-        LOG_E(TAG, "Property on get not handle");
+        LOG_E(TAG, "Property Getter is null");
         return false;
     }
 
     if (thiz->onInvoke == NULL)
     {
-        LOG_E(TAG, "Action on invoke not handle");
-        return false;
+        LOG_E(TAG, "Action Invocation is null");
     }
 
     return true;

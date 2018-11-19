@@ -72,6 +72,7 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
+        ${SOURCE_ROOT}/IotTypedef/operator/DeviceOperator.h
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.h
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.h
         ${SOURCE_ROOT}/IotTypedef/unit/Unit.h
@@ -94,6 +95,7 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/operation/EventOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.c
+        ${SOURCE_ROOT}/IotTypedef/operator/DeviceOperator.c
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.c
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.c
         )

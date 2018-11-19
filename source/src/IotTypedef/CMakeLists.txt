@@ -98,6 +98,17 @@ SET(operation_Source
         operation/PropertyOperations.h
     )
 
+#-----------------------
+# operator
+#-----------------------
+SET(operator_Header
+        operator/DeviceOperator.h
+        )
+
+SET(operator_Source
+        operator/DeviceOperator.c
+        )
+
 #----------------------------------------------------------------------------
 # source
 #----------------------------------------------------------------------------
@@ -112,6 +123,8 @@ SET(SRC
         ${Unit_Header}
         ${operation_Header}
         ${operation_Source}
+        ${operator_Header}
+        ${operator_Source}
     )
 
 #----------------------------------------------------------------------------

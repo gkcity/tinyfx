@@ -113,48 +113,6 @@ PropertyOperation * PropertyOperation_NewValue(const char *did, uint16_t siid, u
 }
 
 TINY_LOR
-PropertyOperation * PropertyOperation_NewFromHomeKit(const char *value)
-{
-    PropertyOperation *thiz = NULL;
-    StringArray * pid = NULL;
-
-    do
-    {
-        char *stop = NULL;
-
-        pid = StringArray_NewString(value, ".");
-        if (pid == NULL)
-        {
-            LOG_E(TAG, "pid invalid: %s", value);
-            break;
-        }
-
-        if (pid->values.size != 2)
-        {
-            LOG_E(TAG, "pid invalid: %s", value);
-            break;
-        }
-
-        thiz = PropertyOperation_New();
-        if (thiz == NULL)
-        {
-            LOG_E(TAG, "PropertyBean_New FAILED!");
-            break;
-        }
-
-        thiz->pid.aid = (uint16_t) strtol((const char *) TinyList_GetAt(&pid->values, 0), &stop, 10);
-        thiz->pid.iid = (uint16_t) strtol((const char *) TinyList_GetAt(&pid->values, 1), &stop, 10);
-    } while (false);
-
-    if (pid != NULL)
-    {
-        StringArray_Delete(pid);
-    }
-
-    return thiz;
-}
-
-TINY_LOR
 PropertyOperation * PropertyOperation_CopyFrom(PropertyOperation *other)
 {
     PropertyOperation * thiz = NULL;

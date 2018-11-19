@@ -55,33 +55,6 @@ IOT_API
 TINY_LOR
 bool Device_CheckHandler(Device *thiz);
 
-IOT_API
-TINY_LOR
-void Device_TryReadProperties(Device *thiz, PropertyOperations *operations);
-
-IOT_API
-TINY_LOR
-void Device_TryWriteProperties(Device *thiz, PropertyOperations *operations);
-
-IOT_API
-TINY_LOR
-void Device_TrySubscribeProperties(Device *thiz, PropertyOperations *operations);
-
-IOT_API
-TINY_LOR
-void Device_TryUnsubscribeProperties(Device *thiz, PropertyOperations *operations);
-
-IOT_API
-TINY_LOR
-void Device_TryInvokeAction(Device *thiz, ActionOperation *operation);
-
-IOT_API
-TINY_LOR
-TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o);
-
-IOT_API
-TINY_LOR
-TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o);
 
 
 TINY_END_DECLS

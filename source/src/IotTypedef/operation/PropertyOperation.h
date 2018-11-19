@@ -43,10 +43,6 @@ PropertyOperation * PropertyOperation_NewValue(const char *did, uint16_t siid, u
 
 IOT_API
 TINY_LOR
-PropertyOperation * PropertyOperation_NewFromHomeKit(const char *value);
-
-IOT_API
-TINY_LOR
 PropertyOperation * PropertyOperation_CopyFrom(PropertyOperation *other);
 
 IOT_API

@@ -15,6 +15,7 @@ SET(Constant_Header
 # device
 #-----------------------
 SET(Device_Header
+        device/config/AccessoryCategoryIdentifier.h
         device/config/AccessoryConfig.h
         device/config/DeviceConfig.h
         device/Device.h

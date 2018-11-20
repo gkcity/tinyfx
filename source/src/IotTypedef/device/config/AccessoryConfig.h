@@ -19,12 +19,22 @@
 TINY_BEGIN_DECLS
 
 
+#define ACCESSORY_NAME_LENGTH              128
+#define ACCESSORY_MODEL_LENGTH             128
+#define ACCESSORY_SETUP_CODE_LENGTH        10   // 034-31-154
+#define ACCESSORY_SETUP_ID_LENGTH          4
+
 typedef struct _AccessoryConfig
 {
-    uint16_t            aid;                            // accessory id
-    char                pin[DEVICE_PIN_LENGTH + 1];     // pin code
-    char                name[DEVICE_NAME_LENGTH + 1];   // name
-    char                model[DEVICE_MODEL_LENGTH + 1]; // md
+    /**
+     * accessory id
+     */
+    uint16_t            aid;
+
+    char                name[ACCESSORY_NAME_LENGTH + 1];
+    char                model[ACCESSORY_MODEL_LENGTH + 1];
+    char                setupId[ACCESSORY_SETUP_ID_LENGTH + 1];
+    char                setupCode[ACCESSORY_SETUP_CODE_LENGTH + 1];
 
     /**
      * Current configuration number. Required.
@@ -38,31 +48,46 @@ typedef struct _AccessoryConfig
     /**
      * Accessory Categories
      * 1.   Other
-     * 2.   Bridge
-     * 3.   Fan
-     * 4.   Garage
-     * 5.   Lightbulb
-     * 6.   Door Lock
-     * 7.   Outlet
-     * 8.   Switch
-     * 9.   Thermostat
-     * 10.  Sensor
-     * 11.  Security System
-     * 12.  Door
-     * 13.  Window
-     * 14.  Window Covering
-     * 15.  Programmable Switch
-     * 16.  Range Extender
-     * 17+  Reserved
+     * 2.   Bridges
+     * 3.   Fans
+     * 4.   Garage Door Openers *
+     * 5.   Lighting
+     * 6.   Locks *
+     * 7.   Outlets
+     * 8.   Switches
+     * 9.   Thermostats
+     * 10.  Sensors
+     * 11.  Security System *
+     * 12.  Doors
+     * 13.  Windows *
+     * 14.  Window Coverings
+     * 15.  Programmable Switches
+     * 16.  Reserved
+     * 17.  IP Cameras *
+     * 18.  Video Doorbells*
+     * 19.  AirPurifiers
+     * 20.  Heaters
+     * 21.  Air Conditioners
+     * 22.  Humidifiers
+     * 23.  Dehumidifiers
+     * 24.  Reserved
+     * 25.  Reserved
+     * 26.  Reserved
+     * 27.  Reserved
+     * 28.  Sprinklers
+     * 29.  Faucets
+     * 30.  Shower Systems
+     * 30+  Reserved
      */
     uint32_t            categoryIdentifier;         // ci
 
     /**
-     * Feature flags.
+     * Pairing Feature flags.
      * Mask         Bit     Description
      * -------------------------------------------------------------------------------------
-     * 0x01         1       Supports HAP Pairing. This flag is required for all accessories.
-     * 0x02 - 0x80  2-8     Reserved.
+     * 0x01         1       Supports Apple Authentication Coprocessor.
+     * 0x02         2       Supports Software Authentication.
+     * 0x04 - 0x80  3-8     Reserved.
      */
     uint32_t            featureFlags;               // ff
 

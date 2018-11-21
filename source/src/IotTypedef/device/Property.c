@@ -137,7 +137,21 @@ static bool Property_CheckValueType(Property *thiz, JsonValue* value)
     switch (thiz->format)
     {
         case FORMAT_BOOL:
-            return (value->type == JSON_BOOLEAN);
+            if (value->type == JSON_BOOLEAN)
+            {
+                return true;
+            }
+            if (value->type == JSON_NUMBER)
+            {
+                if (value->data.number->type == JSON_NUMBER_INTEGER)
+                {
+                    if (value->data.number->value.intValue == 0 || value->data.number->value.intValue == 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
 
         case FORMAT_STRING:
             return (value->type == JSON_STRING);

@@ -352,17 +352,26 @@ static bool ValueRange_CheckNumberValue(ValueRange *thiz, JsonNumber *number)
         return false;
     }
 
-    if (number->type != thiz->min->data.number->type)
+    // thiz.integer : value.float
+    if (thiz->min->data.number->type == JSON_NUMBER_INTEGER && number->type == JSON_NUMBER_FLOAT)
     {
         LOG_E(TAG, "check number value error, value type invalid: %d", number->type);
         return false;
     }
 
-    if (number->type == JSON_NUMBER_INTEGER)
+    // thiz.integer: value.integer
+    if (thiz->min->data.number->type == JSON_NUMBER_INTEGER)
     {
         return ValueRange_CheckIntegerValue(thiz, number->value.intValue);
     }
 
+    // thiz.float: value.integer
+    if (number->type == JSON_NUMBER_INTEGER)
+    {
+        return ValueRange_CheckFloatValue(thiz, number->value.intValue);
+    }
+
+    // thiz.float: value.float
     return ValueRange_CheckFloatValue(thiz, number->value.floatValue);
 }
 

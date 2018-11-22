@@ -159,10 +159,7 @@ static bool Property_CheckValueType(Property *thiz, JsonValue* value)
         case FORMAT_FLOAT:
             if (value->type == JSON_NUMBER)
             {
-                if (value->data.number->type == JSON_NUMBER_FLOAT)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
 

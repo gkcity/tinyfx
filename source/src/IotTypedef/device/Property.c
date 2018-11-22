@@ -262,7 +262,7 @@ bool Property_CheckValue(Property *thiz, JsonValue* value)
 
     if (! Property_CheckValueType(thiz, value))
     {
-        LOG_E(TAG, "value type invalid: %d, property format: %s", value->type, Format_ToString(thiz->format));
+        LOG_E(TAG, "value type invalid: %s, property format: %s", JsonValueType_ToString(value->type), Format_ToString(thiz->format));
         return false;
     }
 

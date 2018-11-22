@@ -240,6 +240,8 @@ static bool ValueRange_CheckIntegerValue(ValueRange *thiz, long value)
         }
     }
 
+    LOG_E(TAG, "ValueRange_CheckIntegerValue FAILED, invalid value: %ld", value);
+
     return false;
 }
 
@@ -274,6 +276,8 @@ static bool ValueRange_CheckFloatValue(ValueRange *thiz, float value)
 
         v += step;
     }
+
+    LOG_E(TAG, "ValueRange_CheckFloatValue FAILED, invalid value: %f", value);
 
     return false;
 }
@@ -324,6 +328,8 @@ static bool ValueRange_CheckHexValue(ValueRange *thiz, JsonString *hex)
             return true;
         }
     }
+
+    LOG_E(TAG, "ValueRange_CheckHexValue FAILED, invalid value: %s", hex->value);
 
     return false;
 }
@@ -377,6 +383,7 @@ bool ValueRange_CheckValue(ValueRange *thiz, JsonValue *value)
             return ValueRange_CheckNumberValue(thiz, value->data.number);
 
         default:
+            LOG_E(TAG, "ValueRange_CheckValue FAILED, value type error: %d", value->type);
             return false;
     }
 }

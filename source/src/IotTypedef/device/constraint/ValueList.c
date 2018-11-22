@@ -193,8 +193,11 @@ static bool ValueList_CheckIntegerValue(ValueList *thiz, JsonNumber *number)
 
     if (number->type != JSON_NUMBER_INTEGER)
     {
+        LOG_E(TAG, "ValueList_CheckIntegerValue FAILED, number not integer");
         return false;
     }
+
+    LOG_D(TAG, "ValueList_CheckIntegerValue: %ld", number->value.intValue);
 
     for (uint32_t i = 0; i < thiz->list.size; ++i)
     {
@@ -206,6 +209,8 @@ static bool ValueList_CheckIntegerValue(ValueList *thiz, JsonNumber *number)
         }
     }
 
+    LOG_E(TAG, "ValueList_CheckIntegerValue FAILED, invalid value: %ld", number->value.intValue);
+
     return false;
 }
 
@@ -214,6 +219,8 @@ static bool ValueList_CheckStringValue(ValueList *thiz, JsonString *string)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
     RETURN_VAL_IF_FAIL(string, false);
+
+    LOG_D(TAG, "ValueList_CheckStringValue: %s", string->value);
 
     for (uint32_t i = 0; i < thiz->list.size; ++i)
     {
@@ -225,6 +232,8 @@ static bool ValueList_CheckStringValue(ValueList *thiz, JsonString *string)
         }
     }
 
+    LOG_E(TAG, "ValueList_CheckStringValue FAILED, invalid value: %s", string->value);
+
     return false;
 }
 
@@ -233,6 +242,8 @@ bool ValueList_CheckValue(ValueList *thiz, JsonValue *value)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
     RETURN_VAL_IF_FAIL(value, false);
+
+    LOG_D(TAG, "ValueList_CheckValue");
 
     switch (value->type)
     {
@@ -243,6 +254,7 @@ bool ValueList_CheckValue(ValueList *thiz, JsonValue *value)
             return ValueList_CheckStringValue(thiz, value->data.string);
 
         default:
+            LOG_E(TAG, "ValueList_CheckValue FAILED, value type error: %d", value->type);
             return false;
     }
 }

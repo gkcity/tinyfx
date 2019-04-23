@@ -23,7 +23,7 @@ static void _OnRuntimeDelete (void * data, void *ctx)
 }
 
 TINY_LOR
-IotLauncher *IotLauncher_New(Device *device, BootstrapLoopHook hook, void *ctx)
+IotLauncher *IotLauncher_New(Thing *thing, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = NULL;
 
@@ -36,7 +36,7 @@ IotLauncher *IotLauncher_New(Device *device, BootstrapLoopHook hook, void *ctx)
             break;
         }
 
-        if (RET_FAILED(IotLauncher_Construct(thiz, device, hook, ctx)))
+        if (RET_FAILED(IotLauncher_Construct(thiz, thing, hook, ctx)))
         {
             IotLauncher_Delete(thiz);
             thiz = NULL;
@@ -48,9 +48,9 @@ IotLauncher *IotLauncher_New(Device *device, BootstrapLoopHook hook, void *ctx)
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime(Device *device, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime(Thing *thing, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
-    IotLauncher *thiz = IotLauncher_New(device, hook, ctx);
+    IotLauncher *thiz = IotLauncher_New(thing, hook, ctx);
 
     do
     {
@@ -84,9 +84,9 @@ IotLauncher * IotLauncher_NewRuntime(Device *device, IotRuntime *runtime, Channe
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime2(Device *device, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime2(Thing *thing, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
-    IotLauncher *thiz = IotLauncher_New(device, hook, ctx);
+    IotLauncher *thiz = IotLauncher_New(thing, hook, ctx);
 
     do
     {
@@ -130,9 +130,9 @@ IotLauncher * IotLauncher_NewRuntime2(Device *device, IotRuntime *r1, IotRuntime
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime3(Device *device, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime3(Thing *thing, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
-    IotLauncher *thiz = IotLauncher_New(device, hook, ctx);
+    IotLauncher *thiz = IotLauncher_New(thing, hook, ctx);
 
     do
     {
@@ -196,7 +196,7 @@ void IotLauncher_Delete(IotLauncher *thiz)
 }
 
 TINY_LOR
-TinyRet IotLauncher_Construct(IotLauncher *thiz, Device *device, BootstrapLoopHook hook, void *ctx)
+TinyRet IotLauncher_Construct(IotLauncher *thiz, Thing *thing, BootstrapLoopHook hook, void *ctx)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -206,7 +206,7 @@ TinyRet IotLauncher_Construct(IotLauncher *thiz, Device *device, BootstrapLoopHo
     {
         memset(thiz, 0, sizeof(IotLauncher));
         thiz->started = false;
-        thiz->device = device;
+        thiz->thing = thing;
 
         ret = Bootstrap_Construct(&thiz->bootstrap, hook, ctx);
         if (RET_FAILED(ret))
@@ -287,16 +287,16 @@ TinyRet IotLauncher_Run(IotLauncher *thiz)
             break;
         }
 
-        if (! Device_CheckHandler(thiz->device))
+        if (!Thing_CheckHandler(thiz->thing))
         {
             ret = TINY_RET_E_NOT_IMPLEMENTED;
             break;
         }
 
-        for (uint32_t  i = 0; i < thiz->device->children.size; ++i)
+        for (uint32_t  i = 0; i < thiz->thing->children.size; ++i)
         {
-            Device *child = (Device *) TinyList_GetAt(&thiz->device->children, i);
-            if (! Device_CheckHandler(child))
+            Thing *child = (Thing *) TinyList_GetAt(&thiz->thing->children, i);
+            if (!Thing_CheckHandler(child))
             {
                 ret = TINY_RET_E_NOT_IMPLEMENTED;
                 break;
@@ -315,7 +315,7 @@ TinyRet IotLauncher_Run(IotLauncher *thiz)
             IotRuntime * runtime = (IotRuntime *) TinyList_GetAt(&thiz->runtimes, i);
             runtime->Initialize(runtime);
 
-            ret = runtime->Run(runtime, &thiz->bootstrap, thiz->device);
+            ret = runtime->Run(runtime, &thiz->bootstrap, thiz->thing);
             if (RET_FAILED(ret))
             {
                 LOG_D(TAG, "Runtime.Run failed");

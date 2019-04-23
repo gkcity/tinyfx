@@ -16,18 +16,18 @@
 #include <tiny_base.h>
 #include <device/handler/PropertyHandler.h>
 #include <api/iot_api.h>
-#include <device/Device.h>
+#include <device/Thing.h>
 
 TINY_BEGIN_DECLS
 
 
 IOT_API
 TINY_LOR
-Device* Device_NewInstance(JsonObject *object);
+Thing* Device_NewInstance(JsonObject *object);
 
 IOT_API
 TINY_LOR
-Device *DeviceFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second);
+Thing *DeviceFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second);
 
 
 TINY_END_DECLS

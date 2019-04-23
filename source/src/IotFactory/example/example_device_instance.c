@@ -11,14 +11,14 @@ int main(void)
     
     do
     {
-        Device * device = DeviceFactory_Create(10001, 1, 5);
+        Thing * device = DeviceFactory_Create(10001, 1, 5);
         if (device == NULL)
         {
             printf("DeviceInstance_New failed!\n");
             break;
         }
 
-        printf("Device ProductId: %d\n", device->config.productId);
+        printf("Thing ProductId: %d\n", device->config.productId);
         printf("Service: [%d]\n", device->services.size);
         for (uint32_t i = 0; i < device->services.size; ++i)
         {
@@ -63,7 +63,7 @@ int main(void)
             }
         }
 
-        Device_Delete(device);
+        Thing_Delete(device);
     } while (0);
 
     tiny_socket_initialize();

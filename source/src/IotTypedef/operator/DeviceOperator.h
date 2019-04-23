@@ -14,40 +14,40 @@
 #define __DEVICE_OPERATOR_H__
 
 #include <tiny_base.h>
-#include <device/Device.h>
+#include <device/Thing.h>
 
 TINY_BEGIN_DECLS
 
 
 IOT_API
 TINY_LOR
-void Device_TryReadProperties(Device *thiz, PropertyOperations *operations);
+void Device_TryReadProperties(Thing *thiz, PropertyOperations *operations);
 
 IOT_API
 TINY_LOR
-void Device_TryWriteProperties(Device *thiz, PropertyOperations *operations);
+void Device_TryWriteProperties(Thing *thiz, PropertyOperations *operations);
 
 #if 0
 IOT_API
 TINY_LOR
-void Device_TrySubscribeProperties(Device *thiz, PropertyOperations *operations);
+void Device_TrySubscribeProperties(Thing *thiz, PropertyOperations *operations);
 
 IOT_API
 TINY_LOR
-void Device_TryUnsubscribeProperties(Device *thiz, PropertyOperations *operations);
+void Device_TryUnsubscribeProperties(Thing *thiz, PropertyOperations *operations);
 #endif
 
 IOT_API
 TINY_LOR
-void Device_TryInvokeAction(Device *thiz, ActionOperation *operation);
+void Device_TryInvokeAction(Thing *thiz, ActionOperation *operation);
 
 IOT_API
 TINY_LOR
-TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o);
+TinyRet Device_TryChangePropertyValue(Thing *thiz, PropertyOperation *o);
 
 IOT_API
 TINY_LOR
-TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o);
+TinyRet Device_TryProduceEvent(Thing *thiz, EventOperation *o);
 
 
 TINY_END_DECLS

@@ -4,7 +4,7 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   Device.c
+ * @file   Thing.c
  *
  * @remark
  *
@@ -15,17 +15,17 @@
 #include <operation/PropertyOperation.h>
 #include <status/IotStatus.h>
 #include "Property.h"
-#include "Device.h"
+#include "Thing.h"
 #include "Service.h"
 #include "Action.h"
 
-#define TAG     "Device"
+#define TAG     "Thing"
 
 TINY_LOR
-static TinyRet Device_Construct(Device *thiz);
+static TinyRet Device_Construct(Thing *thiz);
 
 TINY_LOR
-static void Device_Dispose(Device *thiz);
+static void Device_Dispose(Thing *thiz);
 
 TINY_LOR
 static void service_release_handler(void *data, void *ctx)
@@ -34,13 +34,13 @@ static void service_release_handler(void *data, void *ctx)
 }
 
 TINY_LOR
-Device* Device_New(void)
+Thing* Thing_New(void)
 {
-    Device *thiz = NULL;
+    Thing *thiz = NULL;
 
     do
     {
-        thiz = (Device *)tiny_malloc(sizeof(Device));
+        thiz = (Thing *)tiny_malloc(sizeof(Thing));
         if (thiz == NULL)
         {
             LOG_D(TAG, "tiny_malloc FAILED");
@@ -49,7 +49,7 @@ Device* Device_New(void)
 
         if (RET_FAILED(Device_Construct(thiz)))
         {
-            Device_Delete(thiz);
+            Thing_Delete(thiz);
             thiz = NULL;
             break;
         }
@@ -59,7 +59,7 @@ Device* Device_New(void)
 }
 
 TINY_LOR
-static TinyRet Device_Construct(Device *thiz)
+static TinyRet Device_Construct(Thing *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -67,7 +67,7 @@ static TinyRet Device_Construct(Device *thiz)
 
     do
     {
-        memset(thiz, 0, sizeof(Device));
+        memset(thiz, 0, sizeof(Thing));
 
         ret = TinyList_Construct(&thiz->services, service_release_handler, thiz);
         if (RET_FAILED(ret))
@@ -82,7 +82,7 @@ static TinyRet Device_Construct(Device *thiz)
 }
 
 TINY_LOR
-static void Device_Dispose(Device *thiz)
+static void Device_Dispose(Thing *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
@@ -90,7 +90,7 @@ static void Device_Dispose(Device *thiz)
 }
 
 TINY_LOR
-void Device_Delete(Device *thiz)
+void Thing_Delete(Thing *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
@@ -99,11 +99,11 @@ void Device_Delete(Device *thiz)
 }
 
 TINY_LOR
-bool Device_CheckHandler(Device *thiz)
+bool Thing_CheckHandler(Thing *thiz)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
 
-    LOG_D(TAG, "Device_CheckHandler");
+    LOG_D(TAG, "Thing_CheckHandler");
 
     if (thiz->onSet == NULL)
     {

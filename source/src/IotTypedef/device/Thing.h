@@ -4,14 +4,14 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   Device.h
+ * @file   Thing.h
  *
  * @remark
  *
  */
 
-#ifndef __DEVICE_H__
-#define __DEVICE_H__
+#ifndef __THING_H__
+#define __THING_H__
 
 #include <tiny_base.h>
 #include "api/iot_api.h"
@@ -29,7 +29,7 @@
 TINY_BEGIN_DECLS
 
 
-struct _Device
+struct _Thing
 {
     DeviceConfig                config;
     TinyList                    children;
@@ -41,22 +41,22 @@ struct _Device
     DeviceIdentifyListener      identifyListener;
 };
 
-typedef struct _Device Device;
+typedef struct _Thing Thing;
 
 IOT_API
 TINY_LOR
-Device* Device_New(void);
+Thing* Thing_New(void);
 
 IOT_API
 TINY_LOR
-void Device_Delete(Device *thiz);
+void Thing_Delete(Thing *thiz);
 
 IOT_API
 TINY_LOR
-bool Device_CheckHandler(Device *thiz);
+bool Thing_CheckHandler(Thing *thiz);
 
 
 
 TINY_END_DECLS
 
-#endif /* __DEVICE_H__ */
+#endif /* __THING_H__ */

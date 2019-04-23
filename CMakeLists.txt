@@ -52,7 +52,7 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/device/config/DeviceConfig.h
         ${SOURCE_ROOT}/IotTypedef/device/config/AccessoryCategoryIdentifier.h
         ${SOURCE_ROOT}/IotTypedef/device/config/AccessoryConfig.h
-        ${SOURCE_ROOT}/IotTypedef/device/Device.h
+        ${SOURCE_ROOT}/IotTypedef/device/Thing.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
         ${SOURCE_ROOT}/IotTypedef/device/Event.h
@@ -81,7 +81,7 @@ SET(IotTypedef_Header
         )
 
 SET(IotTypedef_Source
-        ${SOURCE_ROOT}/IotTypedef/device/Device.c
+        ${SOURCE_ROOT}/IotTypedef/device/Thing.c
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Action.c
         ${SOURCE_ROOT}/IotTypedef/device/Event.c

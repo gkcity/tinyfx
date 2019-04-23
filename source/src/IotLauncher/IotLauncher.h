@@ -23,7 +23,7 @@ TINY_BEGIN_DECLS
 
 struct _IotLauncher
 {
-    Device                * device;
+    Thing                 * thing;
     bool                    started;
     TinyList                runtimes;
     Bootstrap               bootstrap;
@@ -33,19 +33,19 @@ typedef struct _IotLauncher IotLauncher;
 
 IOT_API
 TINY_LOR
-IotLauncher * IotLauncher_New(Device *device, BootstrapLoopHook hook, void *ctx);
+IotLauncher * IotLauncher_New(Thing *thing, BootstrapLoopHook hook, void *ctx);
 
 IOT_API
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime(Device *device, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx);
+IotLauncher * IotLauncher_NewRuntime(Thing *thing, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx);
 
 IOT_API
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime2(Device *device, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx);
+IotLauncher * IotLauncher_NewRuntime2(Thing *thing, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx);
 
 IOT_API
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime3(Device *device, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx);
+IotLauncher * IotLauncher_NewRuntime3(Thing *thing, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx);
 
 IOT_API
 TINY_LOR
@@ -53,7 +53,7 @@ void IotLauncher_Delete(IotLauncher *thiz);
 
 IOT_API
 TINY_LOR
-TinyRet IotLauncher_Construct(IotLauncher *thiz, Device *device, BootstrapLoopHook hook, void *ctx);
+TinyRet IotLauncher_Construct(IotLauncher *thiz, Thing *thing, BootstrapLoopHook hook, void *ctx);
 
 IOT_API
 TINY_LOR

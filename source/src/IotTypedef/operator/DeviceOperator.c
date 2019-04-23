@@ -15,11 +15,11 @@
 #include "DeviceOperator.h"
 
 TINY_LOR
-static Device * Device_GetChild(Device *thiz, const char * did)
+static Thing * Device_GetChild(Thing *thiz, const char * did)
 {
     for (uint32_t i = 0; i < thiz->children.size; ++i)
     {
-        Device * child = (Device *)TinyList_GetAt(&thiz->children, i);
+        Thing * child = (Thing *)TinyList_GetAt(&thiz->children, i);
         if (STR_EQUAL(child->config.did, did))
         {
             return child;
@@ -30,7 +30,7 @@ static Device * Device_GetChild(Device *thiz, const char * did)
 }
 
 TINY_LOR
-static Service * Device_GetService(Device *thiz, uint16_t siid)
+static Service * Device_GetService(Thing *thiz, uint16_t siid)
 {
     for (uint32_t i = 0; i < thiz->services.size; ++i)
     {
@@ -45,7 +45,7 @@ static Service * Device_GetService(Device *thiz, uint16_t siid)
 }
 
 TINY_LOR
-static void Device_TryRead(Device *thiz, PropertyOperation *o)
+static void Device_TryRead(Thing *thiz, PropertyOperation *o)
 {
     Service * service = NULL;
 
@@ -76,9 +76,9 @@ static void Device_TryRead(Device *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-static void Device_TryReadChild(Device *thiz, PropertyOperation *o)
+static void Device_TryReadChild(Thing *thiz, PropertyOperation *o)
 {
-    Device *child = NULL;
+    Thing *child = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
@@ -95,7 +95,7 @@ static void Device_TryReadChild(Device *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-static void Device_TryWrite(Device *thiz, PropertyOperation *o)
+static void Device_TryWrite(Thing *thiz, PropertyOperation *o)
 {
     Service * service = NULL;
 
@@ -126,7 +126,7 @@ static void Device_TryWrite(Device *thiz, PropertyOperation *o)
 
 #if 0
 TINY_LOR
-static void Device_TrySubscribe(Device *thiz, PropertyOperation *o)
+static void Device_TrySubscribe(Thing *thiz, PropertyOperation *o)
 {
     Service * service = NULL;
 
@@ -145,7 +145,7 @@ static void Device_TrySubscribe(Device *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-static void Device_TryUnsubscribe(Device *thiz, PropertyOperation *o)
+static void Device_TryUnsubscribe(Thing *thiz, PropertyOperation *o)
 {
     Service * service = NULL;
 
@@ -165,9 +165,9 @@ static void Device_TryUnsubscribe(Device *thiz, PropertyOperation *o)
 #endif
 
 TINY_LOR
-static void Device_TryWriteChild(Device *thiz, PropertyOperation *o)
+static void Device_TryWriteChild(Thing *thiz, PropertyOperation *o)
 {
-    Device *child = NULL;
+    Thing *child = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
@@ -185,9 +185,9 @@ static void Device_TryWriteChild(Device *thiz, PropertyOperation *o)
 
 #if 0
 TINY_LOR
-static void Device_TrySubscribeChild(Device *thiz, PropertyOperation *o)
+static void Device_TrySubscribeChild(Thing *thiz, PropertyOperation *o)
 {
-    Device *child = NULL;
+    Thing *child = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
@@ -204,9 +204,9 @@ static void Device_TrySubscribeChild(Device *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-static void Device_TryUnsubscribeChild(Device *thiz, PropertyOperation *o)
+static void Device_TryUnsubscribeChild(Thing *thiz, PropertyOperation *o)
 {
-    Device *child = NULL;
+    Thing *child = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
@@ -224,7 +224,7 @@ static void Device_TryUnsubscribeChild(Device *thiz, PropertyOperation *o)
 #endif
 
 TINY_LOR
-static void Device_TryInvoke(Device *thiz, ActionOperation *o)
+static void Device_TryInvoke(Thing *thiz, ActionOperation *o)
 {
     Service * service = NULL;
 
@@ -255,9 +255,9 @@ static void Device_TryInvoke(Device *thiz, ActionOperation *o)
 }
 
 TINY_LOR
-static void Device_TryInvokeChild(Device *thiz, ActionOperation *o)
+static void Device_TryInvokeChild(Thing *thiz, ActionOperation *o)
 {
-    Device *child = NULL;
+    Thing *child = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
@@ -274,7 +274,7 @@ static void Device_TryInvokeChild(Device *thiz, ActionOperation *o)
 }
 
 TINY_LOR
-void Device_TryReadProperties(Device *thiz, PropertyOperations *operations)
+void Device_TryReadProperties(Thing *thiz, PropertyOperations *operations)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(operations);
@@ -294,7 +294,7 @@ void Device_TryReadProperties(Device *thiz, PropertyOperations *operations)
 }
 
 TINY_LOR
-void Device_TryWriteProperties(Device *thiz, PropertyOperations *operations)
+void Device_TryWriteProperties(Thing *thiz, PropertyOperations *operations)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(operations);
@@ -315,7 +315,7 @@ void Device_TryWriteProperties(Device *thiz, PropertyOperations *operations)
 
 #if 0
 TINY_LOR
-void Device_TrySubscribeProperties(Device *thiz, PropertyOperations *operations)
+void Device_TrySubscribeProperties(Thing *thiz, PropertyOperations *operations)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(operations);
@@ -335,7 +335,7 @@ void Device_TrySubscribeProperties(Device *thiz, PropertyOperations *operations)
 }
 
 TINY_LOR
-void Device_TryUnsubscribeProperties(Device *thiz, PropertyOperations *operations)
+void Device_TryUnsubscribeProperties(Thing *thiz, PropertyOperations *operations)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(operations);
@@ -356,7 +356,7 @@ void Device_TryUnsubscribeProperties(Device *thiz, PropertyOperations *operation
 #endif
 
 TINY_LOR
-void Device_TryInvokeAction(Device *thiz, ActionOperation *o)
+void Device_TryInvokeAction(Thing *thiz, ActionOperation *o)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
@@ -372,7 +372,7 @@ void Device_TryInvokeAction(Device *thiz, ActionOperation *o)
 }
 
 TINY_LOR
-TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o)
+TinyRet Device_TryChangePropertyValue(Thing *thiz, PropertyOperation *o)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -395,7 +395,7 @@ TinyRet Device_TryChangePropertyValue(Device *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-TinyRet Device_TryProduceEvent(Device *thiz, EventOperation *o)
+TinyRet Device_TryProduceEvent(Thing *thiz, EventOperation *o)
 {
     TinyRet ret = TINY_RET_OK;
 

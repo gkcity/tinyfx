@@ -2,7 +2,7 @@
 #include <device/Service.h>
 #include <device/Property.h>
 #include <device/Action.h>
-#include "DeviceFactory.h"
+#include "ProductFactory.h"
 #include <tiny_socket.h>
 
 int main(void)
@@ -11,7 +11,7 @@ int main(void)
     
     do
     {
-        Product * product = DeviceFactory_Create(10001, 1, 5);
+        Product * product = ProductFactory_Create(10001, 1, 5);
         if (product == NULL)
         {
             printf("DeviceInstance_New failed!\n");
@@ -19,10 +19,10 @@ int main(void)
         }
 
         printf("Product ProductId: %d\n", product->config.productId);
-        printf("Service: [%d]\n", product->services.size);
-        for (uint32_t i = 0; i < product->services.size; ++i)
+        printf("Service: [%d]\n", product->device.services.size);
+        for (uint32_t i = 0; i < product->device.services.size; ++i)
         {
-            Service *service = (Service *)TinyList_GetAt(&product->services, i);
+            Service *service = (Service *)TinyList_GetAt(&product->device.services, i);
 
             printf("  service: %d\n", service->iid);
             printf("    type: urn:%s:%s:%s:%08x\n", service->type.namespace, UrnType_ToString(service->type.type), service->type.name, service->type.value);

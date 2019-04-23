@@ -4,7 +4,7 @@
  * @author jxfengzi@gmail.com
  * @date   2013-11-19
  *
- * @file   DeviceInstance.h
+ * @file   ProductFactory.h
  *
  * @remark
  *
@@ -21,9 +21,9 @@
 #include <device/Action.h>
 #include <tiny_snprintf.h>
 #include <device/Argument.h>
-#include "DeviceFactory.h"
+#include "ProductFactory.h"
 
-#define TAG     "DeviceFactory"
+#define TAG     "ProductFactory"
 
 //TINY_LOR
 //static uint16_t AccessType_New(JsonArray *array)
@@ -620,7 +620,7 @@ static Service* Service_NewFrom(JsonObject *object)
 }
 
 TINY_LOR
-Product* Device_NewInstance(JsonObject *object)
+Product* Product_NewInstance(JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
     Product* product = NULL;
@@ -682,7 +682,7 @@ Product* Device_NewInstance(JsonObject *object)
 #define PORT 80
 
 TINY_LOR
-Product* DeviceFactory_NewDevice(const char *uri, uint32_t second)
+Product* ProductFactory_NewProduct(const char *uri, uint32_t second)
 {
     Product *device = NULL;
     HttpClient *client = NULL;
@@ -726,7 +726,7 @@ Product* DeviceFactory_NewDevice(const char *uri, uint32_t second)
             break;
         }
 
-        device = Device_NewInstance(object);
+        device = Product_NewInstance(object);
     } while (false);
 
     if (object != NULL)
@@ -744,18 +744,18 @@ Product* DeviceFactory_NewDevice(const char *uri, uint32_t second)
         HttpClient_Delete(client);
     }
 
-    LOG_I(TAG, "DeviceFactory_Create finished!");
+    LOG_I(TAG, "ProductFactory_Create finished!");
 
     return device;
 }
 
 TINY_LOR
-Product *DeviceFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second)
+Product *ProductFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second)
 {
     char uri[1024];
 
     memset(uri, 0, 1024);
     tiny_snprintf(uri, 1014, "/dd/instance/product/%d/version/%d", productId, productVersion);
 
-    return DeviceFactory_NewDevice(uri, second);
+    return ProductFactory_NewProduct(uri, second);
 }

@@ -12,10 +12,10 @@
 
 #include <device/Service.h>
 #include <status/IotStatus.h>
-#include "DeviceOperator.h"
+#include "ProductOperator.h"
 
 TINY_LOR
-static Product * Device_GetChild(Product *thiz, const char * did)
+static Product * Product_GetChild(Product *thiz, const char * did)
 {
     for (uint32_t i = 0; i < thiz->children.size; ++i)
     {
@@ -30,7 +30,7 @@ static Product * Device_GetChild(Product *thiz, const char * did)
 }
 
 TINY_LOR
-static Service * Device_GetService(Product *thiz, uint16_t siid)
+static Service * Product_GetService(Product *thiz, uint16_t siid)
 {
     for (uint32_t i = 0; i < thiz->device.services.size; ++i)
     {
@@ -45,14 +45,14 @@ static Service * Device_GetService(Product *thiz, uint16_t siid)
 }
 
 TINY_LOR
-static void Device_TryRead(Product *thiz, PropertyOperation *o)
+static void Product_TryRead(Product *thiz, PropertyOperation *o)
 {
     Service * service = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    service = Device_GetService(thiz, o->pid.siid);
+    service = Product_GetService(thiz, o->pid.siid);
     if (service != NULL)
     {
         Service_TryRead(service, o);
@@ -76,17 +76,17 @@ static void Device_TryRead(Product *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-static void Device_TryReadChild(Product *thiz, PropertyOperation *o)
+static void Product_TryReadChild(Product *thiz, PropertyOperation *o)
 {
     Product *child = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    child = Device_GetChild(thiz, o->pid.did);
+    child = Product_GetChild(thiz, o->pid.did);
     if (child != NULL)
     {
-        Device_TryRead(child, o);
+        Product_TryRead(child, o);
     }
     else
     {
@@ -102,7 +102,7 @@ static void Device_TryWrite(Product *thiz, PropertyOperation *o)
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    service = Device_GetService(thiz, o->pid.siid);
+    service = Product_GetService(thiz, o->pid.siid);
     if (service != NULL)
     {
         Service_TryWrite(service, o);
@@ -172,7 +172,7 @@ static void Device_TryWriteChild(Product *thiz, PropertyOperation *o)
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    child = Device_GetChild(thiz, o->pid.did);
+    child = Product_GetChild(thiz, o->pid.did);
     if (child != NULL)
     {
         Device_TryWrite(child, o);
@@ -231,7 +231,7 @@ static void Device_TryInvoke(Product *thiz, ActionOperation *o)
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    service = Device_GetService(thiz, o->aid.siid);
+    service = Product_GetService(thiz, o->aid.siid);
     if (service != NULL)
     {
         Service_TryInvoke(service, o);
@@ -262,7 +262,7 @@ static void Device_TryInvokeChild(Product *thiz, ActionOperation *o)
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    child = Device_GetChild(thiz, o->aid.did);
+    child = Product_GetChild(thiz, o->aid.did);
     if (child != NULL)
     {
         Device_TryInvoke(child, o);
@@ -284,11 +284,11 @@ void Device_TryReadProperties(Product *thiz, PropertyOperations *operations)
         PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
         if (STR_EQUAL(thiz->config.did, o->pid.did))
         {
-            Device_TryRead(thiz, o);
+            Product_TryRead(thiz, o);
         }
         else
         {
-            Device_TryReadChild(thiz, o);
+            Product_TryReadChild(thiz, o);
         }
     }
 }
@@ -381,7 +381,7 @@ TinyRet Device_TryChangePropertyValue(Product *thiz, PropertyOperation *o)
 
     do
     {
-        Service * service = Device_GetService(thiz, o->pid.siid);
+        Service * service = Product_GetService(thiz, o->pid.siid);
         if (service == NULL)
         {
             ret = TINY_RET_E_ARG_INVALID;
@@ -404,7 +404,7 @@ TinyRet Device_TryProduceEvent(Product *thiz, EventOperation *o)
 
     do
     {
-        Service * service = Device_GetService(thiz, o->eid.siid);
+        Service * service = Product_GetService(thiz, o->eid.siid);
         if (service == NULL)
         {
             ret = TINY_RET_E_ARG_INVALID;

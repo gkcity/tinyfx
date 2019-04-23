@@ -19,6 +19,7 @@ SET(Device_Header
         product/config/AccessoryCategoryIdentifier.h
         product/config/AccessoryConfig.h
         product/config/ProductConfig.h
+        product/operator/ProductOperator.h
         device/Device.h
         device/Service.h
         device/Action.h
@@ -33,6 +34,7 @@ SET(Device_Header
 
 SET(Device_Source
         product/Product.c
+        product/operator/ProductOperator.c
         device/Device.c
         device/Service.c
         device/Action.c
@@ -101,17 +103,6 @@ SET(operation_Source
         operation/PropertyOperations.h
     )
 
-#-----------------------
-# operator
-#-----------------------
-SET(operator_Header
-        operator/DeviceOperator.h
-        )
-
-SET(operator_Source
-        operator/DeviceOperator.c
-        )
-
 #----------------------------------------------------------------------------
 # source
 #----------------------------------------------------------------------------
@@ -126,8 +117,6 @@ SET(SRC
         ${Unit_Header}
         ${operation_Header}
         ${operation_Source}
-        ${operator_Header}
-        ${operator_Source}
     )
 
 #----------------------------------------------------------------------------

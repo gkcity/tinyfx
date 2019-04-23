@@ -19,7 +19,7 @@
 #include "constant/iot_constant.h"
 #include <TinyList.h>
 #include <product/config/ProductConfig.h>
-#include <product/handler/DeviceIdentifyListener.h>
+#include <product/handler/IdentifyListener.h>
 #include <product/handler/ActionHandler.h>
 #include <product/handler/PropertyHandler.h>
 #include <operation/PropertyOperations.h>
@@ -39,7 +39,7 @@ struct _Product
     PropertyOnSet               onSet;
     ActionOnInvoke              onInvoke;
     void                      * context;
-    DeviceIdentifyListener      identifyListener;
+    IdentifyListener      identifyListener;
 };
 
 typedef struct _Product Product;

@@ -4,14 +4,14 @@
  * @author jxfengzi@gmail.com
  * @date   2013-11-19
  *
- * @file   DeviceFactory.h
+ * @file   ProductFactory.h
  *
  * @remark
  *
  */
 
-#ifndef __DEVICE_FACTORY_H__
-#define __DEVICE_FACTORY_H__
+#ifndef __PRODUCT_FACTORY_H__
+#define __PRODUCT_FACTORY_H__
 
 #include <tiny_base.h>
 #include <api/iot_api.h>
@@ -23,13 +23,13 @@ TINY_BEGIN_DECLS
 
 IOT_API
 TINY_LOR
-Product* Device_NewInstance(JsonObject *object);
+Product* Product_NewInstance(JsonObject *object);
 
 IOT_API
 TINY_LOR
-Product *DeviceFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second);
+Product *ProductFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second);
 
 
 TINY_END_DECLS
 
-#endif /* __DEVICE_FACTORY_H__ */
+#endif /* __PRODUCT_FACTORY_H__ */

@@ -5,11 +5,11 @@
 #-----------------------------------------------------------------------------
 
 SET(IotFactory_Header
-        DeviceFactory.h
+        ProductFactory.h
         )
 
 SET(IotFactory_Source
-        DeviceFactory.c
+        ProductFactory.c
         )
 
 SOURCE_GROUP(IotFactory\\headers        FILES     ${IotFactory_Header})

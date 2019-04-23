@@ -53,9 +53,10 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/product/config/ProductConfig.h
         ${SOURCE_ROOT}/IotTypedef/product/config/AccessoryCategoryIdentifier.h
         ${SOURCE_ROOT}/IotTypedef/product/config/AccessoryConfig.h
-        ${SOURCE_ROOT}/IotTypedef/product/handler/DeviceIdentifyListener.h
+        ${SOURCE_ROOT}/IotTypedef/product/handler/IdentifyListener.h
         ${SOURCE_ROOT}/IotTypedef/product/handler/PropertyHandler.h
         ${SOURCE_ROOT}/IotTypedef/product/handler/ActionHandler.h
+        ${SOURCE_ROOT}/IotTypedef/product/operator/ProductOperator.h
         ${SOURCE_ROOT}/IotTypedef/device/Device.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
@@ -74,7 +75,6 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.h
-        ${SOURCE_ROOT}/IotTypedef/operator/DeviceOperator.h
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.h
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.h
         ${SOURCE_ROOT}/IotTypedef/unit/Unit.h
@@ -83,6 +83,7 @@ SET(IotTypedef_Header
 
 SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/product/Product.c
+        ${SOURCE_ROOT}/IotTypedef/product/operator/ProductOperator.c
         ${SOURCE_ROOT}/IotTypedef/device/Device.c
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Action.c
@@ -98,7 +99,6 @@ SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/operation/EventOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperation.c
         ${SOURCE_ROOT}/IotTypedef/operation/PropertyOperations.c
-        ${SOURCE_ROOT}/IotTypedef/operator/DeviceOperator.c
         ${SOURCE_ROOT}/IotTypedef/urn/Urn.c
         ${SOURCE_ROOT}/IotTypedef/urn/UrnType.c
         )
@@ -122,11 +122,11 @@ SET(IotLauncher_Source
 #-----------------------
 
 SET(IotFactory_Header
-        ${SOURCE_ROOT}/IotFactory/DeviceFactory.h
+        ${SOURCE_ROOT}/IotFactory/ProductFactory.h
         )
 
 SET(IotFactory_Source
-        ${SOURCE_ROOT}/IotFactory/DeviceFactory.c
+        ${SOURCE_ROOT}/IotFactory/ProductFactory.c
         )
 
 SOURCE_GROUP(IotTypedef\\headers             FILES     ${IotTypedef_Header})

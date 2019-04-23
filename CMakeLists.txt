@@ -49,10 +49,13 @@ MESSAGE(STATUS "library output: ${LIBRARY_OUTPUT_PATH}")
 
 SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/constant/iot_constant.h
-        ${SOURCE_ROOT}/IotTypedef/thing/Thing.h
-        ${SOURCE_ROOT}/IotTypedef/thing/config/ThingConfig.h
-        ${SOURCE_ROOT}/IotTypedef/thing/config/AccessoryCategoryIdentifier.h
-        ${SOURCE_ROOT}/IotTypedef/thing/config/AccessoryConfig.h
+        ${SOURCE_ROOT}/IotTypedef/product/Product.h
+        ${SOURCE_ROOT}/IotTypedef/product/config/ProductConfig.h
+        ${SOURCE_ROOT}/IotTypedef/product/config/AccessoryCategoryIdentifier.h
+        ${SOURCE_ROOT}/IotTypedef/product/config/AccessoryConfig.h
+        ${SOURCE_ROOT}/IotTypedef/product/handler/DeviceIdentifyListener.h
+        ${SOURCE_ROOT}/IotTypedef/product/handler/PropertyHandler.h
+        ${SOURCE_ROOT}/IotTypedef/product/handler/ActionHandler.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
         ${SOURCE_ROOT}/IotTypedef/device/Event.h
@@ -62,9 +65,6 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/device/format/Format.h
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueList.h
         ${SOURCE_ROOT}/IotTypedef/device/constraint/ValueRange.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/DeviceIdentifyListener.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/PropertyHandler.h
-        ${SOURCE_ROOT}/IotTypedef/device/handler/ActionHandler.h
         ${SOURCE_ROOT}/IotTypedef/operation/AID.h
         ${SOURCE_ROOT}/IotTypedef/operation/EID.h
         ${SOURCE_ROOT}/IotTypedef/operation/PID.h
@@ -81,7 +81,7 @@ SET(IotTypedef_Header
         )
 
 SET(IotTypedef_Source
-        ${SOURCE_ROOT}/IotTypedef/thing/Thing.c
+        ${SOURCE_ROOT}/IotTypedef/product/Product.c
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Action.c
         ${SOURCE_ROOT}/IotTypedef/device/Event.c

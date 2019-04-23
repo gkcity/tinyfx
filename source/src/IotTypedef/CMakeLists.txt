@@ -15,10 +15,10 @@ SET(Constant_Header
 # device
 #-----------------------
 SET(Device_Header
-        thing/Thing.h
-        thing/config/AccessoryCategoryIdentifier.h
-        thing/config/AccessoryConfig.h
-        thing/config/ThingConfig.h
+        product/Product.h
+        product/config/AccessoryCategoryIdentifier.h
+        product/config/AccessoryConfig.h
+        product/config/ProductConfig.h
         device/Service.h
         device/Action.h
         device/Event.h
@@ -31,7 +31,7 @@ SET(Device_Header
     )
 
 SET(Device_Source
-        thing/Thing.c
+        product/Product.c
         device/Service.c
         device/Action.c
         device/Event.c

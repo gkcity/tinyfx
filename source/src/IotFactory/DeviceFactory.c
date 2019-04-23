@@ -620,10 +620,10 @@ static Service* Service_NewFrom(JsonObject *object)
 }
 
 TINY_LOR
-Thing* Device_NewInstance(JsonObject *object)
+Product* Device_NewInstance(JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
-    Thing* device = NULL;
+    Product* device = NULL;
 
     do
     {
@@ -642,10 +642,10 @@ Thing* Device_NewInstance(JsonObject *object)
             break;
         }
 
-        device = Thing_New();
+        device = Product_New();
         if (device == NULL)
         {
-            LOG_E(TAG, "Thing_New failed!");
+            LOG_E(TAG, "Product_New failed!");
             break;
         }
 
@@ -671,7 +671,7 @@ Thing* Device_NewInstance(JsonObject *object)
 
     if (RET_FAILED(ret) && device != NULL)
     {
-        Thing_Delete(device);
+        Product_Delete(device);
         device = NULL;
     }
 
@@ -682,9 +682,9 @@ Thing* Device_NewInstance(JsonObject *object)
 #define PORT 80
 
 TINY_LOR
-Thing* DeviceFactory_NewDevice(const char *uri, uint32_t second)
+Product* DeviceFactory_NewDevice(const char *uri, uint32_t second)
 {
-    Thing *device = NULL;
+    Product *device = NULL;
     HttpClient *client = NULL;
     HttpExchange *exchange = NULL;
     JsonObject *object = NULL;
@@ -750,7 +750,7 @@ Thing* DeviceFactory_NewDevice(const char *uri, uint32_t second)
 }
 
 TINY_LOR
-Thing *DeviceFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second)
+Product *DeviceFactory_Create(uint16_t productId, uint16_t productVersion, uint32_t second)
 {
     char uri[1024];
 

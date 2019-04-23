@@ -4,24 +4,24 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   Thing.h
+ * @file   Product.h
  *
  * @remark
  *
  */
 
-#ifndef __THING_H__
-#define __THING_H__
+#ifndef __PRODUCT_H__
+#define __PRODUCT_H__
 
 #include <tiny_base.h>
 #include "api/iot_api.h"
 #include "urn/Urn.h"
 #include "constant/iot_constant.h"
 #include <TinyList.h>
-#include <thing/config/ThingConfig.h>
-#include <device/handler/DeviceIdentifyListener.h>
-#include <device/handler/ActionHandler.h>
-#include <device/handler/PropertyHandler.h>
+#include <product/config/ProductConfig.h>
+#include <product/handler/DeviceIdentifyListener.h>
+#include <product/handler/ActionHandler.h>
+#include <product/handler/PropertyHandler.h>
 #include <operation/PropertyOperations.h>
 #include <operation/ActionOperation.h>
 #include <operation/EventOperation.h>
@@ -29,9 +29,9 @@
 TINY_BEGIN_DECLS
 
 
-struct _Thing
+struct _Product
 {
-    ThingConfig                 config;
+    ProductConfig               config;
     TinyList                    children;
     TinyList                    services;
     PropertyOnGet               onGet;
@@ -41,22 +41,22 @@ struct _Thing
     DeviceIdentifyListener      identifyListener;
 };
 
-typedef struct _Thing Thing;
+typedef struct _Product Product;
 
 IOT_API
 TINY_LOR
-Thing* Thing_New(void);
+Product* Product_New(void);
 
 IOT_API
 TINY_LOR
-void Thing_Delete(Thing *thiz);
+void Product_Delete(Product *thiz);
 
 IOT_API
 TINY_LOR
-bool Thing_CheckHandler(Thing *thiz);
+bool Product_CheckHandler(Product *thiz);
 
 
 
 TINY_END_DECLS
 
-#endif /* __THING_H__ */
+#endif /* __PRODUCT_H__ */

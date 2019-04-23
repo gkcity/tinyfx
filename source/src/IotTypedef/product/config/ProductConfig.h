@@ -4,14 +4,14 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   ThingConfig.h
+ * @file   ProductConfig.h
  *
  * @remark
  *
  */
 
-#ifndef __THING_CONFIG_H__
-#define __THING_CONFIG_H__
+#ifndef __PRODUCT_CONFIG_H__
+#define __PRODUCT_CONFIG_H__
 
 #include <tiny_base.h>
 #include "AccessoryConfig.h"
@@ -19,7 +19,7 @@
 TINY_BEGIN_DECLS
 
 
-typedef struct _ThingConfig
+typedef struct _ProductConfig
 {
     char                        did[DEVICE_ID_LENGTH + 1];
     char                        serialNumber[SERIAL_NUMBER_LENGTH + 1];
@@ -30,9 +30,9 @@ typedef struct _ThingConfig
     char                        ip[TINY_IP_LEN];
     uint16_t                    port;
     AccessoryConfig             accessoryConfig;
-} ThingConfig;
+} ProductConfig;
 
 
 TINY_END_DECLS
 
-#endif /* __THING_CONFIG_H__ */
+#endif /* __PRODUCT_CONFIG_H__ */

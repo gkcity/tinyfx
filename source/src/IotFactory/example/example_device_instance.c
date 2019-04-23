@@ -11,18 +11,18 @@ int main(void)
     
     do
     {
-        Thing * device = DeviceFactory_Create(10001, 1, 5);
-        if (device == NULL)
+        Product * product = DeviceFactory_Create(10001, 1, 5);
+        if (product == NULL)
         {
             printf("DeviceInstance_New failed!\n");
             break;
         }
 
-        printf("Thing ProductId: %d\n", device->config.productId);
-        printf("Service: [%d]\n", device->services.size);
-        for (uint32_t i = 0; i < device->services.size; ++i)
+        printf("Product ProductId: %d\n", product->config.productId);
+        printf("Service: [%d]\n", product->services.size);
+        for (uint32_t i = 0; i < product->services.size; ++i)
         {
-            Service *service = (Service *)TinyList_GetAt(&device->services, i);
+            Service *service = (Service *)TinyList_GetAt(&product->services, i);
 
             printf("  service: %d\n", service->iid);
             printf("    type: urn:%s:%s:%s:%08x\n", service->type.namespace, UrnType_ToString(service->type.type), service->type.name, service->type.value);
@@ -63,7 +63,7 @@ int main(void)
             }
         }
 
-        Thing_Delete(device);
+        Product_Delete(product);
     } while (0);
 
     tiny_socket_initialize();

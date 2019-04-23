@@ -23,7 +23,7 @@ static void _OnRuntimeDelete (void * data, void *ctx)
 }
 
 TINY_LOR
-IotLauncher *IotLauncher_New(Thing *thing, BootstrapLoopHook hook, void *ctx)
+IotLauncher *IotLauncher_New(Product *thing, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = NULL;
 
@@ -48,7 +48,7 @@ IotLauncher *IotLauncher_New(Thing *thing, BootstrapLoopHook hook, void *ctx)
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime(Thing *thing, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime(Product *thing, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = IotLauncher_New(thing, hook, ctx);
 
@@ -84,7 +84,7 @@ IotLauncher * IotLauncher_NewRuntime(Thing *thing, IotRuntime *runtime, Channel 
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime2(Thing *thing, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime2(Product *thing, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = IotLauncher_New(thing, hook, ctx);
 
@@ -130,7 +130,7 @@ IotLauncher * IotLauncher_NewRuntime2(Thing *thing, IotRuntime *r1, IotRuntime *
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime3(Thing *thing, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime3(Product *thing, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = IotLauncher_New(thing, hook, ctx);
 
@@ -196,7 +196,7 @@ void IotLauncher_Delete(IotLauncher *thiz)
 }
 
 TINY_LOR
-TinyRet IotLauncher_Construct(IotLauncher *thiz, Thing *thing, BootstrapLoopHook hook, void *ctx)
+TinyRet IotLauncher_Construct(IotLauncher *thiz, Product *thing, BootstrapLoopHook hook, void *ctx)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -287,7 +287,7 @@ TinyRet IotLauncher_Run(IotLauncher *thiz)
             break;
         }
 
-        if (!Thing_CheckHandler(thiz->thing))
+        if (!Product_CheckHandler(thiz->thing))
         {
             ret = TINY_RET_E_NOT_IMPLEMENTED;
             break;
@@ -295,8 +295,8 @@ TinyRet IotLauncher_Run(IotLauncher *thiz)
 
         for (uint32_t  i = 0; i < thiz->thing->children.size; ++i)
         {
-            Thing *child = (Thing *) TinyList_GetAt(&thiz->thing->children, i);
-            if (!Thing_CheckHandler(child))
+            Product *child = (Product *) TinyList_GetAt(&thiz->thing->children, i);
+            if (!Product_CheckHandler(child))
             {
                 ret = TINY_RET_E_NOT_IMPLEMENTED;
                 break;

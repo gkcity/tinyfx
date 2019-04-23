@@ -17,7 +17,7 @@
 #include <tiny_lor.h>
 #include <device/Service.h>
 #include <bootstrap/Bootstrap.h>
-#include <thing/Thing.h>
+#include <product/Product.h>
 
 TINY_BEGIN_DECLS
 
@@ -27,7 +27,7 @@ typedef struct _IotRuntime IotRuntime;
 
 typedef TinyRet (* Device_Initialize)(IotRuntime *thiz);
 typedef TinyRet (* Device_Destroy)(IotRuntime *thiz);
-typedef TinyRet (* Device_Run)(IotRuntime *thiz, Bootstrap *bootstrap, Thing *device);
+typedef TinyRet (* Device_Run)(IotRuntime *thiz, Bootstrap *bootstrap, Product *device);
 typedef TinyRet (* Device_Stop)(IotRuntime *thiz);
 
 struct _IotRuntime

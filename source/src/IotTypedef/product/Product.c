@@ -15,17 +15,17 @@
 #include <operation/PropertyOperation.h>
 #include <status/IotStatus.h>
 #include "device/Property.h"
-#include "Thing.h"
+#include "Product.h"
 #include "device/Service.h"
 #include "device/Action.h"
 
 #define TAG     "Thing"
 
 TINY_LOR
-static TinyRet Device_Construct(Thing *thiz);
+static TinyRet Device_Construct(Product *thiz);
 
 TINY_LOR
-static void Device_Dispose(Thing *thiz);
+static void Device_Dispose(Product *thiz);
 
 TINY_LOR
 static void service_release_handler(void *data, void *ctx)
@@ -34,13 +34,13 @@ static void service_release_handler(void *data, void *ctx)
 }
 
 TINY_LOR
-Thing* Thing_New(void)
+Product* Product_New(void)
 {
-    Thing *thiz = NULL;
+    Product *thiz = NULL;
 
     do
     {
-        thiz = (Thing *)tiny_malloc(sizeof(Thing));
+        thiz = (Product *)tiny_malloc(sizeof(Product));
         if (thiz == NULL)
         {
             LOG_D(TAG, "tiny_malloc FAILED");
@@ -49,7 +49,7 @@ Thing* Thing_New(void)
 
         if (RET_FAILED(Device_Construct(thiz)))
         {
-            Thing_Delete(thiz);
+            Product_Delete(thiz);
             thiz = NULL;
             break;
         }
@@ -59,7 +59,7 @@ Thing* Thing_New(void)
 }
 
 TINY_LOR
-static TinyRet Device_Construct(Thing *thiz)
+static TinyRet Device_Construct(Product *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -67,7 +67,7 @@ static TinyRet Device_Construct(Thing *thiz)
 
     do
     {
-        memset(thiz, 0, sizeof(Thing));
+        memset(thiz, 0, sizeof(Product));
 
         ret = TinyList_Construct(&thiz->services, service_release_handler, thiz);
         if (RET_FAILED(ret))
@@ -82,7 +82,7 @@ static TinyRet Device_Construct(Thing *thiz)
 }
 
 TINY_LOR
-static void Device_Dispose(Thing *thiz)
+static void Device_Dispose(Product *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
@@ -90,7 +90,7 @@ static void Device_Dispose(Thing *thiz)
 }
 
 TINY_LOR
-void Thing_Delete(Thing *thiz)
+void Product_Delete(Product *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
@@ -99,11 +99,11 @@ void Thing_Delete(Thing *thiz)
 }
 
 TINY_LOR
-bool Thing_CheckHandler(Thing *thiz)
+bool Product_CheckHandler(Product *thiz)
 {
     RETURN_VAL_IF_FAIL(thiz, false);
 
-    LOG_D(TAG, "Thing_CheckHandler");
+    LOG_D(TAG, "Product_CheckHandler");
 
     if (thiz->onSet == NULL)
     {

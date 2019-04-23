@@ -25,6 +25,7 @@
 #include <operation/PropertyOperations.h>
 #include <operation/ActionOperation.h>
 #include <operation/EventOperation.h>
+#include <device/Device.h>
 
 TINY_BEGIN_DECLS
 
@@ -32,8 +33,8 @@ TINY_BEGIN_DECLS
 struct _Product
 {
     ProductConfig               config;
+    Device                      device;
     TinyList                    children;
-    TinyList                    services;
     PropertyOnGet               onGet;
     PropertyOnSet               onSet;
     ActionOnInvoke              onInvoke;

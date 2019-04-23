@@ -32,9 +32,9 @@ static Product * Device_GetChild(Product *thiz, const char * did)
 TINY_LOR
 static Service * Device_GetService(Product *thiz, uint16_t siid)
 {
-    for (uint32_t i = 0; i < thiz->services.size; ++i)
+    for (uint32_t i = 0; i < thiz->device.services.size; ++i)
     {
-        Service *s = (Service *) TinyList_GetAt(&thiz->services, i);
+        Service *s = (Service *) TinyList_GetAt(&thiz->device.services, i);
         if (s->iid == siid)
         {
             return s;

@@ -22,10 +22,10 @@
 #define TAG     "Thing"
 
 TINY_LOR
-static TinyRet Device_Construct(Product *thiz);
+static TinyRet Product_Construct(Product *thiz);
 
 TINY_LOR
-static void Device_Dispose(Product *thiz);
+static void Product_Dispose(Product *thiz);
 
 TINY_LOR
 static void service_release_handler(void *data, void *ctx)
@@ -47,7 +47,7 @@ Product* Product_New(void)
             break;
         }
 
-        if (RET_FAILED(Device_Construct(thiz)))
+        if (RET_FAILED(Product_Construct(thiz)))
         {
             Product_Delete(thiz);
             thiz = NULL;
@@ -59,7 +59,7 @@ Product* Product_New(void)
 }
 
 TINY_LOR
-static TinyRet Device_Construct(Product *thiz)
+static TinyRet Product_Construct(Product *thiz)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -69,24 +69,23 @@ static TinyRet Device_Construct(Product *thiz)
     {
         memset(thiz, 0, sizeof(Product));
 
-        ret = TinyList_Construct(&thiz->services, service_release_handler, thiz);
+        ret = Device_Construct(&thiz->device);
         if (RET_FAILED(ret))
         {
             LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
             break;
         }
-        thiz->services.context = thiz;
     } while (false);
 
     return ret;
 }
 
 TINY_LOR
-static void Device_Dispose(Product *thiz)
+static void Product_Dispose(Product *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    TinyList_Dispose(&thiz->services);
+    Device_Dispose(&thiz->device);
 }
 
 TINY_LOR
@@ -94,7 +93,7 @@ void Product_Delete(Product *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    Device_Dispose(thiz);
+    Product_Dispose(thiz);
     tiny_free(thiz);
 }
 

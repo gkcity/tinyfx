@@ -623,7 +623,7 @@ TINY_LOR
 Product* Device_NewInstance(JsonObject *object)
 {
     TinyRet ret = TINY_RET_OK;
-    Product* device = NULL;
+    Product* product = NULL;
 
     do
     {
@@ -642,8 +642,8 @@ Product* Device_NewInstance(JsonObject *object)
             break;
         }
 
-        device = Product_New();
-        if (device == NULL)
+        product = Product_New();
+        if (product == NULL)
         {
             LOG_E(TAG, "Product_New failed!");
             break;
@@ -660,7 +660,7 @@ Product* Device_NewInstance(JsonObject *object)
                 break;
             }
 
-            ret = TinyList_AddTail(&device->services, service);
+            ret = TinyList_AddTail(&product->device.services, service);
             if (RET_FAILED(ret))
             {
                 Service_Delete(service);
@@ -669,13 +669,13 @@ Product* Device_NewInstance(JsonObject *object)
         }
     } while (false);
 
-    if (RET_FAILED(ret) && device != NULL)
+    if (RET_FAILED(ret) && product != NULL)
     {
-        Product_Delete(device);
-        device = NULL;
+        Product_Delete(product);
+        product = NULL;
     }
 
-    return device;
+    return product;
 }
 
 #define HOST "39.106.171.204"

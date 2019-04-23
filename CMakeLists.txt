@@ -56,6 +56,7 @@ SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/product/handler/DeviceIdentifyListener.h
         ${SOURCE_ROOT}/IotTypedef/product/handler/PropertyHandler.h
         ${SOURCE_ROOT}/IotTypedef/product/handler/ActionHandler.h
+        ${SOURCE_ROOT}/IotTypedef/device/Device.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h
         ${SOURCE_ROOT}/IotTypedef/device/Action.h
         ${SOURCE_ROOT}/IotTypedef/device/Event.h
@@ -82,6 +83,7 @@ SET(IotTypedef_Header
 
 SET(IotTypedef_Source
         ${SOURCE_ROOT}/IotTypedef/product/Product.c
+        ${SOURCE_ROOT}/IotTypedef/device/Device.c
         ${SOURCE_ROOT}/IotTypedef/device/Service.c
         ${SOURCE_ROOT}/IotTypedef/device/Action.c
         ${SOURCE_ROOT}/IotTypedef/device/Event.c

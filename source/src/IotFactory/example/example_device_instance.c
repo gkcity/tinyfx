@@ -5,15 +5,13 @@
 #include "DeviceFactory.h"
 #include <tiny_socket.h>
 
-#define DD "/urn:homekit-spec:device:fan:00000000:geekcity-ds:1"
-
 int main(void)
 {
     tiny_socket_initialize();
     
     do
     {
-        Device * device = Device_NewInstance("47.93.60.147", 8080, DD, 5);
+        Device * device = DeviceFactory_Create(10001, 1, 5);
         if (device == NULL)
         {
             printf("DeviceInstance_New failed!\n");
@@ -35,7 +33,7 @@ int main(void)
                 Property *p = (Property *)TinyList_GetAt(&service->properties, j);
                 printf("      property: %d\n", p->iid);
                 printf("        type: urn:%s:%s:%s:%08x\n", p->type.namespace, UrnType_ToString(p->type.type), p->type.name, p->type.value);
-                printf("        format: %s\n", DataType_GetName(p->data.type));
+                printf("        format: %s\n", Format_ToString(p->format));
             }
 
             printf("    Actions: [%d]\n", service->actions.size);

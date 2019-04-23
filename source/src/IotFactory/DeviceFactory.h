@@ -16,7 +16,7 @@
 #include <tiny_base.h>
 #include <device/handler/PropertyHandler.h>
 #include <api/iot_api.h>
-#include <device/Thing.h>
+#include <thing/Thing.h>
 
 TINY_BEGIN_DECLS
 

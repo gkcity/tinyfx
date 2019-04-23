@@ -14,10 +14,10 @@
 #include <tiny_log.h>
 #include <operation/PropertyOperation.h>
 #include <status/IotStatus.h>
-#include "Property.h"
+#include "device/Property.h"
 #include "Thing.h"
-#include "Service.h"
-#include "Action.h"
+#include "device/Service.h"
+#include "device/Action.h"
 
 #define TAG     "Thing"
 

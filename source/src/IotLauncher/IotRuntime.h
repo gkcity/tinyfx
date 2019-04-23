@@ -17,7 +17,7 @@
 #include <tiny_lor.h>
 #include <device/Service.h>
 #include <bootstrap/Bootstrap.h>
-#include <device/Thing.h>
+#include <thing/Thing.h>
 
 TINY_BEGIN_DECLS
 

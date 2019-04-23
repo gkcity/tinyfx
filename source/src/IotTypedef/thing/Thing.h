@@ -18,7 +18,7 @@
 #include "urn/Urn.h"
 #include "constant/iot_constant.h"
 #include <TinyList.h>
-#include <device/config/DeviceConfig.h>
+#include <thing/config/DeviceConfig.h>
 #include <device/handler/DeviceIdentifyListener.h>
 #include <device/handler/ActionHandler.h>
 #include <device/handler/PropertyHandler.h>

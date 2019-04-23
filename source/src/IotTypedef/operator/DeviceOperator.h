@@ -14,7 +14,7 @@
 #define __DEVICE_OPERATOR_H__
 
 #include <tiny_base.h>
-#include <device/Thing.h>
+#include <thing/Thing.h>
 
 TINY_BEGIN_DECLS
 

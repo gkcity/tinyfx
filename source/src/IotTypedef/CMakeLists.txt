@@ -18,7 +18,7 @@ SET(Device_Header
         thing/Thing.h
         thing/config/AccessoryCategoryIdentifier.h
         thing/config/AccessoryConfig.h
-        thing/config/DeviceConfig.h
+        thing/config/ThingConfig.h
         device/Service.h
         device/Action.h
         device/Event.h

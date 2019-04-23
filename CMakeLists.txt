@@ -50,7 +50,7 @@ MESSAGE(STATUS "library output: ${LIBRARY_OUTPUT_PATH}")
 SET(IotTypedef_Header
         ${SOURCE_ROOT}/IotTypedef/constant/iot_constant.h
         ${SOURCE_ROOT}/IotTypedef/thing/Thing.h
-        ${SOURCE_ROOT}/IotTypedef/thing/config/DeviceConfig.h
+        ${SOURCE_ROOT}/IotTypedef/thing/config/ThingConfig.h
         ${SOURCE_ROOT}/IotTypedef/thing/config/AccessoryCategoryIdentifier.h
         ${SOURCE_ROOT}/IotTypedef/thing/config/AccessoryConfig.h
         ${SOURCE_ROOT}/IotTypedef/device/Service.h

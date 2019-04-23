@@ -18,7 +18,7 @@
 #include "urn/Urn.h"
 #include "constant/iot_constant.h"
 #include <TinyList.h>
-#include <thing/config/DeviceConfig.h>
+#include <thing/config/ThingConfig.h>
 #include <device/handler/DeviceIdentifyListener.h>
 #include <device/handler/ActionHandler.h>
 #include <device/handler/PropertyHandler.h>
@@ -31,7 +31,7 @@ TINY_BEGIN_DECLS
 
 struct _Thing
 {
-    DeviceConfig                config;
+    ThingConfig                 config;
     TinyList                    children;
     TinyList                    services;
     PropertyOnGet               onGet;

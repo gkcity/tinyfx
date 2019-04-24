@@ -23,7 +23,7 @@ static void _OnRuntimeDelete (void * data, void *ctx)
 }
 
 TINY_LOR
-IotLauncher *IotLauncher_New(Product *thing, BootstrapLoopHook hook, void *ctx)
+IotLauncher *IotLauncher_New(Product *product, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = NULL;
 
@@ -36,7 +36,7 @@ IotLauncher *IotLauncher_New(Product *thing, BootstrapLoopHook hook, void *ctx)
             break;
         }
 
-        if (RET_FAILED(IotLauncher_Construct(thiz, thing, hook, ctx)))
+        if (RET_FAILED(IotLauncher_Construct(thiz, product, hook, ctx)))
         {
             IotLauncher_Delete(thiz);
             thiz = NULL;
@@ -48,9 +48,9 @@ IotLauncher *IotLauncher_New(Product *thing, BootstrapLoopHook hook, void *ctx)
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime(Product *thing, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime(Product *product, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
-    IotLauncher *thiz = IotLauncher_New(thing, hook, ctx);
+    IotLauncher *thiz = IotLauncher_New(product, hook, ctx);
 
     do
     {
@@ -84,9 +84,9 @@ IotLauncher * IotLauncher_NewRuntime(Product *thing, IotRuntime *runtime, Channe
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime2(Product *thing, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime2(Product *product, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
-    IotLauncher *thiz = IotLauncher_New(thing, hook, ctx);
+    IotLauncher *thiz = IotLauncher_New(product, hook, ctx);
 
     do
     {
@@ -130,9 +130,9 @@ IotLauncher * IotLauncher_NewRuntime2(Product *thing, IotRuntime *r1, IotRuntime
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime3(Product *thing, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime3(Product *product, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx)
 {
-    IotLauncher *thiz = IotLauncher_New(thing, hook, ctx);
+    IotLauncher *thiz = IotLauncher_New(product, hook, ctx);
 
     do
     {
@@ -196,7 +196,7 @@ void IotLauncher_Delete(IotLauncher *thiz)
 }
 
 TINY_LOR
-TinyRet IotLauncher_Construct(IotLauncher *thiz, Product *thing, BootstrapLoopHook hook, void *ctx)
+TinyRet IotLauncher_Construct(IotLauncher *thiz, Product *product, BootstrapLoopHook hook, void *ctx)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -206,7 +206,7 @@ TinyRet IotLauncher_Construct(IotLauncher *thiz, Product *thing, BootstrapLoopHo
     {
         memset(thiz, 0, sizeof(IotLauncher));
         thiz->started = false;
-        thiz->thing = thing;
+        thiz->product = product;
 
         ret = Bootstrap_Construct(&thiz->bootstrap, hook, ctx);
         if (RET_FAILED(ret))
@@ -283,28 +283,15 @@ TinyRet IotLauncher_Run(IotLauncher *thiz)
     {
         if (thiz->started)
         {
+            LOG_E(TAG, "already started");
             ret = TINY_RET_E_STARTED;
             break;
         }
 
-        if (!Product_CheckHandler(thiz->thing))
+        if (!Product_CheckHandler(thiz->product))
         {
+            LOG_E(TAG, "check handler failed");
             ret = TINY_RET_E_NOT_IMPLEMENTED;
-            break;
-        }
-
-        for (uint32_t  i = 0; i < thiz->thing->children.size; ++i)
-        {
-            Product *child = (Product *) TinyList_GetAt(&thiz->thing->children, i);
-            if (!Product_CheckHandler(child))
-            {
-                ret = TINY_RET_E_NOT_IMPLEMENTED;
-                break;
-            }
-        }
-
-        if (RET_FAILED(ret))
-        {
             break;
         }
 
@@ -315,7 +302,7 @@ TinyRet IotLauncher_Run(IotLauncher *thiz)
             IotRuntime * runtime = (IotRuntime *) TinyList_GetAt(&thiz->runtimes, i);
             runtime->Initialize(runtime);
 
-            ret = runtime->Run(runtime, &thiz->bootstrap, thiz->thing);
+            ret = runtime->Run(runtime, &thiz->bootstrap, thiz->product);
             if (RET_FAILED(ret))
             {
                 LOG_D(TAG, "Runtime.Run failed");

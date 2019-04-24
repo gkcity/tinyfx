@@ -19,12 +19,16 @@
 
 TINY_BEGIN_DECLS
 
-
-#define ACCESS_READ         0x01
-#define ACCESS_WRITE        0x02
-#define ACCESS_NOTIFY       0x04
-
 typedef uint8_t Access;
+
+#define ACCESS_READ         ((uint8_t)0x01)
+#define ACCESS_WRITE        ((uint8_t)0x02)
+#define ACCESS_NOTIFY       ((uint8_t)0x04)
+#define ACCESS_RW           ((Access)((uint32_t)ACCESS_READ | (uint32_t)ACCESS_WRITE))
+#define ACCESS_RN           ((Access)((uint32_t)ACCESS_READ | (uint32_t)ACCESS_NOTIFY))
+#define ACCESS_WN           ((Access)((uint32_t)ACCESS_WRITE | (uint32_t)ACCESS_NOTIFY))
+#define ACCESS_RWN          ((Access)(((uint32_t)ACCESS_READ | (uint32_t)ACCESS_WRITE) | (uint32_t)ACCESS_NOTIFY))
+
 
 IOT_API
 TINY_LOR

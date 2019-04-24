@@ -50,7 +50,15 @@ Property* Property_New(uint16_t iid)
 }
 
 TINY_LOR
-Property* Property_NewInstance(uint16_t iid, const char *ns, const char *name, uint32_t uuid, const char *vendor)
+TINY_LOR
+        Property *Property_NewInstance(uint16_t iid,
+                                       const char *ns,
+                                       const char *name,
+                                       uint32_t uuid,
+                                       const char *vendor,
+                                       Format format,
+                                       Access access,
+                                       Unit unit)
 {
     Property * thiz = NULL;
 
@@ -69,6 +77,10 @@ Property* Property_NewInstance(uint16_t iid, const char *ns, const char *name, u
             thiz = NULL;
             break;
         }
+
+        thiz->format = format;
+        thiz->access = access;
+        thiz->unit = unit;
     } while (false);
 
     return thiz;

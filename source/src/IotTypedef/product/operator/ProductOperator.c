@@ -95,7 +95,7 @@ static void Product_TryReadChild(Product *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-static void Device_TryWrite(Product *thiz, PropertyOperation *o)
+static void Product_TryWrite(Product *thiz, PropertyOperation *o)
 {
     Service * service = NULL;
 
@@ -126,14 +126,14 @@ static void Device_TryWrite(Product *thiz, PropertyOperation *o)
 
 #if 0
 TINY_LOR
-static void Device_TrySubscribe(Product *thiz, PropertyOperation *o)
+static void Product_TrySubscribe(Product *thiz, PropertyOperation *o)
 {
     Service * service = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    service = Device_GetService(thiz, o->pid.siid);
+    service = Product_GetService(thiz, o->pid.siid);
     if (service != NULL)
     {
         Service_TrySubscribe(service, o);
@@ -145,14 +145,14 @@ static void Device_TrySubscribe(Product *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-static void Device_TryUnsubscribe(Product *thiz, PropertyOperation *o)
+static void Product_TryUnsubscribe(Product *thiz, PropertyOperation *o)
 {
     Service * service = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    service = Device_GetService(thiz, o->pid.siid);
+    service = Product_GetService(thiz, o->pid.siid);
     if (service != NULL)
     {
         Service_TryUnsubscribe(service, o);
@@ -165,7 +165,7 @@ static void Device_TryUnsubscribe(Product *thiz, PropertyOperation *o)
 #endif
 
 TINY_LOR
-static void Device_TryWriteChild(Product *thiz, PropertyOperation *o)
+static void Product_TryWriteChild(Product *thiz, PropertyOperation *o)
 {
     Product *child = NULL;
 
@@ -175,7 +175,7 @@ static void Device_TryWriteChild(Product *thiz, PropertyOperation *o)
     child = Product_GetChild(thiz, o->pid.did);
     if (child != NULL)
     {
-        Device_TryWrite(child, o);
+        Product_TryWrite(child, o);
     }
     else
     {
@@ -185,17 +185,17 @@ static void Device_TryWriteChild(Product *thiz, PropertyOperation *o)
 
 #if 0
 TINY_LOR
-static void Device_TrySubscribeChild(Product *thiz, PropertyOperation *o)
+static void Product_TrySubscribeChild(Product *thiz, PropertyOperation *o)
 {
     Product *child = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    child = Device_GetChild(thiz, o->pid.did);
+    child = Product_GetChild(thiz, o->pid.did);
     if (child != NULL)
     {
-        Device_TrySubscribe(child, o);
+        Product_TrySubscribe(child, o);
     }
     else
     {
@@ -204,17 +204,17 @@ static void Device_TrySubscribeChild(Product *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-static void Device_TryUnsubscribeChild(Product *thiz, PropertyOperation *o)
+static void Product_TryUnsubscribeChild(Product *thiz, PropertyOperation *o)
 {
     Product *child = NULL;
 
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
-    child = Device_GetChild(thiz, o->pid.did);
+    child = Product_GetChild(thiz, o->pid.did);
     if (child != NULL)
     {
-        Device_TryUnsubscribe(child, o);
+        Product_TryUnsubscribe(child, o);
     }
     else
     {
@@ -224,7 +224,7 @@ static void Device_TryUnsubscribeChild(Product *thiz, PropertyOperation *o)
 #endif
 
 TINY_LOR
-static void Device_TryInvoke(Product *thiz, ActionOperation *o)
+static void Product_TryInvoke(Product *thiz, ActionOperation *o)
 {
     Service * service = NULL;
 
@@ -255,7 +255,7 @@ static void Device_TryInvoke(Product *thiz, ActionOperation *o)
 }
 
 TINY_LOR
-static void Device_TryInvokeChild(Product *thiz, ActionOperation *o)
+static void Product_TryInvokeChild(Product *thiz, ActionOperation *o)
 {
     Product *child = NULL;
 
@@ -265,7 +265,7 @@ static void Device_TryInvokeChild(Product *thiz, ActionOperation *o)
     child = Product_GetChild(thiz, o->aid.did);
     if (child != NULL)
     {
-        Device_TryInvoke(child, o);
+        Product_TryInvoke(child, o);
     }
     else
     {
@@ -274,7 +274,7 @@ static void Device_TryInvokeChild(Product *thiz, ActionOperation *o)
 }
 
 TINY_LOR
-void Device_TryReadProperties(Product *thiz, PropertyOperations *operations)
+void Product_TryReadProperties(Product *thiz, PropertyOperations *operations)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(operations);
@@ -294,7 +294,7 @@ void Device_TryReadProperties(Product *thiz, PropertyOperations *operations)
 }
 
 TINY_LOR
-void Device_TryWriteProperties(Product *thiz, PropertyOperations *operations)
+void Product_TryWriteProperties(Product *thiz, PropertyOperations *operations)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(operations);
@@ -304,18 +304,18 @@ void Device_TryWriteProperties(Product *thiz, PropertyOperations *operations)
         PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
         if (STR_EQUAL(thiz->config.did, o->pid.did))
         {
-            Device_TryWrite(thiz, o);
+            Product_TryWrite(thiz, o);
         }
         else
         {
-            Device_TryWriteChild(thiz, o);
+            Product_TryWriteChild(thiz, o);
         }
     }
 }
 
 #if 0
 TINY_LOR
-void Device_TrySubscribeProperties(Product *thiz, PropertyOperations *operations)
+void Product_TrySubscribeProperties(Product *thiz, PropertyOperations *operations)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(operations);
@@ -325,17 +325,17 @@ void Device_TrySubscribeProperties(Product *thiz, PropertyOperations *operations
         PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
         if (STR_EQUAL(thiz->config.did, o->pid.did))
         {
-            Device_TrySubscribe(thiz, o);
+            Product_TrySubscribe(thiz, o);
         }
         else
         {
-            Device_TrySubscribeChild(thiz, o);
+            Product_TrySubscribeChild(thiz, o);
         }
     }
 }
 
 TINY_LOR
-void Device_TryUnsubscribeProperties(Product *thiz, PropertyOperations *operations)
+void Product_TryUnsubscribeProperties(Product *thiz, PropertyOperations *operations)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(operations);
@@ -345,34 +345,34 @@ void Device_TryUnsubscribeProperties(Product *thiz, PropertyOperations *operatio
         PropertyOperation *o = (PropertyOperation *)TinyList_GetAt(&operations->properties, i);
         if (STR_EQUAL(thiz->config.did, o->pid.did))
         {
-            Device_TryUnsubscribe(thiz, o);
+            Product_TryUnsubscribe(thiz, o);
         }
         else
         {
-            Device_TryUnsubscribeChild(thiz, o);
+            Product_TryUnsubscribeChild(thiz, o);
         }
     }
 }
 #endif
 
 TINY_LOR
-void Device_TryInvokeAction(Product *thiz, ActionOperation *o)
+void Product_TryInvokeAction(Product *thiz, ActionOperation *o)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
 
     if (STR_EQUAL(thiz->config.did, o->aid.did))
     {
-        Device_TryInvoke(thiz, o);
+        Product_TryInvoke(thiz, o);
     }
     else
     {
-        Device_TryInvokeChild(thiz, o);
+        Product_TryInvokeChild(thiz, o);
     }
 }
 
 TINY_LOR
-TinyRet Device_TryChangePropertyValue(Product *thiz, PropertyOperation *o)
+TinyRet Product_TryChangePropertyValue(Product *thiz, PropertyOperation *o)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -395,7 +395,7 @@ TinyRet Device_TryChangePropertyValue(Product *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-TinyRet Device_TryProduceEvent(Product *thiz, EventOperation *o)
+TinyRet Product_TryProduceEvent(Product *thiz, EventOperation *o)
 {
     TinyRet ret = TINY_RET_OK;
 

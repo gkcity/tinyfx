@@ -26,10 +26,10 @@ TINY_BEGIN_DECLS
 
 typedef struct _AccessoryConfig
 {
-    /**
-     * accessory id
-     */
-    uint16_t            aid;
+//    /**
+//     * accessory id
+//     */
+//    uint16_t            aid;
 
     char                name[ACCESSORY_NAME_LENGTH + 1];
     char                model[ACCESSORY_MODEL_LENGTH + 1];

@@ -28,9 +28,9 @@ TINY_LOR
 static void Product_Dispose(Product *thiz);
 
 TINY_LOR
-static void service_release_handler(void *data, void *ctx)
+static void device_release_handler(void *data, void *ctx)
 {
-    Service_Delete((Service *)data);
+    Device_Delete((Device *)data);
 }
 
 TINY_LOR
@@ -72,7 +72,14 @@ static TinyRet Product_Construct(Product *thiz)
         ret = Device_Construct(&thiz->device);
         if (RET_FAILED(ret))
         {
-            LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str( ret));
+            LOG_D(TAG, "Device_Construct FAILED: %s", tiny_ret_to_str(ret));
+            break;
+        }
+
+        ret = TinyList_Construct(&thiz->children, device_release_handler, NULL);
+        if (RET_FAILED(ret))
+        {
+            LOG_D(TAG, "TinyList_Construct FAILED: %s", tiny_ret_to_str(ret));
             break;
         }
     } while (false);
@@ -85,6 +92,7 @@ static void Product_Dispose(Product *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
+    TinyList_Dispose(&thiz->children);
     Device_Dispose(&thiz->device);
 }
 

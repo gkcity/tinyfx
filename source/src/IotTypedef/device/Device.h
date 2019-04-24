@@ -22,6 +22,7 @@ TINY_BEGIN_DECLS
 
 struct _Device
 {
+    uint16_t                    index;
     TinyList                    services;
 };
 

@@ -225,6 +225,7 @@ static bool Property_CheckValueType(Property *thiz, JsonValue* value)
             }
             return false;
 
+        case FORMAT_INT:
         case FORMAT_INT32:
             if (value->type == JSON_NUMBER)
             {

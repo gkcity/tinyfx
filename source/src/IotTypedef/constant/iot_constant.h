@@ -16,7 +16,7 @@
 #define __TYPEDEF_CONSTRAINT_H__
 
 #define UDID_LENGTH                     128
-#define SERIAL_NUMBER_LENGTH            100
+#define SERIAL_NUMBER_LENGTH            128
 #define DEVICE_ID_LENGTH                120
 #define DEVICE_TYPE_LENGTH              128
 #define DEVICE_LTSK_BASE64_LENGTH       128

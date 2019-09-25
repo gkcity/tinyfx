@@ -135,3 +135,25 @@ bool Product_CheckHandler(Product *thiz)
 
     return true;
 }
+
+TINY_LOR
+void Product_Lock(Product *thiz)
+{
+    RETURN_IF_FAIL(thiz);
+
+    if (thiz->locker.lock != NULL)
+    {
+        thiz->locker.lock(thiz->locker.ctx);
+    }
+}
+
+TINY_LOR
+void Product_Unlock(Product *thiz)
+{
+    RETURN_IF_FAIL(thiz);
+
+    if (thiz->locker.unlock != NULL)
+    {
+        thiz->locker.unlock(thiz->locker.ctx);
+    }
+}

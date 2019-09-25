@@ -58,6 +58,14 @@ IOT_API
 TINY_LOR
 bool Product_CheckHandler(Product *thiz);
 
+IOT_API
+TINY_LOR
+void Product_Lock(Product *thiz);
+
+IOT_API
+TINY_LOR
+void Product_Unlock(Product *thiz);
+
 
 TINY_END_DECLS
 

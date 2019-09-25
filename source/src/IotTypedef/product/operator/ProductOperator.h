@@ -53,6 +53,10 @@ IOT_API
 TINY_LOR
 TinyRet Product_DoChangePropertyValue(Product *thiz, PropertyOperation *o);
 
+IOT_API
+TINY_LOR
+PropertyOperations * Product_GetChangedProperties(Product *thiz);
+
 
 TINY_END_DECLS
 

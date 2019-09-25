@@ -4,7 +4,7 @@
  * @author jxfengzi@gmail.com
  * @date   2016-7-25
  *
- * @file   DeviceOperator.c
+ * @file   ProductOperator.c
  *
  * @remark
  *
@@ -12,7 +12,10 @@
 
 #include <device/Service.h>
 #include <status/IotStatus.h>
+#include <tiny_log.h>
 #include "ProductOperator.h"
+
+#define TAG "ProductOperator"
 
 TINY_LOR
 static Product * Product_GetChild(Product *thiz, const char * did)
@@ -432,4 +435,59 @@ TinyRet Product_DoChangePropertyValue(Product *thiz, PropertyOperation *o)
     Product_Unlock(thiz);
 
     return ret;
+}
+
+IOT_API
+TINY_LOR
+PropertyOperations * Product_GetChangedProperties(Product *thiz)
+{
+    PropertyOperations *changed = PropertyOperations_New();
+
+    RETURN_VAL_IF_FAIL(thiz, NULL);
+
+    if (changed != NULL)
+    {
+        Product_Lock(thiz);
+
+        for (uint32_t i = 0; i < thiz->device.services.size; ++i)
+        {
+            Service *s = (Service *) TinyList_GetAt(&thiz->device.services, i);
+            for (uint32_t j = 0; j < s->properties.size; ++j)
+            {
+                Property *p = (Property *) TinyList_GetAt(&s->properties, j);
+                if (p->value != NULL)
+                {
+                    PropertyOperation *o = PropertyOperation_New();
+                    if (o == NULL)
+                    {
+                        LOG_E(TAG, "PropertyOperation_New failed!");
+                        break;
+                    }
+
+                    strncpy(o->pid.did, thiz->config.did, DEVICE_ID_LENGTH);
+                    o->pid.siid = s->iid;
+                    o->pid.iid = p->iid;
+
+                    o->value = JsonValue_NewFrom(p->value);
+                    if (o->value == NULL)
+                    {
+                        LOG_E(TAG, "JsonValue_NewFrom failed!");
+                        PropertyOperation_Delete(o);
+                        break;
+                    }
+
+                    if (RET_FAILED(TinyList_AddTail(&changed->properties, o)))
+                    {
+                        LOG_E(TAG, "TinyList_AddTail failed!");
+                        PropertyOperation_Delete(o);
+                        break;
+                    }
+                }
+            }
+        }
+
+        Product_Unlock(thiz);
+    }
+
+    return changed;
 }

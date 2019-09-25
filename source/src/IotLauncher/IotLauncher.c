@@ -266,14 +266,14 @@ TinyRet IotLauncher_Run(IotLauncher *thiz)
             ret = runtime->Run(runtime, &thiz->bootstrap, thiz->product);
             if (RET_FAILED(ret))
             {
-                LOG_D(TAG, "Runtime.Run failed");
+                LOG_D(TAG, "IotRuntime->Run failed");
                 break;
             }
         }
 
         if (RET_FAILED(ret))
         {
-            LOG_D(TAG, "Start Runtime failed");
+            LOG_D(TAG, "Start IoTRuntime failed");
             break;
         }
 

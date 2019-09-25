@@ -25,20 +25,20 @@ TINY_BEGIN_DECLS
 struct _IotRuntime;
 typedef struct _IotRuntime IotRuntime;
 
-typedef TinyRet (* Device_Initialize)(IotRuntime *thiz);
-typedef TinyRet (* Device_Destroy)(IotRuntime *thiz);
-typedef TinyRet (* Device_Run)(IotRuntime *thiz, Bootstrap *bootstrap, Product *device);
-typedef TinyRet (* Device_Stop)(IotRuntime *thiz);
+typedef TinyRet (* IotRuntime_Initialize)(IotRuntime *thiz);
+typedef TinyRet (* IotRuntime_Destroy)(IotRuntime *thiz);
+typedef TinyRet (* IotRuntime_Run)(IotRuntime *thiz, Bootstrap *bootstrap, Product *device);
+typedef TinyRet (* IotRuntime_Stop)(IotRuntime *thiz);
 
 struct _IotRuntime
 {
-    const char            * Name;
-    Device_Initialize       Initialize;
-    Device_Run              Run;
-    Device_Stop             Stop;
-    Device_Destroy          Destroy;
-    Channel               * channel;
-    void                  * context;
+    const char              * Name;
+    IotRuntime_Initialize     Initialize;
+    IotRuntime_Run            Run;
+    IotRuntime_Stop           Stop;
+    IotRuntime_Destroy        Destroy;
+    Channel                 * channel;
+    void                    * context;
 };
 
 IOT_API
@@ -48,10 +48,6 @@ IotRuntime * IotRuntime_New(void);
 IOT_API
 TINY_LOR
 void IotRuntime_Delete(IotRuntime *thiz);
-
-//IOT_API
-//TINY_LOR
-//void IotRuntime_Copy(IotRuntime *dst, IotRuntime *src);
 
 
 TINY_END_DECLS

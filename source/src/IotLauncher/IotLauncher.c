@@ -48,7 +48,7 @@ IotLauncher *IotLauncher_New(Product *product, BootstrapLoopHook hook, void *ctx
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime(Product *product, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime(Product *product, IotRuntime *runtime, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = IotLauncher_New(product, hook, ctx);
 
@@ -57,18 +57,6 @@ IotLauncher * IotLauncher_NewRuntime(Product *product, IotRuntime *runtime, Chan
         if (thiz == NULL)
         {
             break;
-        }
-
-        if (executor != NULL)
-        {
-            if (RET_FAILED(Bootstrap_AddChannel(&thiz->bootstrap, executor)))
-            {
-                executor->_close(executor);
-                IotRuntime_Delete(runtime);
-                IotLauncher_Delete(thiz);
-                thiz = NULL;
-                break;
-            }
         }
 
         if (RET_FAILED(IotLauncher_AddRuntime(thiz, runtime)))
@@ -84,7 +72,7 @@ IotLauncher * IotLauncher_NewRuntime(Product *product, IotRuntime *runtime, Chan
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime2(Product *product, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime2(Product *product, IotRuntime *r1, IotRuntime *r2, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = IotLauncher_New(product, hook, ctx);
 
@@ -93,19 +81,6 @@ IotLauncher * IotLauncher_NewRuntime2(Product *product, IotRuntime *r1, IotRunti
         if (thiz == NULL)
         {
             break;
-        }
-
-        if (executor != NULL)
-        {
-            if (RET_FAILED(Bootstrap_AddChannel(&thiz->bootstrap, executor)))
-            {
-                executor->_close(executor);
-                IotRuntime_Delete(r1);
-                IotRuntime_Delete(r2);
-                IotLauncher_Delete(thiz);
-                thiz = NULL;
-                break;
-            }
         }
 
         if (RET_FAILED(IotLauncher_AddRuntime(thiz, r1)))
@@ -130,7 +105,7 @@ IotLauncher * IotLauncher_NewRuntime2(Product *product, IotRuntime *r1, IotRunti
 }
 
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime3(Product *product, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx)
+IotLauncher * IotLauncher_NewRuntime3(Product *product, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, BootstrapLoopHook hook, void *ctx)
 {
     IotLauncher *thiz = IotLauncher_New(product, hook, ctx);
 
@@ -139,20 +114,6 @@ IotLauncher * IotLauncher_NewRuntime3(Product *product, IotRuntime *r1, IotRunti
         if (thiz == NULL)
         {
             break;
-        }
-
-        if (executor != NULL)
-        {
-            if (RET_FAILED(Bootstrap_AddChannel(&thiz->bootstrap, executor)))
-            {
-                executor->_close(executor);
-                IotRuntime_Delete(r1);
-                IotRuntime_Delete(r2);
-                IotRuntime_Delete(r3);
-                IotLauncher_Delete(thiz);
-                thiz = NULL;
-                break;
-            }
         }
 
         if (RET_FAILED(IotLauncher_AddRuntime(thiz, r1)))

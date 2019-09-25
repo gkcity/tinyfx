@@ -37,15 +37,15 @@ IotLauncher * IotLauncher_New(Product *product, BootstrapLoopHook hook, void *ct
 
 IOT_API
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime(Product *product, IotRuntime *runtime, Channel *executor, BootstrapLoopHook hook, void *ctx);
+IotLauncher * IotLauncher_NewRuntime(Product *product, IotRuntime *runtime, BootstrapLoopHook hook, void *ctx);
 
 IOT_API
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime2(Product *product, IotRuntime *r1, IotRuntime *r2, Channel *executor, BootstrapLoopHook hook, void *ctx);
+IotLauncher * IotLauncher_NewRuntime2(Product *product, IotRuntime *r1, IotRuntime *r2, BootstrapLoopHook hook, void *ctx);
 
 IOT_API
 TINY_LOR
-IotLauncher * IotLauncher_NewRuntime3(Product *product, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, Channel *executor, BootstrapLoopHook hook, void *ctx);
+IotLauncher * IotLauncher_NewRuntime3(Product *product, IotRuntime *r1, IotRuntime *r2, IotRuntime *r3, BootstrapLoopHook hook, void *ctx);
 
 IOT_API
 TINY_LOR

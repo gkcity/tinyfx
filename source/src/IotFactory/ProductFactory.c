@@ -620,7 +620,7 @@ static Service* Service_NewFrom(JsonObject *object)
 }
 
 TINY_LOR
-Product* Product_NewInstance(JsonObject *object, PropertyLock lock, PropertyUnlock unlock, void *ctx)
+Product* Product_NewInstance(JsonObject *object, PropertyLock lock, PropertyUnlock unlock)
 {
     TinyRet ret = TINY_RET_OK;
     Product* product = NULL;
@@ -642,7 +642,7 @@ Product* Product_NewInstance(JsonObject *object, PropertyLock lock, PropertyUnlo
             break;
         }
 
-        product = Product_New(lock, unlock, ctx);
+        product = Product_New(lock, unlock);
         if (product == NULL)
         {
             LOG_E(TAG, "Product_New failed!");
@@ -726,7 +726,7 @@ Product* ProductFactory_NewProduct(const char *uri, uint32_t second)
             break;
         }
 
-        device = Product_NewInstance(object, NULL, NULL, NULL);
+        device = Product_NewInstance(object, NULL, NULL);
     } while (false);
 
     if (object != NULL)

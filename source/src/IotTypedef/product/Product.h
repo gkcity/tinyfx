@@ -48,7 +48,7 @@ typedef struct _Product Product;
 
 IOT_API
 TINY_LOR
-Product* Product_New(PropertyLock lock, PropertyUnlock unlock, void *ctx);
+Product* Product_New(PropertyLock lock, PropertyUnlock unlock);
 
 IOT_API
 TINY_LOR

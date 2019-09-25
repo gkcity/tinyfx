@@ -372,7 +372,7 @@ void Product_TryInvokeAction(Product *thiz, ActionOperation *o)
 }
 
 TINY_LOR
-TinyRet Product_TryChangePropertyValue(Product *thiz, PropertyOperation *o)
+TinyRet Product_TryChangePropertyValue(Product *thiz, PropertyOperation *o, bool save)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -388,7 +388,7 @@ TinyRet Product_TryChangePropertyValue(Product *thiz, PropertyOperation *o)
             break;
         }
 
-        Service_TryChange(service, o);
+        Service_TryChange(service, o, save);
     } while (false);
 
     return ret;
@@ -413,6 +413,23 @@ TinyRet Product_TryProduceEvent(Product *thiz, EventOperation *o)
 
         Service_TryProduce(service, o);
     } while (false);
+
+    return ret;
+}
+
+TINY_LOR
+TinyRet Product_DoChangePropertyValue(Product *thiz, PropertyOperation *o)
+{
+    TinyRet ret = TINY_RET_OK;
+
+    RETURN_VAL_IF_FAIL(thiz, TINY_RET_E_ARG_NULL);
+    RETURN_VAL_IF_FAIL(o, TINY_RET_E_ARG_NULL);
+
+    Product_Lock(thiz);
+
+    ret = Product_TryChangePropertyValue(thiz, o, true);
+
+    Product_Unlock(thiz);
 
     return ret;
 }

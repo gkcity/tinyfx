@@ -301,7 +301,7 @@ void Service_TryInvoke(Service *thiz, ActionOperation *o)
 }
 
 TINY_LOR
-void Service_TryChange(Service *thiz, PropertyOperation *o)
+void Service_TryChange(Service *thiz, PropertyOperation *o, bool save)
 {
     Property *property = NULL;
 
@@ -311,7 +311,7 @@ void Service_TryChange(Service *thiz, PropertyOperation *o)
     property = Service_GetProperty(thiz, o->pid.iid);
     if (property != NULL)
     {
-        Property_TryChange(property, o);
+        Property_TryChange(property, o, save);
     }
     else
     {

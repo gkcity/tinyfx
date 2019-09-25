@@ -19,6 +19,7 @@ SET(Device_Header
         product/config/AccessoryCategoryIdentifier.h
         product/config/AccessoryConfig.h
         product/config/ProductConfig.h
+        product/lock/ProductLocker.h
         product/operator/ProductOperator.h
         device/Device.h
         device/Service.h

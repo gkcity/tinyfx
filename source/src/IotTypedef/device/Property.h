@@ -36,6 +36,7 @@ typedef struct _Property
     ValueList         * valueList;
     ValueRange        * valueRange;
     Unit                unit;
+    JsonValue         * value;
 } Property;
 
 IOT_API
@@ -71,7 +72,7 @@ void Property_TryWrite(Property *thiz, PropertyOperation *o);
 
 IOT_API
 TINY_LOR
-void Property_TryChange(Property *thiz, PropertyOperation *o);
+void Property_TryChange(Property *thiz, PropertyOperation *o, bool save);
 
 IOT_API
 TINY_LOR

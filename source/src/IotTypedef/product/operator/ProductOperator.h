@@ -43,11 +43,15 @@ void Product_TryInvokeAction(Product *thiz, ActionOperation *operation);
 
 IOT_API
 TINY_LOR
-TinyRet Product_TryChangePropertyValue(Product *thiz, PropertyOperation *o);
+TinyRet Product_TryChangePropertyValue(Product *thiz, PropertyOperation *o, bool save);
 
 IOT_API
 TINY_LOR
 TinyRet Product_TryProduceEvent(Product *thiz, EventOperation *o);
+
+IOT_API
+TINY_LOR
+TinyRet Product_DoChangePropertyValue(Product *thiz, PropertyOperation *o);
 
 
 TINY_END_DECLS

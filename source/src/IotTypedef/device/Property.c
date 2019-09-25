@@ -328,7 +328,7 @@ void Property_TryWrite(Property *thiz, PropertyOperation *o)
 }
 
 TINY_LOR
-void Property_TryChange(Property *thiz, PropertyOperation *o)
+void Property_TryChange(Property *thiz, PropertyOperation *o, bool save)
 {
     RETURN_IF_FAIL(thiz);
     RETURN_IF_FAIL(o);
@@ -347,6 +347,17 @@ void Property_TryChange(Property *thiz, PropertyOperation *o)
         {
             o->status = IOT_STATUS_VALUE_ERROR;
             break;
+        }
+
+        if (save)
+        {
+            if (thiz->value != NULL)
+            {
+                JsonValue_Delete(thiz->value);
+                thiz->value = NULL;
+            }
+
+            thiz->value = JsonValue_NewFrom(o->value);
         }
     } while (false);
 }

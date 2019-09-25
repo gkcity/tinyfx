@@ -18,14 +18,13 @@
 TINY_BEGIN_DECLS
 
 
-typedef void (*PropertyLock)(void *ctx);
-typedef void (*PropertyUnlock)(void *ctx);
+typedef void (*PropertyLock)(void);
+typedef void (*PropertyUnlock)(void);
 
 typedef struct _ProductLocker
 {
     PropertyLock              lock;
     PropertyUnlock            unlock;
-    void                    * ctx;
 } ProductLocker;
 
 

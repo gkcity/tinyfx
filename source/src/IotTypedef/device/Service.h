@@ -83,7 +83,7 @@ void Service_TryInvoke(Service *thiz, ActionOperation * o);
 
 IOT_API
 TINY_LOR
-void Service_TryChange(Service *thiz, PropertyOperation *o);
+void Service_TryChange(Service *thiz, PropertyOperation *o, bool save);
 
 IOT_API
 TINY_LOR

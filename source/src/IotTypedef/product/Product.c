@@ -22,7 +22,7 @@
 #define TAG     "Thing"
 
 TINY_LOR
-static TinyRet Product_Construct(Product *thiz);
+static TinyRet Product_Construct(Product *thiz, PropertyLock lock, PropertyUnlock unlock, void *ctx);
 
 TINY_LOR
 static void Product_Dispose(Product *thiz);
@@ -34,7 +34,7 @@ static void device_release_handler(void *data, void *ctx)
 }
 
 TINY_LOR
-Product* Product_New(void)
+Product* Product_New(PropertyLock lock, PropertyUnlock unlock, void *ctx)
 {
     Product *thiz = NULL;
 
@@ -47,7 +47,7 @@ Product* Product_New(void)
             break;
         }
 
-        if (RET_FAILED(Product_Construct(thiz)))
+        if (RET_FAILED(Product_Construct(thiz, lock, unlock, ctx)))
         {
             Product_Delete(thiz);
             thiz = NULL;
@@ -59,7 +59,7 @@ Product* Product_New(void)
 }
 
 TINY_LOR
-static TinyRet Product_Construct(Product *thiz)
+static TinyRet Product_Construct(Product *thiz, PropertyLock lock, PropertyUnlock unlock, void *ctx)
 {
     TinyRet ret = TINY_RET_OK;
 
@@ -68,6 +68,10 @@ static TinyRet Product_Construct(Product *thiz)
     do
     {
         memset(thiz, 0, sizeof(Product));
+
+        thiz->locker.lock = lock;
+        thiz->locker.unlock = unlock;
+        thiz->locker.ctx = ctx;
 
         ret = Device_Construct(&thiz->device);
         if (RET_FAILED(ret))

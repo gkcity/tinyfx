@@ -22,6 +22,7 @@
 #include <product/handler/IdentifyListener.h>
 #include <product/handler/ActionHandler.h>
 #include <product/handler/PropertyHandler.h>
+#include <product/lock/ProductLocker.h>
 #include <operation/PropertyOperations.h>
 #include <operation/ActionOperation.h>
 #include <operation/EventOperation.h>
@@ -39,14 +40,15 @@ struct _Product
     PropertyOnSet               onSet;
     ActionOnInvoke              onInvoke;
     void                      * context;
-    IdentifyListener      identifyListener;
+    ProductLocker               locker;
+    IdentifyListener            identifyListener;
 };
 
 typedef struct _Product Product;
 
 IOT_API
 TINY_LOR
-Product* Product_New(void);
+Product* Product_New(PropertyLock lock, PropertyUnlock unlock, void *ctx);
 
 IOT_API
 TINY_LOR
@@ -55,7 +57,6 @@ void Product_Delete(Product *thiz);
 IOT_API
 TINY_LOR
 bool Product_CheckHandler(Product *thiz);
-
 
 
 TINY_END_DECLS

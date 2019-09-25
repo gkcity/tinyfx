@@ -23,7 +23,7 @@ TINY_BEGIN_DECLS
 
 IOT_API
 TINY_LOR
-Product* Product_NewInstance(JsonObject *object);
+Product* Product_NewInstance(JsonObject *object, PropertyLock lock, PropertyUnlock unlock, void *ctx);
 
 IOT_API
 TINY_LOR

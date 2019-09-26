@@ -69,10 +69,6 @@ static TinyRet Product_Construct(Product *thiz, PropertyLock lock, PropertyUnloc
         thiz->locker.lock = lock;
         thiz->locker.unlock = unlock;
 
-        LOG_E(TAG, "  thiz: 0x%08x", (uint32_t)thiz);
-        LOG_E(TAG, "  lock: 0x%08x", (uint32_t)thiz->locker.lock);
-        LOG_E(TAG, "unlock: 0x%08x", (uint32_t)thiz->locker.unlock);
-
         ret = Device_Construct(&thiz->device);
         if (RET_FAILED(ret))
         {
@@ -141,13 +137,8 @@ void Product_Lock(Product *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    LOG_E(TAG, "  thiz: 0x%08x", (uint32_t)thiz);
-    LOG_E(TAG, "  lock: 0x%08x", (uint32_t)thiz->locker.lock);
-    LOG_E(TAG, "unlock: 0x%08x", (uint32_t)thiz->locker.unlock);
-
     if (thiz->locker.lock != NULL)
     {
-        LOG_E(TAG, "  lock: 0x%08x != NULL", (uint32_t)thiz->locker.lock);
         thiz->locker.lock();
     }
 }
@@ -157,13 +148,8 @@ void Product_Unlock(Product *thiz)
 {
     RETURN_IF_FAIL(thiz);
 
-    LOG_E(TAG, "  thiz: 0x%08x", (uint32_t)thiz);
-    LOG_E(TAG, "  lock: 0x%08x", (uint32_t)thiz->locker.lock);
-    LOG_E(TAG, "unlock: 0x%08x", (uint32_t)thiz->locker.unlock);
-
     if (thiz->locker.unlock != NULL)
     {
-        LOG_E(TAG, "  unlock: 0x%08x != NULL", (uint32_t)thiz->locker.unlock);
         thiz->locker.unlock();
     }
 }

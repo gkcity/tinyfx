@@ -69,6 +69,9 @@ static TinyRet Product_Construct(Product *thiz, PropertyLock lock, PropertyUnloc
     {
         memset(thiz, 0, sizeof(Product));
 
+        LOG_E(TAG, "  lock: 0x%08x", (uint32_t)lock);
+        LOG_E(TAG, "unlock: 0x%08x", (uint32_t)unlock);
+
         thiz->locker.lock = lock;
         thiz->locker.unlock = unlock;
 
@@ -139,6 +142,9 @@ TINY_LOR
 void Product_Lock(Product *thiz)
 {
     RETURN_IF_FAIL(thiz);
+
+    LOG_E(TAG, "  lock: 0x%08x", (uint32_t)thiz->locker.lock);
+    LOG_E(TAG, "unlock: 0x%08x", (uint32_t)thiz->locker.unlock);
 
     if (thiz->locker.lock != NULL)
     {

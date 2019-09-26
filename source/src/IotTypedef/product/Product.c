@@ -14,12 +14,9 @@
 #include <tiny_log.h>
 #include <operation/PropertyOperation.h>
 #include <status/IotStatus.h>
-#include "device/Property.h"
 #include "Product.h"
-#include "device/Service.h"
-#include "device/Action.h"
 
-#define TAG     "Thing"
+#define TAG     "Product"
 
 TINY_LOR
 static TinyRet Product_Construct(Product *thiz, PropertyLock lock, PropertyUnlock unlock);
@@ -69,11 +66,11 @@ static TinyRet Product_Construct(Product *thiz, PropertyLock lock, PropertyUnloc
     {
         memset(thiz, 0, sizeof(Product));
 
-        LOG_E(TAG, "  lock: 0x%08x", (uint32_t)lock);
-        LOG_E(TAG, "unlock: 0x%08x", (uint32_t)unlock);
-
         thiz->locker.lock = lock;
         thiz->locker.unlock = unlock;
+
+        LOG_E(TAG, "  lock: 0x%08x", (uint32_t)thiz->locker.lock);
+        LOG_E(TAG, "unlock: 0x%08x", (uint32_t)thiz->locker.unlock);
 
         ret = Device_Construct(&thiz->device);
         if (RET_FAILED(ret))
@@ -156,6 +153,9 @@ TINY_LOR
 void Product_Unlock(Product *thiz)
 {
     RETURN_IF_FAIL(thiz);
+
+    LOG_E(TAG, "  lock: 0x%08x", (uint32_t)thiz->locker.lock);
+    LOG_E(TAG, "unlock: 0x%08x", (uint32_t)thiz->locker.unlock);
 
     if (thiz->locker.unlock != NULL)
     {

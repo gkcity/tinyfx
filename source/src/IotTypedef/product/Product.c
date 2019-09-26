@@ -145,6 +145,7 @@ void Product_Lock(Product *thiz)
 
     if (thiz->locker.lock != NULL)
     {
+        LOG_E(TAG, "  lock: 0x%08x != NULL", (uint32_t)thiz->locker.lock);
         thiz->locker.lock();
     }
 }
@@ -159,6 +160,7 @@ void Product_Unlock(Product *thiz)
 
     if (thiz->locker.unlock != NULL)
     {
+        LOG_E(TAG, "  unlock: 0x%08x != NULL", (uint32_t)thiz->locker.unlock);
         thiz->locker.unlock();
     }
 }

@@ -441,10 +441,11 @@ IOT_API
 TINY_LOR
 PropertyOperations * Product_GetChangedProperties(Product *thiz)
 {
-    PropertyOperations *changed = PropertyOperations_New();
+    PropertyOperations *changed = NULL;
 
     RETURN_VAL_IF_FAIL(thiz, NULL);
 
+    changed = PropertyOperations_New();
     if (changed != NULL)
     {
         Product_Lock(thiz);

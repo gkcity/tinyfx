@@ -23,7 +23,7 @@ TINY_BEGIN_DECLS
 
 typedef struct _EID
 {
-    char                did[DEVICE_ID_LENGTH];
+    char                did[IOT_DEVICE_ID_LENGTH];
     uint16_t            siid;
     uint16_t            iid;
 } EID;

@@ -246,43 +246,6 @@ static bool ValueRange_CheckIntegerValue(ValueRange *thiz, long value)
 }
 
 TINY_LOR
-static bool ValueRange_CheckFloatValueWithInteger(ValueRange* thiz, int value)
-{
-	float v = 0.0;
-	float max = 0.0;
-	float step = 0.0;
-
-	RETURN_VAL_IF_FAIL(thiz, false);
-
-	LOG_D(TAG, "ValueRange_CheckFloatValueWithInteger: %f", value);
-
-	v = thiz->min->data.number->value.floatValue;
-	max = thiz->max->data.number->value.floatValue;
-	step = thiz->step->data.number->value.floatValue;
-
-	// fix step value
-	if (step < 0.0001f)
-	{
-		step = 0.0001f;
-	}
-
-	while (v < max)
-	{
-		float difference = (v - value);
-		if (difference < 0.0001f || difference > -0.0001f)
-		{
-			return true;
-		}
-
-		v += step;
-	}
-
-	LOG_E(TAG, "ValueRange_CheckFloatValueWithInteger FAILED, invalid value: %d", value);
-
-	return false;
-}
-
-TINY_LOR
 static bool ValueRange_CheckFloatValue(ValueRange *thiz, float value)
 {
     float v = 0.0;
@@ -405,7 +368,7 @@ static bool ValueRange_CheckNumberValue(ValueRange *thiz, JsonNumber *number)
     // thiz.float: value.integer
     if (number->type == JSON_NUMBER_INTEGER)
     {
-        return ValueRange_CheckFloatValueWithInteger(thiz, number->value.intValue);
+        return ValueRange_CheckFloatValue(thiz, (float)(number->value.intValue));
     }
 
     // thiz.float: value.float

@@ -73,7 +73,7 @@ PropertyOperation * PropertyOperation_NewFrom(const char *did, uint16_t siid, ui
     PropertyOperation *thiz = PropertyOperation_New();
     if (thiz != NULL)
     {
-        strncpy(thiz->pid.did, did, DEVICE_ID_LENGTH);
+        strncpy(thiz->pid.did, did, IOT_DEVICE_ID_LENGTH);
         thiz->status = 0;
         thiz->pid.siid = siid;
         thiz->pid.iid = piid;
@@ -95,7 +95,7 @@ PropertyOperation * PropertyOperation_NewValue(const char *did, uint16_t siid, u
             break;
         }
 
-        strncpy(thiz->pid.did, did, DEVICE_ID_LENGTH);
+        strncpy(thiz->pid.did, did, IOT_DEVICE_ID_LENGTH);
         thiz->status = 0;
         thiz->pid.siid = siid;
         thiz->pid.iid = piid;
@@ -128,7 +128,7 @@ PropertyOperation * PropertyOperation_CopyFrom(PropertyOperation *other)
             break;
         }
 
-        strncpy(thiz->pid.did, other->pid.did, DEVICE_ID_LENGTH);
+        strncpy(thiz->pid.did, other->pid.did, IOT_DEVICE_ID_LENGTH);
         thiz->pid.siid = other->pid.siid;
         thiz->pid.iid = other->pid.iid;
         thiz->status = other->status;

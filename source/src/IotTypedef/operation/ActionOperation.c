@@ -89,7 +89,7 @@ TinyRet ActionOperation_Copy(ActionOperation *dst, ActionOperation *src)
             break;
         }
 
-        strncpy(dst->aid.did, src->aid.did, DEVICE_ID_LENGTH);
+        strncpy(dst->aid.did, src->aid.did, IOT_DEVICE_ID_LENGTH);
         dst->aid.siid = src->aid.siid;
         dst->aid.iid = src->aid.iid;
         dst->status = src->status;

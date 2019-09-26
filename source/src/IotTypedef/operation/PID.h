@@ -24,7 +24,7 @@ TINY_BEGIN_DECLS
 
 typedef struct _PID
 {
-    char                did[DEVICE_ID_LENGTH];      /** device id */
+    char                did[IOT_DEVICE_ID_LENGTH];      /** device id */
     uint16_t            siid;                       /** service instance id */
     uint16_t            iid;                        /** property instance id */
     uint16_t            aid;                        /** homekit accessory id */

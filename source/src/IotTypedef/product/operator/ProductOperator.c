@@ -465,7 +465,7 @@ PropertyOperations * Product_GetChangedProperties(Product *thiz)
                         break;
                     }
 
-                    strncpy(o->pid.did, thiz->config.did, DEVICE_ID_LENGTH);
+                    strncpy(o->pid.did, thiz->config.did, IOT_DEVICE_ID_LENGTH);
                     o->pid.siid = s->iid;
                     o->pid.iid = p->iid;
 

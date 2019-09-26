@@ -98,7 +98,7 @@ EventOperation * EventOperation_CopyFrom(EventOperation *other)
             break;
         }
 
-        strncpy(thiz->eid.did, other->eid.did, DEVICE_ID_LENGTH);
+        strncpy(thiz->eid.did, other->eid.did, IOT_DEVICE_ID_LENGTH);
         thiz->eid.siid = other->eid.siid;
         thiz->eid.iid = other->eid.iid;
         thiz->status = other->status;
@@ -136,7 +136,7 @@ TinyRet EventOperation_Copy(EventOperation *dst, EventOperation *src)
             break;
         }
 
-        strncpy(dst->eid.did, src->eid.did, DEVICE_ID_LENGTH);
+        strncpy(dst->eid.did, src->eid.did, IOT_DEVICE_ID_LENGTH);
         dst->eid.siid = src->eid.siid;
         dst->eid.iid = src->eid.iid;
         dst->status = src->status;
